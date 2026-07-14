@@ -25,7 +25,7 @@ This document is our active collaborative task tracker. We will update progress 
 - [x] Implement Interactive Wizard (`brando init --interactive`)
   - [x] Config initialization dialogs
   - [x] Self-documenting `config.yaml` template generator
-- [ ] Implement Filter & Scorer engine (`brando/scorer.py`)
+- [/] Implement Filter & Scorer engine (`brando/scorer.py`)
   - [ ] Weight math and bonus score computations
   - [ ] Sorted output tables formatting
 - [ ] Implement Finalist Reporter (`brando/reporter.py`)
