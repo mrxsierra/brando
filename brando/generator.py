@@ -96,6 +96,22 @@ def generate_candidates(config: dict) -> list[str]:
         if name.strip():
             candidates.add(name.strip().capitalize())
 
+    # Strategy: Simple Rule-Based phonetic pattern generator if no
+    # explicit prefixes/suffixes/custom names exist
+    if not prefixes and not suffixes and not custom_names:
+        initials = config.get("alignment", {}).get(
+            "preferred_initials", ["A", "B", "V", "O", "X", "Z"]
+        )
+        vowels = ["a", "e", "i", "o", "u"]
+        consonants = ["l", "m", "n", "r", "s", "t", "v", "z"]
+
+        # Build simple C-V-C-V phonetic candidates
+        for init in initials:
+            for v1 in vowels:
+                for c1 in consonants:
+                    for v2 in vowels:
+                        candidates.add(f"{init}{v1}{c1}{v2}".capitalize())
+
     # Strategy 1: Neoclassical & Blend combinations
     if "neoclassical" in strategies or "portmanteau" in strategies:
         for pref in prefixes:

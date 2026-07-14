@@ -302,9 +302,9 @@ def build(config_path, db_path, rebuild, refresh):
         }
         enriched_records.append(record)
 
-    # Run network checkers
-    domains = config.get("validation", {}).get("domains", ["com"])
-    socials = config.get("validation", {}).get("socials", ["github"])
+    # Run checkers on full spectrum of targets so all database fields are populated
+    domains = ["com", "co", "io", "ai"]
+    socials = ["github", "twitter", "instagram"]
 
     click.echo("Running domain and social handle checks concurrently...")
     network_results = asyncio.run(

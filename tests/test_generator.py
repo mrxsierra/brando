@@ -66,3 +66,19 @@ def test_generate_candidates_custom_names():
     assert "Google" in candidates
     assert "Spacex" in candidates
     assert len(candidates) == 3
+
+
+def test_generate_candidates_fallback():
+    config = {
+        "generation": {
+            "strategies": [],
+            "min_letters": 4,
+            "max_letters": 6,
+            "max_syllables": 2,
+        },
+        "alignment": {"preferred_initials": ["B"]},
+    }
+    candidates = generate_candidates(config)
+    # Check that it generated some names like B-a-l-a
+    assert len(candidates) > 0
+    assert all(c.startswith("B") for c in candidates)
