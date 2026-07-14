@@ -35,4 +35,4 @@ This document is our active collaborative task tracker. We will update progress 
 - [x] Write user documentation (`README.md`)
 - [x] Add unit test suite (`tests/`)
 - [x] Setup `.gitignore` (ignoring `case_study.md`, `.venv`, and `brand_candidates.csv` as needed)
-- [/] GitHub Repository release preparation
+- [x] GitHub Repository release preparation
