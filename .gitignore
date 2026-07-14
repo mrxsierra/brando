@@ -14,5 +14,5 @@ build/
 dist/
 *.egg-info/
 
-# User Private Resume / Portfolio files
-portfolio_case_study.md
+# Private files
+case_study.md
