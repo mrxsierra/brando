@@ -12,7 +12,7 @@ This document is our active collaborative task tracker. We will update progress 
   - [x] Syllable count estimation
   - [x] Typographic midline ratio & symmetry calculator
   - [x] Neoclassical & Blend name generator logic
-- [ ] Implement Asynchronous Checker Engine (`brando/checker.py`)
+- [/] Implement Asynchronous Checker Engine (`brando/checker.py`)
   - [ ] Async DNS resolution checker with concurrency semaphore
   - [ ] Async HTTP social media handles check (GitHub, Twitter, Instagram)
 - [ ] Implement Local Database Adapter (`brando/database.py`)
