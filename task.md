@@ -15,7 +15,7 @@ This document is our active collaborative task tracker. We will update progress 
 - [x] Implement Asynchronous Checker Engine (`brando/checker.py`)
   - [x] Async DNS resolution checker with concurrency semaphore
   - [x] Async HTTP social media handles check (GitHub, Twitter, Instagram)
-- [ ] Implement Local Database Adapter (`brando/database.py`)
+- [/] Implement Local Database Adapter (`brando/database.py`)
   - [ ] CSV load/save routines
   - [ ] Configuration change diff detector (to prevent rebuilding existing names)
 
