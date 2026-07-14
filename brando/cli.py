@@ -301,8 +301,7 @@ def build(config_path, db_path, rebuild, refresh):
     socials = config.get("validation", {}).get("socials", ["github"])
 
     click.echo("Running domain and social handle checks concurrently...")
-    loop = asyncio.get_event_loop()
-    network_results = loop.run_until_complete(
+    network_results = asyncio.run(
         check_candidates_pipeline(names_to_check, domains, socials)
     )
 
