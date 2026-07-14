@@ -32,7 +32,7 @@ This document is our active collaborative task tracker. We will update progress 
   - [x] Verification lookup URL builders (USPTO, WIPO, Google search clash)
 
 ## Phase 3: Distribution & Future Scope
-- [/] Write user documentation (`README.md`)
+- [x] Write user documentation (`README.md`)
 - [x] Add unit test suite (`tests/`)
 - [x] Setup `.gitignore` (ignoring `case_study.md`, `.venv`, and `brand_candidates.csv` as needed)
-- [ ] GitHub Repository release preparation
+- [/] GitHub Repository release preparation
