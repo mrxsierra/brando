@@ -8,10 +8,10 @@ This document is our active collaborative task tracker. We will update progress 
   - [x] Pythagorean numerology (sequential 1-9 mapping & digital root reduction)
   - [x] Chaldean numerology (historical 1-8 mapping & reduction)
   - [x] Vedic astrology starting sound checks
-- [ ] Implement Naming Generator & Typographics (`brando/generator.py`)
-  - [ ] Syllable count estimation
-  - [ ] Typographic midline ratio & symmetry calculator
-  - [ ] Neoclassical & Blend name generator logic
+- [x] Implement Naming Generator & Typographics (`brando/generator.py`)
+  - [x] Syllable count estimation
+  - [x] Typographic midline ratio & symmetry calculator
+  - [x] Neoclassical & Blend name generator logic
 - [ ] Implement Asynchronous Checker Engine (`brando/checker.py`)
   - [ ] Async DNS resolution checker with concurrency semaphore
   - [ ] Async HTTP social media handles check (GitHub, Twitter, Instagram)
