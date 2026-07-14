@@ -77,10 +77,16 @@ weights:
 
 
 def load_yaml_config(path: str) -> dict:
-    """Loads configuration dictionary from YAML file."""
+    """Loads configuration from YAML file, falling back to default if missing."""
     if not os.path.exists(path):
-        err_msg = f"Configuration file not found at: {path}. Run 'brando init' first."
-        raise click.ClickException(err_msg)
+        click.echo(
+            f"Note: Configuration file not found at '{path}'. "
+            "Falling back to default built-in configuration."
+        )
+        try:
+            return yaml.safe_load(DEFAULT_CONFIG_CONTENT) or {}
+        except yaml.YAMLError as e:
+            raise click.ClickException(f"Error parsing default configuration: {e}")
     with open(path, encoding="utf-8") as f:
         try:
             return yaml.safe_load(f) or {}

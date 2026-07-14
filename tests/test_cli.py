@@ -42,3 +42,13 @@ def test_cli_verify():
     assert "Verification links for: Aeroaera" in result.output
     assert "Google Clash Check" in result.output
     assert "Aeroaera" in result.output
+
+
+def test_cli_fallback_config(tmp_path):
+    runner = CliRunner()
+    with runner.isolated_filesystem(temp_dir=tmp_path):
+        # Run build command without config.yaml in the directory
+        args = ["build", "--config-path", "nonexistent_config.yaml"]
+        result = runner.invoke(main, args)
+        assert result.exit_code == 0
+        assert "Falling back to default built-in configuration." in result.output
