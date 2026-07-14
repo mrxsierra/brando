@@ -1,0 +1,38 @@
+# Brando Project Task Tracker
+
+This document is our active collaborative task tracker. We will update progress on these items as we work through the development phases.
+
+## Phase 1: Core Engine (Offline Logic & Checkers)
+- [/] Initialize Python package directory and repository metadata (`pyproject.toml`)
+- [ ] Implement Esoteric Calculations (`brando/esoteric.py`)
+  - [ ] Pythagorean numerology (sequential 1-9 mapping & digital root reduction)
+  - [ ] Chaldean numerology (historical 1-8 mapping & reduction)
+  - [ ] Vedic astrology starting sound checks
+- [ ] Implement Naming Generator & Typographics (`brando/generator.py`)
+  - [ ] Syllable count estimation
+  - [ ] Typographic midline ratio & symmetry calculator
+  - [ ] Neoclassical & Blend name generator logic
+- [ ] Implement Asynchronous Checker Engine (`brando/checker.py`)
+  - [ ] Async DNS resolution checker with concurrency semaphore
+  - [ ] Async HTTP social media handles check (GitHub, Twitter, Instagram)
+- [ ] Implement Local Database Adapter (`brando/database.py`)
+  - [ ] CSV load/save routines
+  - [ ] Configuration change diff detector (to prevent rebuilding existing names)
+
+## Phase 2: CLI Wrapper & Usability
+- [ ] Implement CLI Interface (`brando/cli.py`)
+  - [ ] Core commands setup: `brando build`, `brando filter`, `brando verify`
+- [ ] Implement Interactive Wizard (`brando init --interactive`)
+  - [ ] Config initialization dialogs
+  - [ ] Self-documenting `config.yaml` template generator
+- [ ] Implement Filter & Scorer engine (`brando/scorer.py`)
+  - [ ] Weight math and bonus score computations
+  - [ ] Sorted output tables formatting
+- [ ] Implement Finalist Reporter (`brando/reporter.py`)
+  - [ ] Verification lookup URL builders (USPTO, WIPO, Google search clash)
+
+## Phase 3: Distribution & Future Scope
+- [ ] Write user documentation (`README.md`)
+- [ ] Add unit test suite (`tests/`)
+- [ ] Setup `.gitignore` (ignoring `portfolio_case_study.md`, `.venv`, and `brand_candidates.csv` as needed)
+- [ ] GitHub Repository release preparation

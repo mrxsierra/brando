@@ -1,0 +1,18 @@
+# Python Virtual Environments
+.venv/
+venv/
+ENV/
+
+# Python Cache & Builds
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.ruff_cache/
+build/
+dist/
+*.egg-info/
+
+# User Private Resume / Portfolio files
+portfolio_case_study.md
