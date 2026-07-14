@@ -34,5 +34,5 @@ This document is our active collaborative task tracker. We will update progress 
 ## Phase 3: Distribution & Future Scope
 - [ ] Write user documentation (`README.md`)
 - [ ] Add unit test suite (`tests/`)
-- [ ] Setup `.gitignore` (ignoring `portfolio_case_study.md`, `.venv`, and `brand_candidates.csv` as needed)
+- [ ] Setup `.gitignore` (ignoring `case_study.md`, `.venv`, and `brand_candidates.csv` as needed)
 - [ ] GitHub Repository release preparation
