@@ -98,15 +98,145 @@ def main():
 @click.option(
     "--config-path", default=DEFAULT_CONFIG_PATH, help="Output config filepath"
 )
-def init(config_path):
-    """Initializes a new default config.yaml file."""
+@click.option(
+    "--interactive",
+    is_flag=True,
+    help="Run interactive configuration setup wizard",
+)
+def init(config_path, interactive):
+    """Initializes a new config.yaml file."""
     if os.path.exists(config_path):
         click.confirm(
             f"Config file already exists at {config_path}. Overwrite?", abort=True
         )
+
+    if not interactive:
+        with open(config_path, mode="w", encoding="utf-8") as f:
+            f.write(DEFAULT_CONFIG_CONTENT)
+        click.echo(f"Initialized default configuration template in: {config_path}")
+        return
+
+    # Interactive Wizard Mode
+    click.echo("\n=== Brando Interactive Setup Wizard ===\n")
+
+    # 1. Strategies
+    strategies = []
+    has_neo = click.confirm(
+        "Generate Neoclassical names (prefixes + suffixes)?", default=True
+    )
+    if has_neo:
+        strategies.append("neoclassical")
+    has_port = click.confirm("Generate Portmanteau names (word blends)?", default=True)
+    if has_port:
+        strategies.append("portmanteau")
+    if not strategies:
+        strategies = ["neoclassical"]
+
+    # 2. Prefixes and Suffixes
+    pref_input = click.prompt(
+        "Enter name prefixes (comma-separated)",
+        default="aero, nova, alt, vance, apex",
+    )
+    suff_input = click.prompt(
+        "Enter name suffixes (comma-separated)",
+        default="tech, aera, sys, flux, storm",
+    )
+    prefixes = [p.strip().lower() for p in pref_input.split(",") if p.strip()]
+    suffixes = [s.strip().lower() for s in suff_input.split(",") if s.strip()]
+
+    # 3. Preferred Initials
+    initials_input = click.prompt(
+        "Preferred starting letters (comma-separated)",
+        default="A, B, V, O, X, Z",
+    )
+    preferred_initials = [
+        i.strip().upper() for i in initials_input.split(",") if i.strip()
+    ]
+
+    # 4. Vedic astrology starting sounds
+    vedic_input = click.prompt(
+        "Vedic astrology auspicious starting sounds (comma-separated)",
+        default="ra, ma, ka, sha, a, va",
+    )
+    vedic_starting_sounds = [
+        v.strip().lower() for v in vedic_input.split(",") if v.strip()
+    ]
+
+    # 5. Numerology Targets
+    pyth_input = click.prompt(
+        "Target Pythagorean destiny numbers (comma-separated, 1-9)",
+        default="1, 5, 9",
+    )
+    pythagorean_targets = []
+    for x in pyth_input.split(","):
+        if x.strip():
+            try:
+                pythagorean_targets.append(int(x.strip()))
+            except ValueError:
+                pass
+
+    chal_input = click.prompt(
+        "Target Chaldean destiny numbers (comma-separated, 1-9)",
+        default="5, 6",
+    )
+    chaldean_targets = []
+    for x in chal_input.split(","):
+        if x.strip():
+            try:
+                chaldean_targets.append(int(x.strip()))
+            except ValueError:
+                pass
+
+    # 6. Domain and handle check options
+    check_com = click.confirm("Verify .com domain availability?", default=True)
+    domains = ["com"] if check_com else []
+    if click.confirm("Check premium alternative TLDs (.co, .io, .ai)?", default=True):
+        domains.extend(["co", "io", "ai"])
+
+    socials = []
+    if click.confirm("Verify GitHub handle availability?", default=True):
+        socials.append("github")
+    if click.confirm("Verify Twitter/X handle availability?", default=True):
+        socials.append("twitter")
+    if click.confirm("Verify Instagram handle availability?", default=True):
+        socials.append("instagram")
+
+    # Construct config dictionary
+    config_data = {
+        "generation": {
+            "strategies": strategies,
+            "prefixes": prefixes,
+            "suffixes": suffixes,
+            "min_letters": 4,
+            "max_letters": 7,
+            "max_syllables": 2,
+        },
+        "alignment": {
+            "preferred_initials": preferred_initials,
+            "vedic_starting_sounds": vedic_starting_sounds,
+            "pythagorean_targets": pythagorean_targets,
+            "chaldean_targets": chaldean_targets,
+        },
+        "validation": {
+            "domains": domains,
+            "socials": socials,
+        },
+        "weights": {
+            "global_brand_potential": 5,
+            "premium_feel": 5,
+            "memorability": 5,
+            "scalability": 5,
+            "pronunciation": 4,
+            "family_legacy": 4,
+            "astrology_compatibility": 3,
+            "numerology_score": 3,
+        },
+    }
+
     with open(config_path, mode="w", encoding="utf-8") as f:
-        f.write(DEFAULT_CONFIG_CONTENT)
-    click.echo(f"Initialized default configuration template in: {config_path}")
+        yaml.safe_dump(config_data, f, default_flow_style=False, sort_keys=False)
+
+    click.echo(f"\nInteractive configuration successfully generated in: {config_path}")
 
 
 @main.command()

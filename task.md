@@ -22,9 +22,9 @@ This document is our active collaborative task tracker. We will update progress 
 ## Phase 2: CLI Wrapper & Usability
 - [/] Implement CLI Interface (`brando/cli.py`)
   - [ ] Core commands setup: `brando build`, `brando filter`, `brando verify`
-- [/] Implement Interactive Wizard (`brando init --interactive`)
-  - [ ] Config initialization dialogs
-  - [ ] Self-documenting `config.yaml` template generator
+- [x] Implement Interactive Wizard (`brando init --interactive`)
+  - [x] Config initialization dialogs
+  - [x] Self-documenting `config.yaml` template generator
 - [ ] Implement Filter & Scorer engine (`brando/scorer.py`)
   - [ ] Weight math and bonus score computations
   - [ ] Sorted output tables formatting

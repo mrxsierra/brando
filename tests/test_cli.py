@@ -17,6 +17,24 @@ def test_cli_init(tmp_path):
         assert os.path.exists(config_path)
 
 
+def test_cli_init_interactive(tmp_path):
+    runner = CliRunner()
+    with runner.isolated_filesystem(temp_dir=tmp_path):
+        config_path = "interactive_config.yaml"
+        # inputs map sequentially to Click wizard prompt steps:
+        # neoclassical, portmanteau, pref, suff, initials,
+        # vedic, pyth, chal, com, premium, github, twitter, instagram
+        inputs = "y\ny\n\n\n\n\n\n\ny\ny\ny\ny\ny\n"
+        result = runner.invoke(
+            main,
+            ["init", "--config-path", config_path, "--interactive"],
+            input=inputs,
+        )
+        assert result.exit_code == 0
+        assert "Interactive configuration successfully generated" in result.output
+        assert os.path.exists(config_path)
+
+
 def test_cli_verify():
     runner = CliRunner()
     result = runner.invoke(main, ["verify", "Aeroaera"])
