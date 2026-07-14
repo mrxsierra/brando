@@ -20,8 +20,8 @@ This document is our active collaborative task tracker. We will update progress 
   - [x] Configuration change diff detector (to prevent rebuilding existing names)
 
 ## Phase 2: CLI Wrapper & Usability
-- [/] Implement CLI Interface (`brando/cli.py`)
-  - [ ] Core commands setup: `brando build`, `brando filter`, `brando verify`
+- [x] Implement CLI Interface (`brando/cli.py`)
+  - [x] Core commands setup: `brando build`, `brando filter`, `brando verify`
 - [x] Implement Interactive Wizard (`brando init --interactive`)
   - [x] Config initialization dialogs
   - [x] Self-documenting `config.yaml` template generator
