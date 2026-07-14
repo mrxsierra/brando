@@ -4,10 +4,10 @@ This document is our active collaborative task tracker. We will update progress 
 
 ## Phase 1: Core Engine (Offline Logic & Checkers)
 - [x] Initialize Python package directory and repository metadata (`pyproject.toml`)
-- [ ] Implement Esoteric Calculations (`brando/esoteric.py`)
-  - [ ] Pythagorean numerology (sequential 1-9 mapping & digital root reduction)
-  - [ ] Chaldean numerology (historical 1-8 mapping & reduction)
-  - [ ] Vedic astrology starting sound checks
+- [x] Implement Esoteric Calculations (`brando/esoteric.py`)
+  - [x] Pythagorean numerology (sequential 1-9 mapping & digital root reduction)
+  - [x] Chaldean numerology (historical 1-8 mapping & reduction)
+  - [x] Vedic astrology starting sound checks
 - [ ] Implement Naming Generator & Typographics (`brando/generator.py`)
   - [ ] Syllable count estimation
   - [ ] Typographic midline ratio & symmetry calculator
