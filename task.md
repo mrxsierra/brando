@@ -28,8 +28,8 @@ This document is our active collaborative task tracker. We will update progress 
 - [x] Implement Filter & Scorer engine (`brando/scorer.py`)
   - [x] Weight math and bonus score computations
   - [x] Sorted output tables formatting
-- [/] Implement Finalist Reporter (`brando/reporter.py`)
-  - [ ] Verification lookup URL builders (USPTO, WIPO, Google search clash)
+- [x] Implement Finalist Reporter (`brando/reporter.py`)
+  - [x] Verification lookup URL builders (USPTO, WIPO, Google search clash)
 
 ## Phase 3: Distribution & Future Scope
 - [ ] Write user documentation (`README.md`)
