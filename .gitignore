@@ -16,3 +16,11 @@ dist/
 
 # Private files
 case_study.md
+
+# ---Artifacts---
+# configs
+config.yaml
+
+# Database
+brand_candidates.csv
+

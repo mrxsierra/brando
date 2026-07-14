@@ -89,6 +89,13 @@ def generate_candidates(config: dict) -> list[str]:
 
     candidates = set()
 
+    # Allow users to supply direct, explicit candidate names
+    # bypassing prefix/suffix blends
+    custom_names = config.get("generation", {}).get("custom_names", [])
+    for name in custom_names:
+        if name.strip():
+            candidates.add(name.strip().capitalize())
+
     # Strategy 1: Neoclassical & Blend combinations
     if "neoclassical" in strategies or "portmanteau" in strategies:
         for pref in prefixes:

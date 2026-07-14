@@ -49,3 +49,20 @@ def test_generate_candidates():
     assert "Aerotech" in candidates
     assert "Novatech" in candidates
     assert len(candidates) > 0
+
+
+def test_generate_candidates_custom_names():
+    config = {
+        "generation": {
+            "strategies": [],
+            "custom_names": ["vanta", "google", "spacex"],
+            "min_letters": 4,
+            "max_letters": 8,
+            "max_syllables": 3,
+        }
+    }
+    candidates = generate_candidates(config)
+    assert "Vanta" in candidates
+    assert "Google" in candidates
+    assert "Spacex" in candidates
+    assert len(candidates) == 3
