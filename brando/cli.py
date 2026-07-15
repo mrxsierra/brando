@@ -94,7 +94,41 @@ def load_yaml_config(path: str) -> dict:
             raise click.ClickException(f"Error parsing configuration YAML: {e}")
 
 
+def apply_linguistic_overrides(
+    config: dict,
+    allowed_chars,
+    disallowed_chars,
+    allow_numbers,
+    min_vowels,
+    max_vowels,
+    min_consonants,
+    max_consonants,
+) -> None:
+    """Applies linguistic filter parameters override to the config dict."""
+    if "generation" not in config:
+        config["generation"] = {}
+    gen = config["generation"]
+    if allowed_chars is not None:
+        gen["allowed_chars"] = allowed_chars
+    if disallowed_chars is not None:
+        gen["disallowed_chars"] = disallowed_chars
+    if allow_numbers:
+        gen["allow_numbers"] = True
+    if min_vowels is not None:
+        gen["min_vowels"] = min_vowels
+    if max_vowels is not None:
+        gen["max_vowels"] = max_vowels
+    if min_consonants is not None:
+        gen["min_consonants"] = min_consonants
+    if max_consonants is not None:
+        gen["max_consonants"] = max_consonants
+
+
 @click.group()
+@click.version_option(
+    version="0.1.0",
+    message="Brando Brand Naming Pipeline version %(version)s",
+)
 def main():
     """Brando: Algorithmic Brand Naming Pipeline."""
     pass
@@ -102,7 +136,10 @@ def main():
 
 @main.command()
 @click.option(
-    "--config-path", default=DEFAULT_CONFIG_PATH, help="Output config filepath"
+    "--config-path",
+    "-c",
+    default=DEFAULT_CONFIG_PATH,
+    help="Output config filepath",
 )
 @click.option(
     "--interactive",
@@ -246,8 +283,18 @@ def init(config_path, interactive):
 
 
 @main.command()
-@click.option("--config-path", default=DEFAULT_CONFIG_PATH, help="Path to config.yaml")
-@click.option("--db-path", default=DEFAULT_DB_PATH, help="Path to brand_candidates.csv")
+@click.option(
+    "--config-path",
+    "-c",
+    default=DEFAULT_CONFIG_PATH,
+    help="Path to config.yaml",
+)
+@click.option(
+    "--db-path",
+    "-d",
+    default=DEFAULT_DB_PATH,
+    help="Path to brand_candidates.csv",
+)
 @click.option(
     "--rebuild",
     is_flag=True,
@@ -258,9 +305,62 @@ def init(config_path, interactive):
     is_flag=True,
     help="Re-check domains & handles for existing database records",
 )
-def build(config_path, db_path, rebuild, refresh):
+@click.option(
+    "--limit",
+    "-l",
+    type=int,
+    default=None,
+    help="Maximum number of candidate names to generate",
+)
+@click.option(
+    "--check-socials",
+    "-s",
+    is_flag=True,
+    help="Also check social media handles during build (slow)",
+)
+@click.option("--allowed-chars", default=None, help="Regex of allowed characters")
+@click.option("--disallowed-chars", default=None, help="Explicitly banned characters")
+@click.option("--allow-numbers", is_flag=True, help="Allow numbers in generation")
+@click.option("--min-vowels", type=int, default=None, help="Minimum vowel count")
+@click.option("--max-vowels", type=int, default=None, help="Maximum vowel count")
+@click.option(
+    "--min-consonants", type=int, default=None, help="Minimum consonant count"
+)
+@click.option(
+    "--max-consonants", type=int, default=None, help="Maximum consonant count"
+)
+def build(
+    config_path,
+    db_path,
+    rebuild,
+    refresh,
+    limit,
+    check_socials,
+    allowed_chars,
+    disallowed_chars,
+    allow_numbers,
+    min_vowels,
+    max_vowels,
+    min_consonants,
+    max_consonants,
+):
     """Generates, enriches, and validates brand name candidates."""
     config = load_yaml_config(config_path)
+    if limit is not None:
+        if "generation" not in config:
+            config["generation"] = {}
+        config["generation"]["max_candidates"] = limit
+
+    apply_linguistic_overrides(
+        config,
+        allowed_chars,
+        disallowed_chars,
+        allow_numbers,
+        min_vowels,
+        max_vowels,
+        min_consonants,
+        max_consonants,
+    )
 
     existing = [] if rebuild else load_candidates(db_path)
 
@@ -302,11 +402,11 @@ def build(config_path, db_path, rebuild, refresh):
         }
         enriched_records.append(record)
 
-    # Run checkers on full spectrum of targets so all database fields are populated
+    # Run checkers
     domains = ["com", "co", "io", "ai"]
-    socials = ["github", "twitter", "instagram"]
+    socials = ["github", "twitter", "instagram"] if check_socials else []
 
-    click.echo("Running domain and social handle checks concurrently...")
+    click.echo("Running concurrent validation checks...")
     network_results = asyncio.run(
         check_candidates_pipeline(names_to_check, domains, socials)
     )
@@ -316,6 +416,16 @@ def build(config_path, db_path, rebuild, refresh):
     for rec in enriched_records:
         net_res = net_map.get(rec["name"], {})
         rec.update(net_res)
+
+        # Handle skipped social media handles
+        for platform in ["github", "twitter", "instagram"]:
+            key = f"handle_{platform}"
+            if key not in rec:
+                if refresh:
+                    orig = next((x for x in existing if x["name"] == rec["name"]), {})
+                    rec[key] = orig.get(key, "skipped")
+                else:
+                    rec[key] = "skipped"
 
     if refresh:
         # Merge updated checks back into existing list
@@ -335,12 +445,66 @@ def build(config_path, db_path, rebuild, refresh):
 
 
 @main.command()
-@click.option("--config-path", default=DEFAULT_CONFIG_PATH, help="Path to config.yaml")
-@click.option("--db-path", default=DEFAULT_DB_PATH, help="Path to brand_candidates.csv")
-@click.option("--limit", default=15, help="Number of top results to print")
-def filter(config_path, db_path, limit):
+@click.option(
+    "--config-path",
+    "-c",
+    default=DEFAULT_CONFIG_PATH,
+    help="Path to config.yaml",
+)
+@click.option(
+    "--db-path",
+    "-d",
+    default=DEFAULT_DB_PATH,
+    help="Path to brand_candidates.csv",
+)
+@click.option(
+    "--limit",
+    "-l",
+    default=15,
+    help="Number of top results to print",
+)
+@click.option(
+    "--output",
+    "-o",
+    default="shortlist.csv",
+    help="Export shortlisted results to a CSV file",
+)
+@click.option("--allowed-chars", default=None, help="Regex of allowed characters")
+@click.option("--disallowed-chars", default=None, help="Explicitly banned characters")
+@click.option("--allow-numbers", is_flag=True, help="Allow numbers in filtering")
+@click.option("--min-vowels", type=int, default=None, help="Minimum vowel count")
+@click.option("--max-vowels", type=int, default=None, help="Maximum vowel count")
+@click.option(
+    "--min-consonants", type=int, default=None, help="Minimum consonant count"
+)
+@click.option(
+    "--max-consonants", type=int, default=None, help="Maximum consonant count"
+)
+def filter(
+    config_path,
+    db_path,
+    limit,
+    output,
+    allowed_chars,
+    disallowed_chars,
+    allow_numbers,
+    min_vowels,
+    max_vowels,
+    min_consonants,
+    max_consonants,
+):
     """Scores, filters, and ranks brand name candidates."""
     config = load_yaml_config(config_path)
+    apply_linguistic_overrides(
+        config,
+        allowed_chars,
+        disallowed_chars,
+        allow_numbers,
+        min_vowels,
+        max_vowels,
+        min_consonants,
+        max_consonants,
+    )
     candidates = load_candidates(db_path)
 
     if not candidates:
@@ -371,6 +535,10 @@ def filter(config_path, db_path, limit):
         click.echo(row)
     click.echo("")
 
+    if output:
+        save_candidates(output, top_candidates)
+        click.echo(f"Exported {len(top_candidates)} shortlisted candidates to {output}")
+
 
 @main.command()
 @click.argument("names", nargs=-1)
@@ -388,6 +556,164 @@ def verify(names):
         click.echo(f"  - WIPO Global Database: {urls['wipo']}")
         click.echo(f"  - Slang Meanings:     {urls['urban_dictionary']}")
     click.echo("")
+
+
+@main.command("check-socials")
+@click.argument("names", nargs=-1)
+@click.option(
+    "--config-path",
+    "-c",
+    default=DEFAULT_CONFIG_PATH,
+    help="Path to config.yaml",
+)
+@click.option(
+    "--db-path",
+    "-d",
+    default="shortlist.csv",
+    help="Path to candidate CSV database",
+)
+@click.option(
+    "--filter-top",
+    "-f",
+    type=int,
+    default=None,
+    help="Automatically score and check only the top N candidates",
+)
+@click.option(
+    "--limit",
+    "-l",
+    type=int,
+    default=2000,
+    help=(
+        "Maximum number of candidates to check (default: 2000, set to 0 for unlimited)"
+    ),
+)
+@click.option(
+    "--platform",
+    "-p",
+    multiple=True,
+    type=click.Choice(["github", "twitter", "instagram"], case_sensitive=False),
+    help="Specific social platforms to check (can be specified multiple times)",
+)
+def check_socials(names, config_path, db_path, filter_top, limit, platform):
+    """Checks social media handle availability for candidate names."""
+    platforms = (
+        [p.lower() for p in platform]
+        if platform
+        else ["github", "twitter", "instagram"]
+    )
+
+    # 1. Determine names to check
+    candidates = []
+    if names:
+        names_to_check = [n.strip() for n in names if n.strip()]
+    else:
+        target_path = db_path
+        if target_path == "shortlist.csv" and not os.path.exists(target_path):
+            if os.path.exists("brand_candidates.csv"):
+                click.echo(
+                    "Note: 'shortlist.csv' not found. Falling back to "
+                    "'brand_candidates.csv'."
+                )
+                target_path = "brand_candidates.csv"
+
+        if not os.path.exists(target_path):
+            click.echo(
+                f"Database file not found: '{db_path}'. "
+                "Neither shortlist.csv nor brand_candidates.csv exists. "
+                "Please run 'brando build' or 'brando filter' first."
+            )
+            return
+        candidates = load_candidates(target_path)
+        if not candidates:
+            click.echo(
+                f"No records found in database: '{target_path}'. "
+                "Please generate candidate names first."
+            )
+            return
+        db_path = target_path
+
+        if filter_top is not None:
+            config = load_yaml_config(config_path)
+            ranked = rank_candidates(candidates, config)
+            candidates = ranked[:filter_top]
+
+        if limit > 0:
+            candidates = candidates[:limit]
+
+        names_to_check = [c["name"] for c in candidates]
+
+    if not names_to_check:
+        click.echo("No candidates to verify.")
+        return
+
+    click.echo(
+        f"Starting social checks for {len(names_to_check)} candidates on "
+        f"platforms: {', '.join(platforms)}"
+    )
+
+    # 2. Run checks in chunks to show progress bar updates
+    chunk_size = 20
+    results = []
+    with click.progressbar(names_to_check, label="Checking social handles") as bar:
+        for i in range(0, len(names_to_check), chunk_size):
+            chunk = names_to_check[i : i + chunk_size]
+            chunk_results = asyncio.run(
+                check_candidates_pipeline(
+                    chunk,
+                    domains=[],
+                    socials=platforms,
+                    timeout=2.5,
+                )
+            )
+            results.extend(chunk_results)
+            bar.update(len(chunk))
+
+    # 3. Save or display results
+    if names:
+        click.echo("\n--- Direct Query Social Handle Status ---")
+        for res in results:
+            name = res["name"]
+            status_parts = []
+            for p in platforms:
+                status_parts.append(f"{p}: {res.get(f'handle_{p}', 'unknown')}")
+            click.echo(f"{name}: {', '.join(status_parts)}")
+    else:
+        net_map = {res["name"].lower(): res for res in results}
+        all_candidates = load_candidates(db_path)
+        all_candidates_map = {c["name"].lower(): c for c in all_candidates}
+
+        for name in names_to_check:
+            name_lower = name.lower()
+            if name_lower not in all_candidates_map:
+                new_rec = {
+                    "name": name,
+                    "syllables": estimate_syllables(name),
+                    "midline_ratio": calculate_midline_ratio(name),
+                    "is_symmetrical": check_visual_symmetry(name),
+                }
+                c_sum, c_red = calculate_chaldean(name)
+                p_sum, p_red = calculate_pythagorean(name)
+                new_rec.update(
+                    {
+                        "chaldean_sum": c_sum,
+                        "chaldean_reduced": c_red,
+                        "pythagorean_sum": p_sum,
+                        "pythagorean_reduced": p_red,
+                    }
+                )
+                all_candidates_map[name_lower] = new_rec
+                all_candidates.append(new_rec)
+
+            rec = all_candidates_map[name_lower]
+            res = net_map.get(name_lower, {})
+            for p in platforms:
+                key = f"handle_{p}"
+                if key in res:
+                    rec[key] = res[key]
+
+        save_candidates(db_path, all_candidates)
+        click.echo(f"Successfully updated social handle check results in: {db_path}")
 
 
 if __name__ == "__main__":

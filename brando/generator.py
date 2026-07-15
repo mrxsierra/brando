@@ -87,6 +87,8 @@ def generate_candidates(config: dict) -> list[str]:
     max_letters = config.get("generation", {}).get("max_letters", 7)
     max_syllables = config.get("generation", {}).get("max_syllables", 2)
 
+    max_candidates = config.get("generation", {}).get("max_candidates", 10000)
+
     candidates = set()
 
     # Allow users to supply direct, explicit candidate names
@@ -94,6 +96,8 @@ def generate_candidates(config: dict) -> list[str]:
     custom_names = config.get("generation", {}).get("custom_names", [])
     for name in custom_names:
         if name.strip():
+            if max_candidates > 0 and len(candidates) >= max_candidates:
+                break
             candidates.add(name.strip().capitalize())
 
     # Strategy: Simple Rule-Based phonetic pattern generator if no
@@ -110,12 +114,16 @@ def generate_candidates(config: dict) -> list[str]:
             for v1 in vowels:
                 for c1 in consonants:
                     for v2 in vowels:
+                        if max_candidates > 0 and len(candidates) >= max_candidates:
+                            break
                         candidates.add(f"{init}{v1}{c1}{v2}".capitalize())
 
     # Strategy 1: Neoclassical & Blend combinations
     if "neoclassical" in strategies or "portmanteau" in strategies:
         for pref in prefixes:
             for suff in suffixes:
+                if max_candidates > 0 and len(candidates) >= max_candidates:
+                    break
                 # Basic blend: combine them directly
                 candidate = f"{pref}{suff}"
                 candidates.add(candidate.capitalize())
@@ -132,6 +140,69 @@ def generate_candidates(config: dict) -> list[str]:
         length = len(cand)
         if min_letters <= length <= max_letters:
             if estimate_syllables(cand) <= max_syllables:
-                filtered_candidates.append(cand)
+                if matches_linguistic_filters(cand, config):
+                    filtered_candidates.append(cand)
 
-    return sorted(filtered_candidates)
+    result_list = sorted(filtered_candidates)
+    if max_candidates > 0:
+        return result_list[:max_candidates]
+    return result_list
+
+
+def matches_linguistic_filters(name: str, config: dict) -> bool:
+    """
+    Checks if a name candidate matches optional linguistic/character filters.
+    """
+    gen_config = config.get("generation", {})
+
+    # 1. Allowed / Disallowed characters
+    allowed_chars = gen_config.get("allowed_chars", None)
+    if allowed_chars:
+        # If it's a regex pattern
+        if allowed_chars.startswith("^") or allowed_chars.endswith("$"):
+            try:
+                if not re.search(allowed_chars, name):
+                    return False
+            except re.error:
+                # If invalid regex, fall back to simple character set match
+                if any(c not in allowed_chars for c in name):
+                    return False
+        else:
+            if any(c not in allowed_chars for c in name):
+                return False
+
+    disallowed_chars = gen_config.get("disallowed_chars", [])
+    if isinstance(disallowed_chars, str):
+        disallowed_chars = list(disallowed_chars)
+    if any(c in disallowed_chars for c in name):
+        return False
+
+    # 2. Allow numbers
+    allow_numbers = gen_config.get("allow_numbers", False)
+    if not allow_numbers:
+        if any(c.isdigit() for c in name):
+            return False
+
+    # 3. Vowels & Consonants count
+    name_lower = name.lower()
+    vowels_set = set("aeiou")
+    vowel_count = sum(1 for c in name_lower if c in vowels_set)
+    consonant_count = sum(1 for c in name_lower if c.isalpha() and c not in vowels_set)
+
+    min_vowels = gen_config.get("min_vowels", None)
+    if min_vowels is not None and vowel_count < min_vowels:
+        return False
+
+    max_vowels = gen_config.get("max_vowels", None)
+    if max_vowels is not None and vowel_count > max_vowels:
+        return False
+
+    min_consonants = gen_config.get("min_consonants", None)
+    if min_consonants is not None and consonant_count < min_consonants:
+        return False
+
+    max_consonants = gen_config.get("max_consonants", None)
+    if max_consonants is not None and consonant_count > max_consonants:
+        return False
+
+    return True

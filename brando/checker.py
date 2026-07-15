@@ -63,6 +63,7 @@ async def check_social_handle(
     handle: str,
     client: httpx.AsyncClient,
     semaphore: asyncio.Semaphore,
+    timeout: float = 5.0,
 ) -> str:
     """
     Checks if a social media handle is taken via an asynchronous GET request.
@@ -80,7 +81,7 @@ async def check_social_handle(
             # We follow redirects and use standard headers.
             # Timeout is kept short to keep the checker fast.
             response = await client.get(
-                url, headers=DEFAULT_HEADERS, follow_redirects=True, timeout=5.0
+                url, headers=DEFAULT_HEADERS, follow_redirects=True, timeout=timeout
             )
             if response.status_code == 404:
                 return "available"
@@ -106,6 +107,7 @@ async def check_name_availability(
     client: httpx.AsyncClient,
     dns_semaphore: asyncio.Semaphore,
     http_semaphore: asyncio.Semaphore,
+    timeout: float = 5.0,
 ) -> dict:
     """
     Performs all configured domain and social handle checks for a single candidate name.
@@ -122,7 +124,7 @@ async def check_name_availability(
     social_tasks = {}
     for platform in socials_to_check:
         social_tasks[f"handle_{platform.lower()}"] = check_social_handle(
-            platform, name.lower(), client, http_semaphore
+            platform, name.lower(), client, http_semaphore, timeout=timeout
         )
 
     # Run all tasks concurrently
@@ -143,6 +145,7 @@ async def check_candidates_pipeline(
     socials: list[str],
     max_concurrent_dns: int = 20,
     max_concurrent_http: int = 5,
+    timeout: float = 5.0,
 ) -> list[dict]:
     """
     Runs the full validation pipeline for a list of candidate names concurrently,
@@ -154,7 +157,9 @@ async def check_candidates_pipeline(
     # We use a single AsyncClient instance for all HTTP requests to reuse connections
     async with httpx.AsyncClient() as client:
         tasks = [
-            check_name_availability(name, domains, socials, client, dns_sem, http_sem)
+            check_name_availability(
+                name, domains, socials, client, dns_sem, http_sem, timeout=timeout
+            )
             for name in names
         ]
         results = await asyncio.gather(*tasks)

@@ -57,35 +57,63 @@ brando init
 brando init --interactive
 ```
 
-### 2. Build Database
-Generate candidates and run availability verifications. This process is incremental and only checks newly added candidates unless requested:
+### 2. Build Database (Step 1: Eager DNS Build)
+Generate candidates and run fast local offline calculations and DNS domain checks (`com`, `co`, `io`, `ai`). By default, slow social handle checks are skipped to keep candidate generation extremely fast.
 ```bash
-# Standard build (diff-based checker)
+# Standard build (DNS domain checks only, bypasses socials)
 brando build
 
-# Refresh availability checks for existing records (e.g. check domains again)
-brando build --refresh
+# Limit number of generated candidate names (overrides config max_candidates)
+brando build --limit 1000
 
-# Force rebuild the entire database from scratch
-brando build --rebuild
+# Include social handle checks during build (slow)
+brando build --check-socials
+
+# Refresh domain checks for existing records
+brando build --refresh
 ```
 Results are saved to `brand_candidates.csv`.
 
 ### 3. Filter & Score
-Rank candidates based on the weights and numerology targets specified in your `config.yaml`:
+Rank candidates based on weights and numerology targets. You can also filter dynamically on the command line:
 ```bash
 # Score, rank, and print top 15 candidates
 brando filter
 
-# Limit output to top 5 results
-brando filter --limit 5
+# Export top 20 candidates to a shortlist CSV file
+brando filter --limit 20 --output shortlist.csv
+
+# Apply dynamic character allowed/disallowed regex patterns
+brando filter --allowed-chars "^[a-zA-Z]+$" --disallowed-chars "x,y"
 ```
 
-### 4. Verify Shortlists
+### 4. Check Socials (Step 2: Lazy Social Checker)
+Once you've shortlisted your top candidates, run social handle checker queries (GitHub, Twitter, Instagram). This ensures we run slow HTTP queries only on a small, vetted pool of candidates to prevent IP rate-limiting.
+```bash
+# Check all handles for names in the shortlist CSV file
+brando check-socials --db-path shortlist.csv
+
+# Verify only GitHub and Twitter, with a limit of 100 checks
+brando check-socials --db-path shortlist.csv --platform github --platform twitter --limit 100
+
+# Direct query check for specific candidates
+brando check-socials Vanta Aeroaera
+```
+
+### 5. Verify Shortlists
 Generate trademark and search verification URL reports for selected finalists:
 ```bash
 brando verify Aeroaera Novatech
 ```
+
+---
+
+## Guided Tutorials & Use Cases
+
+We provide side-by-side programmatic and CLI workflow tutorials to help you get started:
+*   [Linguistic & Visual Branding API Tutorial](file:///home/sunil/Dev/Brando/docs/tutorials/linguistic_visual_branding.md): Learn to configure midline ratios, syllable bounds, and character filtering.
+*   [Numerology & Astrology Alignment API Tutorial](file:///home/sunil/Dev/Brando/docs/tutorials/numerology_astrology_alignment.md): Learn to calculate Western Pythagorean/Eastern Chaldean destiny numbers and Vedic sound matchers.
+*   [Startup Domain Funnel Workflow Tutorial](file:///home/sunil/Dev/Brando/docs/tutorials/startup_domain_funnel.md): Learn the complete CLI workflow from wizard initialization to shortlist social checking.
 
 ---
 
@@ -127,6 +155,6 @@ ruff format
 
 ### Run Unit Tests
 ```bash
-# Runs the full 22 tests suite
+# Runs the full scenario and unit tests suite
 pytest
 ```

@@ -200,8 +200,9 @@ To resolve the speed bottleneck of checking thousands of candidates against rate
     *   Queries social platforms concurrently with a `click.progressbar` indicating progress and ETA.
     *   Shortens connection timeouts to `2.5s` to fail fast.
 
-### B. Purpose-Based Scenario Testing & Tutorials
+### B. Dual-Purpose Scenario Testing
 We introduce automated testing scenarios under `tests/` serving a dual-purpose (verifying code stability and edge cases while acting as interactive documentation tutorials). Side-by-side with these tests, we will create a dedicated `docs/` folder containing step-by-step walkthrough tutorials for each use case:
+
 
 1.  **Direct Module Usage Scenarios:**
     *   **Test:** `tests/module_level_scenarios/test_linguistic_visual_brand.py`
@@ -226,6 +227,19 @@ To allow strict filtering (e.g. only allow vowel-heavy names, or ban mixing numb
 *   **Behavior:**
     *   **Generation:** If set, the generator filters out candidates during generation.
     *   **Filtration:** Scorer applies these filters to database rows, discarding non-compliant records.
+
+### E. CLI Usability & Shortcuts
+To make the tool extremely intuitive and fast to use, we will follow CLI design best practices:
+*   **Shortcut Option Aliases:**
+    *   `-c` for `--config-path`
+    *   `-d` for `--db-path`
+    *   `-l` for `--limit`
+    *   `-p` for `--platform`
+    *   `-o` for `--output`
+    *   `-f` for `--filter-top`
+*   **Version Metadata:** Add a global `--version` option to output the current installed package version.
+*   **Usage Examples:** Ensure command help text is self-documenting, providing sample usages for all subcommands (e.g., `brando build --help`).
+
 
 
 

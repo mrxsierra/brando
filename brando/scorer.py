@@ -4,6 +4,7 @@ Handles parsing configuration files, applying weights, and computing compound sc
 """
 
 from brando.esoteric import check_vedic_astrology
+from brando.generator import matches_linguistic_filters
 
 
 def calculate_weighted_score(candidate: dict, config: dict) -> float:
@@ -88,6 +89,10 @@ def rank_candidates(candidates: list[dict], config: dict) -> list[dict]:
     for c in candidates:
         # Skip if .com is taken and configuration requests filtering
         if filter_taken and c.get("domain_com") == "taken":
+            continue
+
+        # Skip if candidate doesn't match optional character/linguistic heuristics
+        if not matches_linguistic_filters(c.get("name", ""), config):
             continue
 
         # Create a copy to prevent modifying the original record in place

@@ -82,3 +82,41 @@ def test_generate_candidates_fallback():
     # Check that it generated some names like B-a-l-a
     assert len(candidates) > 0
     assert all(c.startswith("B") for c in candidates)
+
+
+def test_generate_candidates_limit():
+    config = {
+        "generation": {
+            "strategies": [],
+            "max_candidates": 5,
+            "min_letters": 4,
+            "max_letters": 6,
+            "max_syllables": 2,
+        },
+        "alignment": {"preferred_initials": ["B"]},
+    }
+    candidates = generate_candidates(config)
+    assert len(candidates) <= 5
+
+
+def test_generate_candidates_linguistic_filters():
+    # Test disallowed characters and vowel limits
+    config = {
+        "generation": {
+            "strategies": [],
+            "disallowed_chars": ["z", "t"],
+            "min_vowels": 2,
+            "max_vowels": 3,
+            "min_letters": 4,
+            "max_letters": 6,
+            "max_syllables": 2,
+        },
+        "alignment": {"preferred_initials": ["B"]},
+    }
+    candidates = generate_candidates(config)
+    for c in candidates:
+        assert "z" not in c.lower()
+        assert "t" not in c.lower()
+        # Vowel count check
+        vc = sum(1 for char in c.lower() if char in "aeiou")
+        assert 2 <= vc <= 3
