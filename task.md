@@ -38,13 +38,20 @@ This document is our active collaborative task tracker. We will update progress 
 - [x] GitHub Repository release preparation
 
 ## Phase 4: Optimization, Scenario Testing & Release Automation
-- [ ] Create Conventional Commit release automated `CHANGELOG.md` generation (using `git-cliff` or GitHub Actions)
+- [ ] Create Conventional Commit release automated `CHANGELOG.md` generation (using `git-cliff` or GitHub Actions) (High Priority)
 - [ ] Optimize checking speed with two-step validation:
-  - [ ] Implement maximum generation count limit in generator config (default: 10,000, configurable)
+  - [ ] Implement maximum generation count limit in generator config (default: 10,000, configurable) and CLI `--limit` flag
   - [ ] Default `brando build` to fast-checking (DNS only, skip socials by default)
-  - [ ] Implement `brando check-socials` command with progress bar, connection timeout (2.5s), and 2,000 candidate hard limit
-- [ ] Add dual-purpose scenario tests and tutorials under `tests/scenarios/`:
-  - [ ] Direct module usage: `tests/scenarios/tutorial_library_api.py`
-  - [ ] CLI config workflow: `tests/scenarios/tutorial_cli_workflow.py`
-- [ ] Update documentation (`README.md`) reflecting the two-step verification options and scenario tutorials
+  - [ ] Support export shortlist option (`brando filter --output shortlist.csv`)
+  - [ ] Implement `brando check-socials` command supporting `--db-path shortlist.csv`, `--filter-top <N>` from main database, progress bar, connection timeout (2.5s), configurable limits (`--limit`), and platform flags (`--platform`)
+- [ ] Implement optional character filtering & linguistic heuristics:
+  - [ ] Support config & CLI parameters: `allowed_chars`, `disallowed_chars`, `allow_numbers`, vowel/consonant count bounds
+  - [ ] Integrate filtering inside candidate generation (`brando/generator.py`)
+  - [ ] Integrate filtering inside candidate scoring/ranking (`brando/scorer.py`)
+- [ ] Add dual-purpose purpose-based scenario tests and tutorials:
+  - [ ] Direct module usage tests: `tests/module_level_scenarios/test_linguistic_visual_brand.py` and `test_numerology_astrology_brand.py`
+  - [ ] Direct module usage markdown tutorials: `docs/tutorials/linguistic_visual_branding.md` and `docs/tutorials/numerology_astrology_alignment.md`
+  - [ ] CLI config workflow test: `tests/cli_level_scenarios/test_startup_domain_funnel.py`
+  - [ ] CLI config workflow markdown tutorial: `docs/tutorials/startup_domain_funnel.md`
+- [ ] Update documentation (`README.md`) reflecting the two-step verification options and linking all tutorial docs
 

@@ -186,24 +186,46 @@ This section outlines the workflow optimizations, scenario testing specification
 To resolve the speed bottleneck of checking thousands of candidates against rate-limited social networks, we split validation into a **Two-Step Verification Process**:
 
 1.  **Step 1: Generate & Fast-Check (`brando build`):**
-    *   Generates candidates up to a default maximum limit of **10,000** (user configurable, set to `-1` for unlimited).
+    *   Generates candidates up to a default maximum limit of **10,000** (user configurable under `generation.max_candidates` or overridable via `brando build --limit <N>`. Set to `0` or `-1` for unlimited).
     *   Runs all local offline calculations (midline ratios, symmetry, syllables, Chaldean/Pythagorean numerology).
     *   Runs DNS domain resolutions (`com`, `co`, `io`, `ai`) which are fast and unthrottled.
     *   **Bypasses social handle checks by default** (marked as `skipped` in the database).
 2.  **Step 2: Lazy Social Checker (`brando check-socials`):**
-    *   Once the user runs `brando filter` and identifies their shortlist of favorites, they run `brando check-socials`.
-    *   Enforces a hard limit of **2,000 names** maximum to prevent IP rate-limiting.
-    *   Queries social platforms (GitHub, Twitter, Instagram) concurrently with an interactive progress bar and estimated completion time display.
+    *   **Shortlist Sourcing options:** Users can feed candidate names to this command in three ways:
+        *   **File Shortlist:** Run `brando filter --output shortlist.csv` to export candidates, then pass `brando check-socials --db-path shortlist.csv`.
+        *   **Automatic Top-Ranked:** Run `brando check-socials --input brand_candidates.csv --filter-top 50` (automatically scores candidates on the fly and checks only the top 50).
+        *   **Direct CLI args:** Pass specific names directly: `brando check-socials Name1 Name2`.
+    *   Enforces a soft-limit of **2,000 names** maximum to prevent IP rate-limiting, which can be overridden or disabled using `--limit <N>` (set `--limit 0` to disable).
+    *   Allows choosing specific platforms to check (e.g. `--platform github --platform twitter`), defaulting to all if omitted.
+    *   Queries social platforms concurrently with a `click.progressbar` indicating progress and ETA.
     *   Shortens connection timeouts to `2.5s` to fail fast.
 
-### B. Dual-Purpose Scenario Testing
-We introduce automated testing scenarios under `tests/scenarios/` serving a dual-purpose (verifying code stability while acting as interactive documentation tutorials):
+### B. Purpose-Based Scenario Testing & Tutorials
+We introduce automated testing scenarios under `tests/` serving a dual-purpose (verifying code stability and edge cases while acting as interactive documentation tutorials). Side-by-side with these tests, we will create a dedicated `docs/` folder containing step-by-step walkthrough tutorials for each use case:
 
-1.  **Direct Module Usage Scenario (`tests/scenarios/tutorial_library_api.py`):**
-    *   Demonstrates how to import core esoteric, generator, and checker modules programmatically in python scripts.
-2.  **CLI Workflow Config Scenario (`tests/scenarios/tutorial_cli_workflow.py`):**
-    *   Demonstrates how to run various CLI configurations (filtering, interactive initialization, two-step verification).
+1.  **Direct Module Usage Scenarios:**
+    *   **Test:** `tests/module_level_scenarios/test_linguistic_visual_brand.py`
+    *   **Tutorial:** `docs/tutorials/linguistic_visual_branding.md` (Explains midline ratio, symmetry checks, and syllable configurations).
+    *   **Test:** `tests/module_level_scenarios/test_numerology_astrology_brand.py`
+    *   **Tutorial:** `docs/tutorials/numerology_astrology_alignment.md` (Explains esoteric mappings and Vedic starting sounds).
+2.  **CLI Config Workflow Scenario:**
+    *   **Test:** `tests/cli_level_scenarios/test_startup_domain_funnel.py`
+    *   **Tutorial:** `docs/tutorials/startup_domain_funnel.md` (Explains how to run the full CLI pipeline: interactive init, build, filter export, and lazy social check).
 
-### C. Automated Changelog Tracking
-To maintain project history without manual overhead, we will configure a `git-cliff` configuration file and a GitHub Action. This automatically generates a `CHANGELOG.md` from Conventional Commit messages (`feat:`, `fix:`, `docs:`) upon every push/tag to the `main` branch.
+### C. Automated Changelog Tracking (High Priority)
+To maintain project history without manual overhead, we will configure a `git-cliff` configuration file and a GitHub Action. This automatically generates a `CHANGELOG.md` from Conventional Commit messages (`feat:`, `fix:`, `docs:`) upon every push/tag to the `main` branch. This is the first priority for automation.
+
+### D. Optional Character & Linguistic Generation Heuristics
+To allow strict filtering (e.g. only allow vowel-heavy names, or ban mixing numbers), we introduce character filters in both the **Generation** and **Filtration/Scoring** modules:
+*   **Parameters (Config & CLI Options):**
+    *   `allowed_chars`: Regex pattern (e.g., `^[a-zA-Z]+$`) restricting allowed characters.
+    *   `disallowed_chars`: List of characters explicitly banned.
+    *   `allow_numbers`: Boolean option to allow/disallow mixing numbers in names (default: `False`).
+    *   `min_vowels` / `max_vowels`: Vowel count limits.
+    *   `min_consonants` / `max_consonants`: Consonant count limits.
+*   **Behavior:**
+    *   **Generation:** If set, the generator filters out candidates during generation.
+    *   **Filtration:** Scorer applies these filters to database rows, discarding non-compliant records.
+
+
 
