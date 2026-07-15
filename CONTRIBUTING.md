@@ -46,15 +46,20 @@ To maintain a clean and reviewable history:
 *   Make a Git commit immediately after checking off a task in `task.md`.
 *   Never bunch multiple independent features into a single massive commit.
 
-### C. Commit Message Convention (Conventional Commits)
-All commit messages must follow the Conventional Commits specification:
-*   `feat: <description>` (e.g., `feat: implement chaldean numerology math`)
-*   `fix: <description>` (e.g., `fix: resolve division by zero in visual ratio`)
+### C. Commit Message Convention & Automated Changelog (Conventional Commits)
+All commit messages must follow the Conventional Commits specification. This is critical because our automated changelog script ([scripts/generate_changelog.py](file:///home/sunil/Dev/Brando/scripts/generate_changelog.py)) and GitHub Action (.github/workflows/changelog.yml) parse these prefix categories to generate the release history in [CHANGELOG.md](file:///home/sunil/Dev/Brando/CHANGELOG.md) automatically.
+
+Supported prefixes:
+*   `feat: <description>` (e.g., `feat: implement chaldean numerology math`) -> Populates the "Features" section.
+*   `fix: <description>` (e.g., `fix: resolve division by zero in visual ratio`) -> Populates the "Bug Fixes" section.
+*   `docs: <description>` (e.g., `docs: update setup steps in contributing.md`) -> Populates the "Documentation" section.
 *   `test: <description>` (e.g., `test: add unit tests for esoteric calculators`)
-*   `docs: <description>` (e.g., `docs: update setup steps in contributing.md`)
 *   `chore: <description>` (e.g., `chore: update pyproject.toml dependencies`)
 
+If you make a breaking change, append a `!` after the type/scope (e.g., `feat!: change scoring config schema`).
+
 ---
+
 
 ## 3. Testing Strategy: Incremental (Module-by-Module)
 We will follow **Incremental Testing (Test-After-Module)** rather than waiting until the end of the project:

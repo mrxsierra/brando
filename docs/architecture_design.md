@@ -114,7 +114,7 @@ For each NEW name:
  └── Run typographic balance calculations (Midline, Symmetry)
        │
        ▼
-Run concurrent network checks (DNS & HTTP handles) for new names
+Run concurrent eager network checks (DNS only) for new names
        │
        ▼
 Append new rows to brand_candidates.csv
@@ -128,7 +128,7 @@ Append new rows to brand_candidates.csv
 Load brand_candidates.csv & config.yaml
        │
        ▼
-Filter out entries based on rules (e.g. exclude taken .com domains, exclude taken handles)
+Filter out entries based on rules (e.g. allowed/disallowed chars, vowels/consonants count)
        │
        ▼
 Apply weights & score bonuses (astrology, target numerology)
@@ -137,7 +137,24 @@ Apply weights & score bonuses (astrology, target numerology)
 Rank candidates by final score
        │
        ▼
-Output ranked list to stdout or save as Markdown report
+Output ranked list to stdout and write shortlist.csv
+```
+
+### Pipeline 3: Lazy Social Verification (The "Check-Socials" Pipeline)
+```
+[User runs 'brando check-socials']
+       │
+       ▼
+Load shortlist.csv (fallback to brand_candidates.csv)
+       │
+       ▼
+Run concurrent lazy network checks (HTTP handles) only on shortlist
+       │
+       ▼
+Display live progress bar & remaining ETA
+       │
+       ▼
+Update CSV database with check results
 ```
 
 ---
@@ -147,3 +164,10 @@ Each module will expose direct function API hooks to allow clean unit tests with
 *   Tests in `tests/test_esoteric.py` will call `calculate_chaldean` and `calculate_pythagorean` directly with strings and assert expected values.
 *   Tests in `tests/test_generator.py` will pass mocked configuration dictionaries and assert generated lengths and syllables.
 *   Tests in `tests/test_checker.py` will mock DNS resolutions and HTTP network responses to verify status code checks.
+
+---
+
+## 5. Development Operations & CI/CD Pipeline
+*   **Changelog Generation:** Conventional Commits are parsed using `scripts/generate_changelog.py` to auto-compile structured features, fixes, and docs updates directly into `CHANGELOG.md`.
+*   **Automation:** A GitHub Actions workflow `.github/workflows/changelog.yml` automatically triggers on push or tag release events to rebuild the changelog.
+

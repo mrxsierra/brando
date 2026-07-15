@@ -1,28 +1,42 @@
-# Python Virtual Environments
+# ==========================================
+# 1. Python Environment & Dependency Cache
+# ==========================================
 .venv/
 venv/
 ENV/
 
-# Python Cache & Builds
+# ==========================================
+# 2. Build Artifacts & Python Compilation Cache
+# ==========================================
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 .pytest_cache/
 .ruff_cache/
-.vscode/
 build/
 dist/
 *.egg-info/
 
-# Private files
-case_study.md
-walkthrough.md
+# ==========================================
+# 3. Editor & IDE Settings
+# ==========================================
+.vscode/
 
-# ---Artifacts---
-# configs
+# ==========================================
+# 4. Local Configurations (Not to be committed)
+# ==========================================
 config.yaml
 
-# Database
+# ==========================================
+# 5. Local Datasets & Large Data Files
+# ==========================================
 brand_candidates.csv
+shortlist.csv
 
+# ==========================================
+# 6. Private/Agent Session Artifacts
+# ==========================================
+# Note: task.md and implementation_plan.md are tracked in git per user preference.
+walkthrough.md
+docs/case_study.md

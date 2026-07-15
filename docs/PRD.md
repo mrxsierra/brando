@@ -93,26 +93,30 @@ graph TD
     G -->|Automated Links| H[USPTO / WIPO / Google / Slang Checks]
 ```
 
-### Phase 1: Generation & Validation (The "Builder" Script)
+### Phase 1: Generation & DNS-only validation (The "Build" Pipeline)
 *   **Input:** Linguistic patterns, prefix/suffix configs, or a list of raw seeds.
 *   **Process (Incremental & Dynamic):**
     *   **Config Diffing:** Instead of generating the entire database from scratch, the builder compares current config options against existing names in `brand_candidates.csv`. It only runs calculations and tests for *newly added* candidate names unless a full rebuild flag (e.g., `--rebuild`) is set.
-    *   **Domain & Handle Re-checking:** Because domain and social handle registration status changes over time, the script supports a refresh mode (e.g., `--refresh-availability`). This parses existing candidates and queries DNS and HTTP endpoints again to retrieve the latest, up-to-the-minute availability status.
-    *   **Static Calculations:** Offline stats (numerology, syllable count, visual balance) are calculated once and cached for each name.
-    *   **Validation Check execution:** Perform DNS queries to check if domains are registered and HTTP status checks for handle availability.
-*   **Output:** `brand_candidates.csv` containing all raw metrics and availability statuses.
+    *   **Eager DNS Verification:** DNS queries check if domains (`.com`, `.co`, `.io`, `.ai`) are registered. Slow social handle checks are skipped by default to keep candidate generation extremely fast.
+    *   **Static Calculations:** Offline stats (numerology, syllable count, visual balance, allowed character filters) are calculated once and cached for each name.
+*   **Output:** `brand_candidates.csv` containing all raw metrics and eager availability statuses.
 
-### Phase 2: Personalization & Scoring (The "Filter" Script)
-*   **Input:** `brand_candidates.csv` and `config.json` (user-specific preferences).
+### Phase 2: Personalization, Scoring & Shortlisting (The "Filter" Pipeline)
+*   **Input:** `brand_candidates.csv` and `config.yaml` (user-specific preferences).
 *   **Process:**
     *   Read user configuration.
     *   Flag names that match the user's Vedic astrology starting sounds.
     *   Score numerology matches (e.g., destiny/compound number matches).
     *   Compute the final weighted score for each candidate.
-    *   Filter out candidates where `.com` is taken or social handles are unavailable.
-*   **Output:** A clean, ranked list of brand name recommendations.
+    *   Filter out candidates based on rules (e.g., regex character constraints).
+*   **Output:** A clean, ranked list of brand name recommendations, defaults to saving to `shortlist.csv`.
 
-### Phase 3: Finalist Validation Workspace
+### Phase 3: Lazy Social Checker
+*   **Input:** `shortlist.csv` (or the full `brand_candidates.csv` as a fallback).
+*   **Process:** Runs asynchronous HTTP requests to verify social handles (GitHub, Twitter, Instagram) only for shortlisted candidates. This protects against IP rate-limiting by executing slow requests on a small, vetted pool of candidates.
+*   **Output:** Updated CSV with verified social handles status.
+
+### Phase 4: Finalist Validation Workspace
 *   For the top 5–10 finalists, the tool generates a summary report including:
     *   **Direct Trademark Search Links:** e.g., pre-built URL queries for USPTO and WIPO trademark databases.
     *   **Search Engine Clash Check Links:** Pre-built Google search URLs to inspect existing businesses with similar names.
@@ -154,8 +158,11 @@ Should the project gain open-source traction, the architecture naturally support
 2.  **Checking Engine:** Implement fast DNS resolution for domains and HTTP status checkers for handles.
 3.  **Generator CLI:** Build the script that generates candidates, runs checks, and saves them to the CSV.
 4.  **Config-Driven Scorer:** Build the secondary script that loads the CSV, applies the user's weights/astrology/numerology filters, and ranks the candidates.
-5.  **Finalist Workspace Utility:** Implement a quick report generator that compiles details and pre-formatted validation URLs for shortlisted finalists.
-6.  **GitHub Repo Ready:** Add a clean `README.md`, setup a CLI entry point, and document how other users can plug in their own rules.
+5.  **Lazy Social Checker CLI:** Build a dedicated `check-socials` utility to run rate-limited social checks only on shortlisted names.
+6.  **Finalist Workspace Utility:** Implement a quick report generator that compiles details and pre-formatted validation URLs for shortlisted finalists.
+7.  **GitHub Repo Ready:** Add a clean `README.md`, setup a CLI entry point, and document how other users can plug in their own rules.
+8.  **Automated SDLC & Changelog:** Automate conventional commit changelog compiling using GitHub Actions.
+
 
 
 

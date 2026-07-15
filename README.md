@@ -1,12 +1,29 @@
 # Brando
 
+[![Python Version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue)](https://www.python.org/)
+[![Lint & Format](https://img.shields.io/badge/code%20style-ruff-261230.svg)](https://github.com/astral-sh/ruff)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
 An open-source, highly customizable pipeline and utility library to generate, validate, score, and filter premium brand names for startups, ventures, or holding companies.
 
 Instead of relying on rigid, paid SaaS generators or manual brainstorming, **Brando** automates the heavy lifting—handling name combination, phonetic metrics, typographic aesthetics, esoteric values (numerology/astrology), and concurrent domain/handle availability checking.
 
 ---
 
+### Why Brando? (vs. Traditional SaaS Generators)
+
+| Feature | SaaS Naming Generators | Brando |
+| :--- | :--- | :--- |
+| **Cost** | 💸 Subscriptions / Paid credits | 🆓 100% Free & Local |
+| **Privacy & Security** | ⚠️ Names/Searches saved on third-party servers (risk of domain front-running/snatching) | 🔒 Fully local & private—no names ever leak |
+| **Custom Logic** | ❌ Rigid preset categories | ✅ Fully customized weights, numerology/astrology targets, and regex constraints |
+| **Availability Auditing** | 🐌 Manual click-through checks | 🚀 Asynchronous, throttled bulk checkers (DNS + API) |
+| **Integration** | ❌ Web-only interface | ✅ Programmatic Python package & powerful developer CLI |
+
+---
+
 ## Features
+
 
 *   **Automated Name Generation:** Dynamic combination of custom prefixes and suffixes (supporting neoclassical and portmanteau blends).
 *   **Aesthetic & Typographic Analysis:** Calculates midline letters ratio and vertical symmetry to estimate visual logo potential.
@@ -21,7 +38,57 @@ Instead of relying on rigid, paid SaaS generators or manual brainstorming, **Bra
 
 ---
 
+## Naming Funnel Pipeline
+
+```
+ [Config Generation Rules] 
+           │
+           ▼
+┌────────────────────────┐
+│     brando build       │  ◄── (Eager local metrics + fast DNS domain checks)
+└──────────┬─────────────┘
+           │
+           ▼
+   [Candidates CSV] 
+           │
+           ▼
+┌────────────────────────┐
+│     brando filter      │  ◄── (Applies custom scoring weights & regex filters)
+└──────────┬─────────────┘
+           │
+           ▼
+    [Shortlist CSV] 
+           │
+           ▼
+┌────────────────────────┐
+│ brando check-socials   │  ◄── (Lazy HTTP check of socials for shortlisted names)
+└────────────────────────┘
+```
+
+---
+
+## Quick Start (in 30 seconds)
+
+Get up and running with a default configuration immediately:
+
+```bash
+# Initialize template config.yaml
+brando init
+
+# Generate names & check domain availability
+brando build --limit 50
+
+# Apply default scoring weights and filter the top 10 names
+brando filter --limit 10 --output shortlist.csv
+
+# Lazy check social handles for the shortlisted top names
+brando check-socials --db-path shortlist.csv
+```
+
+---
+
 ## Installation & Setup
+
 
 We recommend using the modern **`uv`** package manager for fast virtual environment setup.
 
@@ -114,6 +181,7 @@ We provide side-by-side programmatic and CLI workflow tutorials to help you get 
 *   [Linguistic & Visual Branding API Tutorial](file:///home/sunil/Dev/Brando/docs/tutorials/linguistic_visual_branding.md): Learn to configure midline ratios, syllable bounds, and character filtering.
 *   [Numerology & Astrology Alignment API Tutorial](file:///home/sunil/Dev/Brando/docs/tutorials/numerology_astrology_alignment.md): Learn to calculate Western Pythagorean/Eastern Chaldean destiny numbers and Vedic sound matchers.
 *   [Startup Domain Funnel Workflow Tutorial](file:///home/sunil/Dev/Brando/docs/tutorials/startup_domain_funnel.md): Learn the complete CLI workflow from wizard initialization to shortlist social checking.
+*   [Troubleshooting, FAQ, & CLI Walkthrough](file:///home/sunil/Dev/Brando/docs/troubleshooting_and_faq.md): Solve common issues like DNS timeouts and social platform blocks, or review step-by-step CLI usage.
 
 ---
 
