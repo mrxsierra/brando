@@ -36,3 +36,15 @@ This document is our active collaborative task tracker. We will update progress 
 - [x] Add unit test suite (`tests/`)
 - [x] Setup `.gitignore` (ignoring `case_study.md`, `.venv`, and `brand_candidates.csv` as needed)
 - [x] GitHub Repository release preparation
+
+## Phase 4: Optimization, Scenario Testing & Release Automation
+- [ ] Create Conventional Commit release automated `CHANGELOG.md` generation (using `git-cliff` or GitHub Actions)
+- [ ] Optimize checking speed with two-step validation:
+  - [ ] Implement maximum generation count limit in generator config (default: 10,000, configurable)
+  - [ ] Default `brando build` to fast-checking (DNS only, skip socials by default)
+  - [ ] Implement `brando check-socials` command with progress bar, connection timeout (2.5s), and 2,000 candidate hard limit
+- [ ] Add dual-purpose scenario tests and tutorials under `tests/scenarios/`:
+  - [ ] Direct module usage: `tests/scenarios/tutorial_library_api.py`
+  - [ ] CLI config workflow: `tests/scenarios/tutorial_cli_workflow.py`
+- [ ] Update documentation (`README.md`) reflecting the two-step verification options and scenario tutorials
+

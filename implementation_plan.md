@@ -175,3 +175,35 @@ We will use a standard, lightweight, and modern python stack:
 2.  Run `brando build` on a subset of rules and check if `brand_candidates.csv` is correctly created and populated.
 3.  Run `brando filter` with different weights/astrology/numerology target settings to confirm the top recommendations dynamically change.
 4.  Run `brando verify --shortlist` to confirm trademark and search validation report links are generated correctly for selected candidates.
+
+---
+
+## 8. Phase 4 - Optimization, Scenario Testing, and Project Tracking
+
+This section outlines the workflow optimizations, scenario testing specifications, and release tracking mechanisms for Phase 4.
+
+### A. Performance Optimization: Two-Step Verification Workflow
+To resolve the speed bottleneck of checking thousands of candidates against rate-limited social networks, we split validation into a **Two-Step Verification Process**:
+
+1.  **Step 1: Generate & Fast-Check (`brando build`):**
+    *   Generates candidates up to a default maximum limit of **10,000** (user configurable, set to `-1` for unlimited).
+    *   Runs all local offline calculations (midline ratios, symmetry, syllables, Chaldean/Pythagorean numerology).
+    *   Runs DNS domain resolutions (`com`, `co`, `io`, `ai`) which are fast and unthrottled.
+    *   **Bypasses social handle checks by default** (marked as `skipped` in the database).
+2.  **Step 2: Lazy Social Checker (`brando check-socials`):**
+    *   Once the user runs `brando filter` and identifies their shortlist of favorites, they run `brando check-socials`.
+    *   Enforces a hard limit of **2,000 names** maximum to prevent IP rate-limiting.
+    *   Queries social platforms (GitHub, Twitter, Instagram) concurrently with an interactive progress bar and estimated completion time display.
+    *   Shortens connection timeouts to `2.5s` to fail fast.
+
+### B. Dual-Purpose Scenario Testing
+We introduce automated testing scenarios under `tests/scenarios/` serving a dual-purpose (verifying code stability while acting as interactive documentation tutorials):
+
+1.  **Direct Module Usage Scenario (`tests/scenarios/tutorial_library_api.py`):**
+    *   Demonstrates how to import core esoteric, generator, and checker modules programmatically in python scripts.
+2.  **CLI Workflow Config Scenario (`tests/scenarios/tutorial_cli_workflow.py`):**
+    *   Demonstrates how to run various CLI configurations (filtering, interactive initialization, two-step verification).
+
+### C. Automated Changelog Tracking
+To maintain project history without manual overhead, we will configure a `git-cliff` configuration file and a GitHub Action. This automatically generates a `CHANGELOG.md` from Conventional Commit messages (`feat:`, `fix:`, `docs:`) upon every push/tag to the `main` branch.
+
