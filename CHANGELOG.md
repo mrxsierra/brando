@@ -6,7 +6,7 @@ All notable changes to the Brando naming engine will be documented in this file.
 
 ### Features
 
-* complete Phase 4 optimization, scenario testing, and usability overrides ([5e8134a](https://github.com/mrxsierra/brando/commit/5e8134aa2bc6e1d2b9ace889121e33b804aea029))
+* complete Phase 4 optimization, scenario testing, and usability overrides ([41faf5d](https://github.com/mrxsierra/brando/commit/41faf5d7eb4cf9e40283fc59f697a3392bbc5673))
 * run verification checks on all fields and support simple rule-based generation fallback ([61c315c](https://github.com/mrxsierra/brando/commit/61c315cd5c85a1c6565433f940f3a00b1d28a5d8))
 * fall back to default built-in configuration if config.yaml is missing ([d84a0ff](https://github.com/mrxsierra/brando/commit/d84a0ff27b2cdb29c1e5cb69de07de137a203497))
 * support custom_names configuration to run direct candidate validations ([1ad53db](https://github.com/mrxsierra/brando/commit/1ad53db882b5e3b0f5ef2796d8e2bd2eae0b4db8))
@@ -17,6 +17,10 @@ All notable changes to the Brando naming engine will be documented in this file.
 ### Bug Fixes
 
 * resolve RuntimeError in cli build event loop by adopting asyncio.run ([b4764fa](https://github.com/mrxsierra/brando/commit/b4764fad089930fcb5583954347bc87172962a0a))
+
+### Other Changes
+
+* style: update gitignore to exclude walkthrough ([2e8c5e3](https://github.com/mrxsierra/brando/commit/2e8c5e379a66569e26a378ffa8e4c8a741ca1e54))
 
 ### Documentation
 
