@@ -8,6 +8,9 @@ import os
 
 import click
 import yaml
+from dotenv import load_dotenv
+
+load_dotenv()
 
 from brando.checker import check_candidates_pipeline
 from brando.database import get_generation_diff, load_candidates, save_candidates
@@ -139,6 +142,7 @@ def main():
     "--config-path",
     "-c",
     default=DEFAULT_CONFIG_PATH,
+    envvar="BRAND_CONFIG_PATH",
     help="Output config filepath",
 )
 @click.option(
@@ -287,12 +291,14 @@ def init(config_path, interactive):
     "--config-path",
     "-c",
     default=DEFAULT_CONFIG_PATH,
+    envvar="BRAND_CONFIG_PATH",
     help="Path to config.yaml",
 )
 @click.option(
     "--db-path",
     "-d",
     default=DEFAULT_DB_PATH,
+    envvar="BRAND_DB_PATH",
     help="Path to brand_candidates.csv",
 )
 @click.option(
@@ -449,12 +455,14 @@ def build(
     "--config-path",
     "-c",
     default=DEFAULT_CONFIG_PATH,
+    envvar="BRAND_CONFIG_PATH",
     help="Path to config.yaml",
 )
 @click.option(
     "--db-path",
     "-d",
     default=DEFAULT_DB_PATH,
+    envvar="BRAND_DB_PATH",
     help="Path to brand_candidates.csv",
 )
 @click.option(
@@ -467,6 +475,7 @@ def build(
     "--output",
     "-o",
     default="shortlist.csv",
+    envvar="BRAND_SHORTLIST_PATH",
     help="Export shortlisted results to a CSV file",
 )
 @click.option("--allowed-chars", default=None, help="Regex of allowed characters")
@@ -564,12 +573,14 @@ def verify(names):
     "--config-path",
     "-c",
     default=DEFAULT_CONFIG_PATH,
+    envvar="BRAND_CONFIG_PATH",
     help="Path to config.yaml",
 )
 @click.option(
     "--db-path",
     "-d",
     default="shortlist.csv",
+    envvar="BRAND_SHORTLIST_PATH",
     help="Path to candidate CSV database",
 )
 @click.option(

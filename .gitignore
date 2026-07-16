@@ -27,6 +27,7 @@ dist/
 # 4. Local Configurations (Not to be committed)
 # ==========================================
 config.yaml
+.env
 
 # ==========================================
 # 5. Local Datasets & Large Data Files
