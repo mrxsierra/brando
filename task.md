@@ -21,8 +21,8 @@ This document is the active master task checklist tracking the implementation of
 
 ### **1.1 Package Structure & Configuration Engine**
 - [ ] Restructure directory layout into modular subpackages: `brando/config/`, `brando/core/`, `brando/modules/`, `brando/data/`, `brando/cli/`, `brando/mcp/`
-- [ ] Implement single source of truth version definition in `brando/__init__.py` (`__version__ = "0.2.0"`)
-- [ ] Implement Unified Exception Hierarchy in `brando/errors.py` (`BrandoError`, `ConfigValidationError`, `VocabularyDataError`, `StrategyExecutionError`, `NetworkTimeoutError`, `MCPProtocolError`) + `tests/unit/test_errors.py`
+- [x] Implement single source of truth version definition in `brando/__init__.py` (`__version__ = "0.2.0"`)
+- [x] Implement Unified Exception Hierarchy in `brando/errors.py` (`BrandoError`, `ConfigValidationError`, `VocabularyDataError`, `StrategyExecutionError`, `NetworkTimeoutError`, `MCPProtocolError`) + `tests/unit/test_errors.py`
 - [ ] Implement zero-config unbiased schema parser in `brando/config/loader.py` supporting `config.yaml` and preset resolutions + `tests/unit/test_config_loader.py`
 
 ### **1.2 3-Layer Generation Engine (`brando/core/`)**
