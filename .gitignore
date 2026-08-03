@@ -40,4 +40,5 @@ shortlist.csv
 # ==========================================
 # Note: task.md and implementation_plan.md are tracked in git per user preference.
 walkthrough.md
-docs/case_study.md
+docs/private/
+prdv2.md
