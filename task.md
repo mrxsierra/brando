@@ -20,10 +20,10 @@ This document is the active master task checklist tracking the implementation of
 ## **Phase 1: Core Package, SDK & Click CLI Suite Stabilization (`v0.2.0` Milestone)**
 
 ### **1.1 Package Structure & Configuration Engine**
-- [ ] Restructure directory layout into modular subpackages: `brando/config/`, `brando/core/`, `brando/modules/`, `brando/data/`, `brando/cli/`, `brando/mcp/`
+- [x] Restructure directory layout into modular subpackages: `brando/config/`, `brando/core/`, `brando/modules/`, `brando/data/`, `brando/cli/`, `brando/mcp/`
 - [x] Implement single source of truth version definition in `brando/__init__.py` (`__version__ = "0.2.0"`)
 - [x] Implement Unified Exception Hierarchy in `brando/errors.py` (`BrandoError`, `ConfigValidationError`, `VocabularyDataError`, `StrategyExecutionError`, `NetworkTimeoutError`, `MCPProtocolError`) + `tests/unit/test_errors.py`
-- [ ] Implement zero-config unbiased schema parser in `brando/config/loader.py` supporting `config.yaml` and preset resolutions + `tests/unit/test_config_loader.py`
+- [x] Implement zero-config unbiased schema parser in `brando/config/loader.py` supporting `config.yaml` and preset resolutions + `tests/unit/test_config_loader.py`
 
 ### **1.2 3-Layer Generation Engine (`brando/core/`)**
 - [ ] Implement Layer 1 Core Phoneme Generator (`brando/core/phoneme_engine.py`) supporting Mode A Neoclassical & Mode B Blend synthesis + `tests/unit/test_phoneme_engine.py`
