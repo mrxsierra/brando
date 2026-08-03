@@ -280,30 +280,30 @@ Initial development of Brando relies on pair-programming with autonomous AI agen
 
 ---
 
-### **14.3 Version Epoch History & Semantic Release Mechanics**
+### **14.3 Pre-Release Lineage & Semantic Release Mechanics**
 
-Brando defines a clear **Version Epoch Strategy** to transition the project from early prototype experimentation to enterprise production stability:
+Brando defines a clear **Pre-Release Lineage Strategy** transitioning the project from initial baseline experimentation to public production launch:
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
-│ EPOCH 0: v0.x.x (MVP Prototype Era)                                   │
+│ BASELINE: v0.1.0 (Phase 0 MVP Prototype Baseline)                      │
 │  - Proof-of-concept prototype testing core phoneme viability.          │
-│  - Monolithic CLI logic, uncompressed vocabulary files, basic filters. │
 └───────────────────────────────────┬────────────────────────────────────┘
-                                    │ Architectural Overhaul (prdv2.md)
+                                    │ Pre-Release Development Iterations
                                     ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ EPOCH 1: v1.0.0 (Production Architecture Era)                         │
-│  - Production release defined by Master PRD v2 specification.          │
-│  - 3-Layer Engine, 11 Strategies, 5 Modules, Dynamic JSON Schemas,      │
-│    Lazy Gzip Vocabularies, Click CLI, Python SDK, and MCP Tool Registry.│
+│ PRE-RELEASE LINEAGE: v0.2.0 -> v0.5.0                                  │
+│  - v0.2.0: Phase 1 Core Package (import brando), SDK & Click CLI Suite │
+│  - v0.3.0: Phase 2 Web Portal, Brand Science Playbooks & WASM Playground│
+│  - v0.4.0: Phase 3 Native 8-Tool MCP AI Server Daemon                  │
+│  - v0.5.0: Phase 4 Community Strategy Plugins & Ecosystem              │
 └───────────────────────────────────┬────────────────────────────────────┘
-                                    │ Future Open-Source Feature Iterations
+                                    │ Final Production Launch Tagging
                                     ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ EPOCH 2: v1.x.x (Stable Feature Lineage & Ecosystem)                   │
-│  - All future strategy additions, Nakshatra expansions, and new tools  │
-│    increment as v1.1.0, v1.2.0 without breaking backward compatibility.│
+│ PUBLIC STABLE LAUNCH: v1.0.0 (Production Release on PyPI)              │
+│  - Production release tagged on main after all 4 phases pass end-to-end│
+│    5-tier testing suite and performance benchmarks.                    │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -318,8 +318,8 @@ Brando defines a clear **Version Epoch Strategy** to transition the project from
 ```
 
 *   **`MAJOR` Version (e.g. `v1.0.0` $\rightarrow$ `v2.0.0`)**: Reserved strictly for fundamental architectural rewrites or breaking configuration schema changes.
-*   **`MINOR` Version (e.g. `v1.0.0` $\rightarrow$ `v1.1.0`)**: Incremented when adding new Layer 2 enrichment strategies, new Section 6 feature modules (e.g. Western Zodiac), new MCP tool calls, or new CLI flags without breaking existing code.
-*   **`PATCH` Version (e.g. `v1.0.1` $\rightarrow$ `v1.0.2`)**: Incremented for bug fixes, security patches, dictionary asset updates, or performance optimizations.
+*   **`MINOR` Version (e.g. `v0.1.0` $\rightarrow$ `v0.2.0`)**: Incremented when completing major phase milestones, adding new Layer 2 enrichment strategies, feature modules, or CLI commands.
+*   **`PATCH` Version (e.g. `v0.2.0` $\rightarrow$ `v0.2.1`)**: Incremented for atomic bug fixes, security patches, dictionary asset updates, or performance optimizations.
 
 #### **Pre-Release Channels**:
 *   **Dev Nightly (`v1.0.0-dev.X`)**: Built automatically from `dev` branch for bleeding-edge testing.
