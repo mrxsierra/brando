@@ -1,0 +1,37 @@
+name: Deploy Multi-Version Docs
+
+on:
+  push:
+    branches: [ main ]
+    tags:
+      - 'v*'
+
+jobs:
+  deploy-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install MkDocs Material & mike
+        run: |
+          pip install mkdocs-material mike pymdown-extensions
+
+      - name: Configure Git User
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Deploy Versioned Docs via mike
+        run: |
+          if [[ $GITHUB_REF == refs/tags/* ]]; then
+            TAG_NAME=${GITHUB_REF#refs/tags/}
+            mike deploy --push --update-aliases $TAG_NAME latest
+          else
+            mike deploy --push dev
+          fi

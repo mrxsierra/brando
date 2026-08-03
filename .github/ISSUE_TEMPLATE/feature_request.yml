@@ -1,0 +1,14 @@
+name: Feature or Strategy Proposal
+description: Propose a new Layer 2 enrichment strategy, feature module, or CLI enhancement
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: Propose new naming strategies or feature modules for Brando!
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Feature / Strategy Proposal
+      description: Describe the proposed strategy, phonetic rule, or feature module.
+    validations:
+      required: true

@@ -1,0 +1,19 @@
+name: Update Sponsors Wall
+
+on:
+  schedule:
+    - cron: "0 0 * * 0" # Weekly on Sunday
+  workflow_dispatch:
+
+jobs:
+  update-sponsors:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch Sponsors & Update SPONSORS.md
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          echo "# Brando Sponsors & Supporters" > SPONSORS.md
+          echo "Thank you to our community sponsors for supporting open-source computational branding!" >> SPONSORS.md
