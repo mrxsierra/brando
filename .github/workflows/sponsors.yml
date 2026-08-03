@@ -15,7 +15,7 @@ jobs:
 
       - name: Fetch Sponsors & Update SPONSORS.md
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "# Brando Sponsors & Supporters" > SPONSORS.md
           echo "Thank you to our community sponsors for supporting open-source computational branding!" >> SPONSORS.md
