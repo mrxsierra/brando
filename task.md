@@ -34,7 +34,7 @@ This document is the active master task checklist tracking the implementation of
 - [x] **Module 6A**: Visual Geometry & Bouma Silhouette Calculator (`brando/modules/visual.py`) + `tests/unit/test_visual_module.py`
 - [x] **Module 6B**: Sound Symbolism & Euphony Scorer (`brando/modules/phonetic.py`) + `tests/unit/test_phonetic_module.py`
 - [x] **Module 6C**: Esoteric Numerology & Astrology Engine (`brando/modules/esoteric.py`) + `tests/unit/test_esoteric_module.py`
-- [ ] **Module 6D**: Trademark & Legal Vetting Engine (`brando/modules/trademark.py`) + `tests/unit/test_trademark_module.py`
+- [x] **Module 6D**: Trademark & Legal Vetting Engine (`brando/modules/trademark.py`) + `tests/unit/test_trademark_module.py`
 - [ ] **Module 6E**: Security & Typosquatting Engine (`brando/modules/security.py`) implementing sub-35ms RapidFuzz SIMD & BK-Tree metric space search + `tests/unit/test_security_module.py`
 
 ### **1.4 Lazy Data Architecture (`brando/data/`)**
