@@ -10,8 +10,6 @@ import click
 import yaml
 from dotenv import load_dotenv
 
-load_dotenv()
-
 from brando.checker import check_candidates_pipeline
 from brando.database import get_generation_diff, load_candidates, save_candidates
 from brando.esoteric import (
@@ -25,6 +23,8 @@ from brando.generator import (
 )
 from brando.reporter import generate_validation_urls
 from brando.scorer import rank_candidates
+
+load_dotenv()
 
 DEFAULT_CONFIG_PATH = "config.yaml"
 DEFAULT_DB_PATH = "brand_candidates.csv"

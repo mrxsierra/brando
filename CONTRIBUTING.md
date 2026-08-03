@@ -49,6 +49,10 @@ To ensure high code quality, automated CI testing, and zero broken builds, Brand
     - 🛠️ Dedicated topic branches for AI Agent pair-programming tasks (e.g. `agent/phase1-core-engine`, `agent/mcp-tool-registry`).
 
 ### B. Side-by-Side Test-Driven Micro-Commit Mandate
+*   **Mandatory Pre-Commit Verification Pipeline**: Before making ANY commit, the following three checks MUST pass with 0 errors:
+    1. `ruff check --fix .` (Code linting & import sorting)
+    2. `ruff format .` (Code formatting)
+    3. `pytest` (Unit and scenario test suite)
 *   **No Feature Without Tests**: Every feature file or module implementation MUST be committed together with its corresponding unit/integration test in `tests/`.
 *   **Atomic Commits**: Make a Git commit immediately after completing a single task step. Never bunch multiple independent features into a single massive commit.
 

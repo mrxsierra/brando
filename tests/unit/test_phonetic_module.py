@@ -2,7 +2,6 @@
 Unit Tests for Module 6B Sound Symbolism Engine (brando/modules/phonetic.py)
 """
 
-import pytest
 from brando.modules.phonetic import PhoneticModule
 
 

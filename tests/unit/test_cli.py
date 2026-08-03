@@ -2,8 +2,8 @@
 Unit Tests for Click CLI Command Suite (brando/cli/main.py)
 """
 
-import pytest
 from click.testing import CliRunner
+
 from brando.cli.main import main
 
 

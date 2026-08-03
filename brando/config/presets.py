@@ -3,13 +3,17 @@ Brando Config Presets Specification (Section 3 of PRD v2)
 Defines preset default parameters for fintech, saas, security, consumer, minimal, esoteric.
 """
 
-from typing import Dict, Any
+from typing import Any
 
-PRESETS: Dict[str, Dict[str, Any]] = {
+PRESETS: dict[str, dict[str, Any]] = {
     "fintech": {
         "naming_context": "company",
         "industry_context": ["fintech", "banking", "finance"],
-        "preset_strategies": ["mode_a_neoclassical", "latin_greek_roots", "brand_roots"],
+        "preset_strategies": [
+            "mode_a_neoclassical",
+            "latin_greek_roots",
+            "brand_roots",
+        ],
         "min_euphony_score": 70,
         "max_phishing_risk": 30,
         "alignment": {"chaldean_targets": [5, 6]},

@@ -3,10 +3,11 @@ Brando Pipeline SDK Interface (brando.Pipeline)
 High-level programmatic API to execute candidate generation, enrichment, and scoring.
 """
 
-from typing import List, Dict, Any, Optional
+from typing import Any
+
 from brando.config.loader import Config
-from brando.core.phoneme_engine import PhonemeEngine
 from brando.core.enrichment_engine import EnrichmentEngine
+from brando.core.phoneme_engine import PhonemeEngine
 from brando.core.post_pass_engine import PostPassEngine
 from brando.database import Database
 
@@ -20,7 +21,9 @@ class Pipeline:
         db = pipe.run(seed_words=["vance"])
     """
 
-    def __init__(self, config_data: Optional[Dict[str, Any]] = None, config_path: Optional[str] = None) -> None:
+    def __init__(
+        self, config_data: dict[str, Any] | None = None, config_path: str | None = None
+    ) -> None:
         if config_path:
             self.config = Config.load_from_file(config_path)
         else:
@@ -30,7 +33,7 @@ class Pipeline:
         self.enrichment_engine = EnrichmentEngine(self.config.to_dict())
         self.post_pass_engine = PostPassEngine(self.config.to_dict())
 
-    def run(self, seed_words: Optional[List[str]] = None) -> Database:
+    def run(self, seed_words: list[str] | None = None) -> Database:
         """
         Executes candidate generation, enrichment, and post-passes, returning a Database instance.
         """

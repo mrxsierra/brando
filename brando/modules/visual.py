@@ -3,8 +3,7 @@ Brando Feature Module 6A: Visual Geometry & Bouma Silhouette Calculator (Section
 Calculates Bouma shape codes, CMMDAM metrics, midline ratio, visual symmetry, and ascender/descender balance.
 """
 
-from typing import Dict, Any, List
-
+from typing import Any
 
 ASCENDERS = set("bdfhklt")
 DESCENDERS = set("gjpqy")
@@ -17,14 +16,19 @@ class VisualModule:
     """
 
     @staticmethod
-    def calculate_bouma_profile(candidate: str) -> Dict[str, Any]:
+    def calculate_bouma_profile(candidate: str) -> dict[str, Any]:
         """
         Calculates Bouma shape codes, ascender/descender counts, and midline ratio.
         """
         text = candidate.lower()
         length = len(text)
         if length == 0:
-            return {"bouma_code": "", "midline_ratio": 0.0, "symmetry_score": 0.0, "warnings": ["empty_string"]}
+            return {
+                "bouma_code": "",
+                "midline_ratio": 0.0,
+                "symmetry_score": 0.0,
+                "warnings": ["empty_string"],
+            }
 
         asc_count = sum(1 for c in text if c in ASCENDERS)
         desc_count = sum(1 for c in text if c in DESCENDERS)
@@ -44,10 +48,14 @@ class VisualModule:
         midline_ratio = round(mid_count / length, 3)
 
         # Symmetry score (calculates mirror character equivalence left-to-right)
-        sym_matches = sum(1 for i in range(length // 2) if text[i] == text[length - 1 - i])
-        symmetry_score = round(sym_matches / (length // 2), 2) if (length // 2) > 0 else 1.0
+        sym_matches = sum(
+            1 for i in range(length // 2) if text[i] == text[length - 1 - i]
+        )
+        symmetry_score = (
+            round(sym_matches / (length // 2), 2) if (length // 2) > 0 else 1.0
+        )
 
-        warnings: List[str] = []
+        warnings: list[str] = []
         if midline_ratio > 0.85:
             warnings.append("flat_midline_monotony")
         if asc_count > 0 and desc_count == 0:

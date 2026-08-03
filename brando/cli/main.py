@@ -4,19 +4,19 @@ Provides production terminal commands: init, build, filter, verify, check-social
 """
 
 import sys
+
 import click
-from typing import Optional
 
 from brando import __version__
 from brando.config.loader import Config
-from brando.core.phoneme_engine import PhonemeEngine
 from brando.core.enrichment_engine import EnrichmentEngine
+from brando.core.phoneme_engine import PhonemeEngine
 from brando.core.post_pass_engine import PostPassEngine
-from brando.modules.visual import VisualModule
-from brando.modules.phonetic import PhoneticModule
 from brando.modules.esoteric import EsotericModule
-from brando.modules.trademark import TrademarkModule
+from brando.modules.phonetic import PhoneticModule
 from brando.modules.security import SecurityModule
+from brando.modules.trademark import TrademarkModule
+from brando.modules.visual import VisualModule
 
 
 @click.group(invoke_without_command=True)
@@ -32,8 +32,13 @@ def main(ctx: click.Context, version: bool) -> None:
 
 
 @main.command()
-@click.option("--preset", "-p", default=None, help="Preset configuration (fintech, saas, security, consumer, minimal, esoteric)")
-def init(preset: Optional[str]) -> None:
+@click.option(
+    "--preset",
+    "-p",
+    default=None,
+    help="Preset configuration (fintech, saas, security, consumer, minimal, esoteric)",
+)
+def init(preset: str | None) -> None:
     """Initialize a zero-config or preset config.yaml in current directory."""
     preset_str = f"preset: {preset}\n" if preset else "# preset: fintech\n"
     content = (
@@ -46,16 +51,24 @@ def init(preset: Optional[str]) -> None:
     )
     with open("config.yaml", "w", encoding="utf-8") as f:
         f.write(content)
-    click.echo(f"Successfully initialized config.yaml with preset '{preset or 'default'}'.")
+    click.echo(
+        f"Successfully initialized config.yaml with preset '{preset or 'default'}'."
+    )
 
 
 @main.command()
 @click.option("--config", "-c", default="config.yaml", help="Path to config.yaml file.")
-@click.option("--output", "-o", default="candidates.csv", help="Output candidates path.")
+@click.option(
+    "--output", "-o", default="candidates.csv", help="Output candidates path."
+)
 def build(config: str, output: str) -> None:
     """Generate and enrich brand name candidates."""
     try:
-        cfg = Config.load_from_file(config) if config != "config.yaml" or click.utils.os.path.exists(config) else Config()
+        cfg = (
+            Config.load_from_file(config)
+            if config != "config.yaml" or click.utils.os.path.exists(config)
+            else Config()
+        )
     except Exception as e:
         click.echo(f"Config Error: {e}", err=True)
         sys.exit(1)
@@ -87,11 +100,21 @@ def verify(name: str) -> None:
     security = SecurityModule.audit_security_risk(name)
 
     click.echo(f"\n--- Brando Intelligence Verification Report for '{name}' ---")
-    click.echo(f"Visual Bouma Code    : {visual['bouma_code']} (Midline Ratio: {visual['midline_ratio']})")
-    click.echo(f"Euphony Score        : {phonetic['euphony_score']}/100 (Affinity: {', '.join(phonetic['industry_affinity']) or 'general'})")
-    click.echo(f"Pythagorean / Chaldean: {esoteric['pythagorean_root']} / {esoteric['chaldean_root']}")
-    click.echo(f"Trademark Status     : {trademark['clearance_status']} (Risk Score: {trademark['risk_score']})")
-    click.echo(f"Security Phishing Risk: {security['phishing_risk_score']}/100 (Nearest: {security['nearest_target'] or 'none'})")
+    click.echo(
+        f"Visual Bouma Code    : {visual['bouma_code']} (Midline Ratio: {visual['midline_ratio']})"
+    )
+    click.echo(
+        f"Euphony Score        : {phonetic['euphony_score']}/100 (Affinity: {', '.join(phonetic['industry_affinity']) or 'general'})"
+    )
+    click.echo(
+        f"Pythagorean / Chaldean: {esoteric['pythagorean_root']} / {esoteric['chaldean_root']}"
+    )
+    click.echo(
+        f"Trademark Status     : {trademark['clearance_status']} (Risk Score: {trademark['risk_score']})"
+    )
+    click.echo(
+        f"Security Phishing Risk: {security['phishing_risk_score']}/100 (Nearest: {security['nearest_target'] or 'none'})"
+    )
 
 
 if __name__ == "__main__":

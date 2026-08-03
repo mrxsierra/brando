@@ -3,14 +3,35 @@ Brando Feature Module 6E: Security & Typosquatting Engine (Section 6.E of PRD v2
 Implements RapidFuzz SIMD C-extension string distance, BK-Tree metric space, and typosquatting risk calculation.
 """
 
-from typing import Dict, Any, List, Set, Tuple
+from typing import Any
+
 from rapidfuzz import distance, process
 
-
-POPULAR_PACKAGES: List[str] = [
-    "requests", "urllib3", "boto3", "numpy", "pandas", "scipy", "torch", "tensorflow",
-    "flask", "django", "fastapi", "pydantic", "pytest", "click", "setuptools", "wheel",
-    "brando", "react", "next", "vue", "express", "lodash", "axios", "typescript"
+POPULAR_PACKAGES: list[str] = [
+    "requests",
+    "urllib3",
+    "boto3",
+    "numpy",
+    "pandas",
+    "scipy",
+    "torch",
+    "tensorflow",
+    "flask",
+    "django",
+    "fastapi",
+    "pydantic",
+    "pytest",
+    "click",
+    "setuptools",
+    "wheel",
+    "brando",
+    "react",
+    "next",
+    "vue",
+    "express",
+    "lodash",
+    "axios",
+    "typescript",
 ]
 
 
@@ -21,7 +42,9 @@ class SecurityModule:
     """
 
     @classmethod
-    def audit_security_risk(cls, candidate: str, reference_targets: Optional[List[str]] = None) -> Dict[str, Any]:
+    def audit_security_risk(
+        cls, candidate: str, reference_targets: list[str] | None = None
+    ) -> dict[str, Any]:
         """
         Calculates Levenshtein distance, Damerau-Levenshtein distance, and phishing risk score (0-100).
         """
@@ -38,7 +61,7 @@ class SecurityModule:
 
         # Risk scoring
         risk_score = 0
-        warnings: List[str] = []
+        warnings: list[str] = []
 
         if min_dist == 0:
             risk_score = 100

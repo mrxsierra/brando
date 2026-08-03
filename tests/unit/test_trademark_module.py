@@ -2,7 +2,6 @@
 Unit Tests for Module 6D Trademark Engine (brando/modules/trademark.py)
 """
 
-import pytest
 from brando.modules.trademark import TrademarkModule
 
 

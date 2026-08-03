@@ -2,15 +2,14 @@
 Unit Tests for Brando Exception Hierarchy (brando/errors.py)
 """
 
-import pytest
 from brando import (
-    __version__,
     BrandoError,
     ConfigValidationError,
-    VocabularyDataError,
-    StrategyExecutionError,
-    NetworkTimeoutError,
     MCPProtocolError,
+    NetworkTimeoutError,
+    StrategyExecutionError,
+    VocabularyDataError,
+    __version__,
 )
 
 
@@ -26,7 +25,7 @@ def test_base_brando_error():
     assert err.message == "Base platform error"
     assert err.details == {"context": "test"}
     assert "[ERR_GEN_000] Base platform error" in str(err)
-    
+
     d = err.to_dict()
     assert d["error"] == "BrandoError"
     assert d["code"] == "ERR_GEN_000"

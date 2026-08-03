@@ -2,7 +2,6 @@
 Unit Tests for Module 6E Security & Typosquatting Engine (brando/modules/security.py)
 """
 
-import pytest
 from brando.modules.security import SecurityModule
 
 

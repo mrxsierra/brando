@@ -3,18 +3,18 @@ Brando Master Configuration Schema Parser & Loader
 Implements zero-config unbiased defaults, YAML loading, path resolution, and validation.
 """
 
-import os
 from pathlib import Path
-from typing import Dict, Any, Optional
+from typing import Any
+
 import yaml
 
-from brando.errors import ConfigValidationError
 from brando.config.presets import PRESETS
+from brando.errors import ConfigValidationError
 
-DEFAULT_CONFIG: Dict[str, Any] = {
+DEFAULT_CONFIG: dict[str, Any] = {
     "naming_context": "company",
     "registry": None,
-    "industry_context": None, # Null = Unbiased General Default
+    "industry_context": None,  # Null = Unbiased General Default
     "preset": None,
     "generation": {
         "candidate_limit": 10000,
@@ -57,12 +57,12 @@ class Config:
     Brando Config Object. Wraps raw configuration dictionary and enforces validation.
     """
 
-    def __init__(self, data: Optional[Dict[str, Any]] = None) -> None:
+    def __init__(self, data: dict[str, Any] | None = None) -> None:
         self._raw_data = data or {}
         self._data = self._merge_defaults_and_preset(self._raw_data)
         self._validate()
 
-    def _merge_defaults_and_preset(self, data: Dict[str, Any]) -> Dict[str, Any]:
+    def _merge_defaults_and_preset(self, data: dict[str, Any]) -> dict[str, Any]:
         merged = dict(DEFAULT_CONFIG)
         preset_name = data.get("preset")
         if preset_name:
@@ -76,7 +76,11 @@ class Config:
 
         # Merge user keys recursively
         for key, val in data.items():
-            if isinstance(val, dict) and key in merged and isinstance(merged[key], dict):
+            if (
+                isinstance(val, dict)
+                and key in merged
+                and isinstance(merged[key], dict)
+            ):
                 merged[key] = {**merged[key], **val}
             else:
                 merged[key] = val
@@ -85,7 +89,16 @@ class Config:
 
     def _validate(self) -> None:
         context = self._data.get("naming_context")
-        allowed_contexts = ["company", "product", "startup", "software", "package", "module", "repo", "custom"]
+        allowed_contexts = [
+            "company",
+            "product",
+            "startup",
+            "software",
+            "package",
+            "module",
+            "repo",
+            "custom",
+        ]
         if context not in allowed_contexts:
             raise ConfigValidationError(
                 f"Invalid naming_context '{context}'. Must be one of {allowed_contexts}",
@@ -109,7 +122,7 @@ class Config:
             )
 
         try:
-            with open(path, "r", encoding="utf-8") as f:
+            with open(path, encoding="utf-8") as f:
                 content = yaml.safe_load(f) or {}
         except yaml.YAMLError as e:
             raise ConfigValidationError(
@@ -125,5 +138,5 @@ class Config:
     def __getitem__(self, key: str) -> Any:
         return self._data[key]
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return dict(self._data)

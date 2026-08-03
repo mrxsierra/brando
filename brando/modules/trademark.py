@@ -3,10 +3,9 @@ Brando Feature Module 6D: Trademark & Legal Vetting Engine (Section 6.D of PRD v
 Maps Nice International Trademark Classes (1-45) and simulates WIPO Madrid Protocol clearance.
 """
 
-from typing import Dict, Any, List, Set
+from typing import Any
 
-
-NICE_CLASSES_MAP: Dict[int, str] = {
+NICE_CLASSES_MAP: dict[int, str] = {
     9: "Computer Software, Electronics & Scientific Instruments",
     35: "Advertising, Business Management & Commercial Services",
     36: "Financial, Banking, Real Estate & Insurance Services",
@@ -22,17 +21,21 @@ class TrademarkModule:
     """
 
     @staticmethod
-    def map_nice_classes(requested_classes: List[int]) -> Dict[int, str]:
+    def map_nice_classes(requested_classes: list[int]) -> dict[int, str]:
         """
         Maps requested Nice Class numbers to international class descriptions.
         """
-        result: Dict[int, str] = {}
+        result: dict[int, str] = {}
         for cls_num in requested_classes:
-            result[cls_num] = NICE_CLASSES_MAP.get(cls_num, f"Nice Class {cls_num} General")
+            result[cls_num] = NICE_CLASSES_MAP.get(
+                cls_num, f"Nice Class {cls_num} General"
+            )
         return result
 
     @classmethod
-    def audit_trademark_clearance(cls, candidate: str, target_classes: List[int]) -> Dict[str, Any]:
+    def audit_trademark_clearance(
+        cls, candidate: str, target_classes: list[int]
+    ) -> dict[str, Any]:
         """
         Simulates WIPO Madrid Protocol and regional trademark clearance audit.
         """
@@ -40,8 +43,8 @@ class TrademarkModule:
         mapped_classes = cls.map_nice_classes(target_classes)
 
         # Risk heuristics based on common/famous brand clashes
-        risk_score = 10 # Baseline low risk score
-        clearance_warnings: List[str] = []
+        risk_score = 10  # Baseline low risk score
+        clearance_warnings: list[str] = []
 
         if len(text) <= 4:
             risk_score += 20

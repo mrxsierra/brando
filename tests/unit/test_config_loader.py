@@ -2,12 +2,11 @@
 Unit Tests for Brando Config Loader & Presets (brando/config/loader.py)
 """
 
-import tempfile
 from pathlib import Path
+
 import pytest
 
-from brando.config.loader import Config, DEFAULT_CONFIG
-from brando.config.presets import PRESETS
+from brando.config.loader import Config
 from brando.errors import ConfigValidationError
 
 
@@ -43,8 +42,11 @@ def test_invalid_naming_context_raises_validation_error():
 def test_load_from_yaml_file(tmp_path: Path):
     """Verify loading config from a valid YAML file."""
     yaml_file = tmp_path / "custom_config.yaml"
-    yaml_file.write_text("naming_context: startup\ngeneration:\n  candidate_limit: 5000\n", encoding="utf-8")
-    
+    yaml_file.write_text(
+        "naming_context: startup\ngeneration:\n  candidate_limit: 5000\n",
+        encoding="utf-8",
+    )
+
     cfg = Config.load_from_file(str(yaml_file))
     assert cfg["naming_context"] == "startup"
     assert cfg["generation"]["candidate_limit"] == 5000

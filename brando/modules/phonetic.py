@@ -3,12 +3,11 @@ Brando Feature Module 6B: Sound Symbolism & Euphony Scorer (Section 6.B of PRD v
 Calculates plosive/fricative ratios, sonorant weights, euphony score, and industry perception affinity.
 """
 
-from typing import Dict, Any, List, Set
+from typing import Any
 
-
-PLOSIVES = set("bptkgd")       # Hard, authoritative sounds (Power / Fintech)
-FRICATIVES = set("fsvzthsh")   # Soft, fast, modern sounds (Speed / Tech)
-SONORANTS = set("lmnrwy")      # Smooth, memorable, liquid sounds (Consumer)
+PLOSIVES = set("bptkgd")  # Hard, authoritative sounds (Power / Fintech)
+FRICATIVES = set("fsvzthsh")  # Soft, fast, modern sounds (Speed / Tech)
+SONORANTS = set("lmnrwy")  # Smooth, memorable, liquid sounds (Consumer)
 
 
 class PhoneticModule:
@@ -17,14 +16,19 @@ class PhoneticModule:
     """
 
     @staticmethod
-    def calculate_phonetic_profile(candidate: str) -> Dict[str, Any]:
+    def calculate_phonetic_profile(candidate: str) -> dict[str, Any]:
         """
         Calculates sound symbolism metrics, euphony score (0-100), and industry affinity.
         """
         text = candidate.lower()
         length = len(text)
         if length == 0:
-            return {"euphony_score": 0.0, "plosive_ratio": 0.0, "fricative_ratio": 0.0, "industry_affinity": []}
+            return {
+                "euphony_score": 0.0,
+                "plosive_ratio": 0.0,
+                "fricative_ratio": 0.0,
+                "industry_affinity": [],
+            }
 
         plos_count = sum(1 for c in text if c in PLOSIVES)
         fric_count = sum(1 for c in text if c in FRICATIVES)
@@ -40,7 +44,7 @@ class PhoneticModule:
         euphony_score = round(cadence_balance * 100, 1)
 
         # Industry Affinity Tagging
-        affinity: List[str] = []
+        affinity: list[str] = []
         if plos_ratio >= 0.25:
             affinity.append("fintech_authority")
         if fric_ratio >= 0.25:

@@ -3,34 +3,68 @@ Brando Feature Module 6C: Esoteric Numerology & Astrology Engine (Section 6.C of
 Calculates Pythagorean numerology (1-9), Chaldean numerology (1-8), and Nakshatra 108 Pada alignments.
 """
 
-from typing import Dict, Any, List
+from typing import Any
 
-
-PYTHAGOREAN_MAP: Dict[str, int] = {
-    "a": 1, "j": 1, "s": 1,
-    "b": 2, "k": 2, "t": 2,
-    "c": 3, "l": 3, "u": 3,
-    "d": 4, "m": 4, "v": 4,
-    "e": 5, "n": 5, "w": 5,
-    "f": 6, "o": 6, "x": 6,
-    "g": 7, "p": 7, "y": 7,
-    "h": 8, "q": 8, "z": 8,
-    "i": 9, "r": 9,
+PYTHAGOREAN_MAP: dict[str, int] = {
+    "a": 1,
+    "j": 1,
+    "s": 1,
+    "b": 2,
+    "k": 2,
+    "t": 2,
+    "c": 3,
+    "l": 3,
+    "u": 3,
+    "d": 4,
+    "m": 4,
+    "v": 4,
+    "e": 5,
+    "n": 5,
+    "w": 5,
+    "f": 6,
+    "o": 6,
+    "x": 6,
+    "g": 7,
+    "p": 7,
+    "y": 7,
+    "h": 8,
+    "q": 8,
+    "z": 8,
+    "i": 9,
+    "r": 9,
 }
 
-CHALDEAN_MAP: Dict[str, int] = {
-    "a": 1, "i": 1, "j": 1, "q": 1, "y": 1,
-    "b": 2, "k": 2, "r": 2,
-    "c": 3, "g": 3, "l": 3, "s": 3,
-    "d": 4, "m": 4, "t": 4,
-    "e": 5, "h": 5, "n": 5, "x": 5,
-    "u": 6, "v": 6, "w": 6,
-    "o": 7, "z": 7,
-    "f": 8, "p": 8,
+CHALDEAN_MAP: dict[str, int] = {
+    "a": 1,
+    "i": 1,
+    "j": 1,
+    "q": 1,
+    "y": 1,
+    "b": 2,
+    "k": 2,
+    "r": 2,
+    "c": 3,
+    "g": 3,
+    "l": 3,
+    "s": 3,
+    "d": 4,
+    "m": 4,
+    "t": 4,
+    "e": 5,
+    "h": 5,
+    "n": 5,
+    "x": 5,
+    "u": 6,
+    "v": 6,
+    "w": 6,
+    "o": 7,
+    "z": 7,
+    "f": 8,
+    "p": 8,
 }
 
 # 27 Nakshatras 108 Pada Starting Phonemes (Vedic Astrology Alignment)
-NAKSHATRA_PADAS: Dict[str, List[str]] = {
+NAKSHATRA_PADAS: dict[str, list[str]] = {
     "Ashwini": ["chu", "che", "cho", "la"],
     "Bharani": ["lee", "loo", "lay", "lo"],
     "Krittika": ["a", "ee", "u", "ea"],
@@ -56,7 +90,7 @@ class EsotericModule:
         return number
 
     @classmethod
-    def calculate_esoteric_profile(cls, candidate: str) -> Dict[str, Any]:
+    def calculate_esoteric_profile(cls, candidate: str) -> dict[str, Any]:
         """
         Calculates Pythagorean, Chaldean compound/single values, and Nakshatra Pada match.
         """

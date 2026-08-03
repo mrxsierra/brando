@@ -3,17 +3,16 @@ Edge Cases and Security Test Suite
 Verifies sanitization, boundary limits, and zero division handling across modules.
 """
 
-import pytest
-from brando.modules.visual import VisualModule
-from brando.modules.phonetic import PhoneticModule
 from brando.modules.esoteric import EsotericModule
+from brando.modules.phonetic import PhoneticModule
+from brando.modules.visual import VisualModule
 
 
 def test_empty_string_handling():
     """Verify empty string returns valid default dicts without throwing exceptions."""
     vis = VisualModule.calculate_bouma_profile("")
     assert vis["midline_ratio"] == 0.0
-    
+
     phon = PhoneticModule.calculate_phonetic_profile("")
     assert phon["euphony_score"] == 0.0
 

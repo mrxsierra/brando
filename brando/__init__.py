@@ -8,16 +8,16 @@ __version__ = "0.2.0"
 __author__ = "Brando Open-Source Contributors"
 
 from brando.config.loader import Config
-from brando.pipeline import Pipeline
 from brando.database import Database
 from brando.errors import (
     BrandoError,
     ConfigValidationError,
-    VocabularyDataError,
-    StrategyExecutionError,
-    NetworkTimeoutError,
     MCPProtocolError,
+    NetworkTimeoutError,
+    StrategyExecutionError,
+    VocabularyDataError,
 )
+from brando.pipeline import Pipeline
 
 __all__ = [
     "__version__",

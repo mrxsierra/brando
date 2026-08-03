@@ -3,10 +3,9 @@ Brando Layer 2a Orthographic Post-Pass Engine (Section 4 of PRD v2)
 Applies non-destructive phonetic spelling, letter substitution, and alphanumeric post-passes.
 """
 
-from typing import List, Dict, Any, Set
+from typing import Any
 
-
-SUBSTITUTION_RULES: Dict[str, str] = {
+SUBSTITUTION_RULES: dict[str, str] = {
     "c": "k",
     "ph": "f",
     "s": "z",
@@ -21,17 +20,19 @@ class PostPassEngine:
     Applies non-destructive spelling transforms while preserving original candidates.
     """
 
-    def __init__(self, config_data: Dict[str, Any]) -> None:
+    def __init__(self, config_data: dict[str, Any]) -> None:
         self.config_data = config_data
         post_cfg = config_data.get("enrichment", {})
-        self.enabled_passes = set(post_cfg.get("post_passes", ["phonetic_spell", "letter_substitution"]))
+        self.enabled_passes = set(
+            post_cfg.get("post_passes", ["phonetic_spell", "letter_substitution"])
+        )
         self.custom_map = post_cfg.get("custom_substitution_map", {})
 
-    def apply_post_passes(self, candidates: List[str]) -> List[str]:
+    def apply_post_passes(self, candidates: list[str]) -> list[str]:
         """
         Applies enabled post-passes while preserving original input candidates.
         """
-        output_set: Set[str] = set(candidates)
+        output_set: set[str] = set(candidates)
 
         for candidate in candidates:
             if "phonetic_spell" in self.enabled_passes:
