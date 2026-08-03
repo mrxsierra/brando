@@ -28,7 +28,7 @@ This document is the active master task checklist tracking the implementation of
 ### **1.2 3-Layer Generation Engine (`brando/core/`)**
 - [x] Implement Layer 1 Core Phoneme Generator (`brando/core/phoneme_engine.py`) supporting Mode A Neoclassical & Mode B Blend synthesis + `tests/unit/test_phoneme_engine.py`
 - [x] Implement Layer 2 Vocabulary Enrichment Engine (`brando/core/enrichment_engine.py`) handling all 8 strategies + `tests/unit/test_enrichment_engine.py`
-- [ ] Implement Layer 2a Orthographic Post-Pass Engine (`brando/core/post_pass_engine.py`) handling Phonetic Spell, Letter Substitution, and Alphanumeric transforms + `tests/unit/test_post_pass_engine.py`
+- [x] Implement Layer 2a Orthographic Post-Pass Engine (`brando/core/post_pass_engine.py`) handling Phonetic Spell, Letter Substitution, and Alphanumeric transforms + `tests/unit/test_post_pass_engine.py`
 
 ### **1.3 5 Technical Feature Modules (`brando/modules/`)**
 - [ ] **Module 6A**: Visual Geometry & Bouma Silhouette Calculator (`brando/modules/visual.py`) + `tests/unit/test_visual_module.py`
