@@ -36,15 +36,21 @@ We use modern, fast, and lightweight tooling for python development:
 
 ## 2. Branch & Git Commit Strategy
 
-### A. Branching Model (Trunk-Based Development)
-For rapid pairing and high velocity in this MVP stage, we will follow **Trunk-Based Development**:
-*   All developers work on short-lived branches or commit directly to the `main` branch for small tasks.
-*   **Main Branch Name:** Must strictly be `main` (both locally and on `origin`).
+### A. Strict Branch Isolation Protocol
+To ensure high code quality, automated CI testing, and zero broken builds, Brando enforces a **Strict Branch Isolation Protocol**:
 
-### B. Commit After Every Completed Task
-To maintain a clean and reviewable history:
-*   Make a Git commit immediately after checking off a task in `task.md`.
-*   Never bunch multiple independent features into a single massive commit.
+*   **`main` Branch (Production Stable — LOCKED)**:
+    - 🔒 **NO DIRECT COMMITS PERMITTED**. Contains 100% production-ready, verified code. Tagged releases (`v1.0.0`) publish directly from `main`.
+*   **`dev` Branch (Active Integration — LOCKED)**:
+    - 🔒 **NO DIRECT COMMITS PERMITTED**. Integration branch where feature PRs and AI agent PRs merge after passing CI unit and scenario tests.
+*   **`feature/<name>` Branches (Human Contributor Work)**:
+    - 🛠️ Dedicated topic branches for human contributor feature development (e.g. `feature/zodiac-module`).
+*   **`agent/<task-name>` Branches (AI LLM Agent Work)**:
+    - 🛠️ Dedicated topic branches for AI Agent pair-programming tasks (e.g. `agent/phase1-core-engine`, `agent/mcp-tool-registry`).
+
+### B. Side-by-Side Test-Driven Micro-Commit Mandate
+*   **No Feature Without Tests**: Every feature file or module implementation MUST be committed together with its corresponding unit/integration test in `tests/`.
+*   **Atomic Commits**: Make a Git commit immediately after completing a single task step. Never bunch multiple independent features into a single massive commit.
 
 ### C. Commit Message Convention & Automated Changelog (Conventional Commits)
 All commit messages must follow the Conventional Commits specification. This is critical because our automated changelog script ([scripts/generate_changelog.py](file:///home/sunil/Dev/Brando/scripts/generate_changelog.py)) and GitHub Action (.github/workflows/changelog.yml) parse these prefix categories to generate the release history in [CHANGELOG.md](file:///home/sunil/Dev/Brando/CHANGELOG.md) automatically.
