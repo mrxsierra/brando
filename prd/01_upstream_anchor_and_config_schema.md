@@ -21,22 +21,23 @@
 
 ## **2. Architectural Progression & Codebase Roadmap**
 
-The product follows a clear **5-Phase Open-Source Architectural Progression** focused on delivering a production-grade Python library, developer CLI, Web Portal, and AI Agent MCP server:
+The product follows a clear **5-Phase Pre-Release Progression** transitioning from baseline experimentation to public production launch:
 
 ```mermaid
 graph TD
-    A["Phase 0: v0.x.x Era (MVP Prototype - Current Codebase)"] -->|Architectural Overhaul| B["Phase 1: v1.0.0 Era (Core Package, SDK & Click CLI)"]
-    B -->|Portal & Brand Science| C["Phase 2: v1.1.0 Era (Web Portal, WASM Playground & Docs)"]
-    C -->|AI Agent Integration| D["Phase 3: v1.2.0 Era (Native 8-Tool MCP AI Server)"]
-    D -->|Ecosystem Expansion| E["Phase 4: v1.3.0+ Era (Community Plugins & Ecosystem)"]
+    A["Phase 0: v0.1.0 (MVP Prototype Baseline)"] -->|Architectural Overhaul| B["Phase 1: v0.2.0 (Core Package, SDK & Click CLI)"]
+    B -->|Portal & Brand Science| C["Phase 2: v0.3.0 (Web Portal, WASM Playground & Docs)"]
+    C -->|AI Agent Integration| D["Phase 3: v0.4.0 (Native 8-Tool MCP AI Server)"]
+    D -->|Ecosystem Expansion| E["Phase 4: v0.5.0 (Community Plugins & Ecosystem)"]
+    E -->|Final Production Launch Tag| F["Public Launch: v1.0.0 (Production Stable Tag on main)"]
     
-    subgraph "Phase 0: Prototype MVP (v0.x.x)"
+    subgraph "Phase 0: Baseline (v0.1.0)"
         A1["Experimental Phoneme Engine"]
         A2["Basic Flat Files & Monolithic CLI"]
         A3["Initial Concept Viability Proof"]
     end
     
-    subgraph "Phase 1: Package & CLI Core (v1.0.0)"
+    subgraph "Phase 1: Package & CLI Core (v0.2.0)"
         B1["3-Layer Engine & 11 Strategies"]
         B2["Python SDK (import brando)"]
         B3["Click CLI Suite (init, build, filter)"]
@@ -44,53 +45,54 @@ graph TD
         B5["Lazy Gzip Data Architecture"]
     end
     
-    subgraph "Phase 2: Web Portal & Docs (v1.1.0)"
+    subgraph "Phase 2: Web Portal & Docs (v0.3.0)"
         C1["MkDocs Material + mike Multi-Version"]
         C2["Harvey.ai/NYT Design Language"]
         C3["Brand Science Playbooks & SEO"]
         C4["WASM Client-Side Pyodide Playground"]
     end
     
-    subgraph "Phase 3: Native MCP Server (v1.2.0)"
+    subgraph "Phase 3: Native MCP Server (v0.4.0)"
         D1["brando/mcp/ stdio & SSE Daemon"]
         D2["8 JSON-RPC Tool Registry"]
         D3["Cursor, Claude & Antigravity Setup"]
     end
     
-    subgraph "Phase 4: Community Ecosystem (v1.3.0+)"
+    subgraph "Phase 4: Ecosystem & Launch (v0.5.0 -> v1.0.0)"
         E1["Custom Strategy Plugin Engine"]
         E2["Custom Word-Bank Loaders"]
-        E3["Automated PyPI Releases & Sponsors"]
+        E3["Automated PyPI Release & v1.0.0 Tag"]
     end
 ```
 
 ### **Progression Milestones**:
 
-#### **2A. Phase 0: MVP Prototype Core (Current Codebase State — `v0.x.x`)**
+#### **2A. Phase 0: MVP Prototype Core Baseline (`v0.1.0`)**
 *   **Proof-of-Concept Baseline**: The initial prototype documented in legacy `docs/PRD.md`.
 *   **Experimental Synthesis**: Tested basic phoneme combinations, initial sound symbolism scoring, and flat CSV file outputs (`brand_candidates.csv`).
 *   **Validation Goal**: Validated core product viability and demonstrated market demand for computational naming logic.
 
-#### **2B. Phase 1: Core Package, SDK & CLI Stabilization (`v1.0.0` Milestone)**
+#### **2B. Phase 1: Core Package, SDK & CLI Stabilization (`v0.2.0` Milestone)**
 *   **Master PRD v2 Realignment**: The primary architectural focus of `prdv2.md`.
 *   **Python SDK Library (`import brando`)**: Object-oriented API exposing `brando.Config`, `brando.Pipeline`, `brando.Database`, and Section 6 feature modules (`brando.modules.*`).
 *   **Click CLI Command Suite**: Production terminal commands (`brando init`, `brando build`, `brando filter`, `brando verify`, `brando check-socials`, `brando export`, `brando prune`).
 *   **3-Layer Engine & 11 Strategies**: Combines Layer 1 phoneme core synthesis with Layer 2 vocabulary enrichment and Layer 2a orthographic post-passes.
 *   **5 Technical Feature Modules & Lazy Data**: Implements visual Bouma silhouettes (6A), sound symbolism (6B), esoteric numerology/Nakshatras (6C), Nice Class mapping (6D), and sub-35ms RapidFuzz SIMD security checks (6E) backed by lazy gzipped vocabulary assets (`.json.gz`).
 
-#### **2C. Phase 2: Web Portal, Brand Science Playbooks & WASM Playground (`v1.1.0` Milestone)**
+#### **2C. Phase 2: Web Portal, Brand Science Playbooks & WASM Playground (`v0.3.0` Milestone)**
 *   **Official Web Portal Deployment**: Publishes documentation site on GitHub Pages using MkDocs Material + `mike` multi-version engine.
 *   **Harvey.ai / OpenAI / NYT Design System**: High-contrast Editorial Serif headers + obsidian dark glassmorphic UI.
 *   **Brand Science Playbooks**: High-ranking SEO playbooks for Sound Symbolism, Bouma Silhouettes, 108 Nakshatra Padas, and Typosquatting protection.
 *   **WASM Client-Side Playground**: Pyodide web demo allowing users to build `config.yaml` live in the browser without installing Python locally.
 
-#### **2D. Phase 3: Native MCP AI Agent Integration (`v1.2.0` Milestone)**
+#### **2D. Phase 3: Native MCP AI Agent Integration (`v0.4.0` Milestone)**
 *   **Native MCP Server (`brando/mcp/`)**: Implements Model Context Protocol (MCP) exposing an 8-tool JSON-RPC registry (3 High-Level Workflows + 5 Atomic Engine Tools) for AI LLM Agents (Cursor, Claude Desktop, Gemini Antigravity Agent).
 *   **Agent Setup Templates**: Includes 1-click configuration blocks for Cursor `.cursor/mcp.json` and Claude Desktop `claude_desktop_config.json`.
 
-#### **2E. Phase 4: Community Strategy Plugin Engine & Open-Source Ecosystem (`v1.3.0+` Lineage)**
+#### **2E. Phase 4: Community Strategy Plugins & Public Launch (`v0.5.0` $\rightarrow$ `v1.0.0` Stable Tag)**
 *   **Custom Strategy Plugin Engine**: Extends `enrichment.custom_rules`, `custom_substitution_map`, and `custom_word_bank_path` to support user-authored naming plugins.
 *   **Automated Release & Sponsorships**: Automated PyPI wheel publishing via OIDC and GitHub Sponsors wall (`SPONSORS.md`).
+*   **Final Stable Launch Tag**: Official `v1.0.0` stable production tag published on `main` once all 4 development phases pass 100% test suite and performance benchmarks!
 
 > [!NOTE]
 > **Commercial SaaS Scope Isolation**: Any future commercial cloud hosting platform, multi-tenant SaaS service, or managed REST API operates under a **separate private repository scope**. This open-source repository remains 100% dedicated to open-source package, SDK, CLI, and MCP community excellence.
