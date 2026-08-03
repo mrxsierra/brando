@@ -31,7 +31,7 @@ This document is the active master task checklist tracking the implementation of
 - [x] Implement Layer 2a Orthographic Post-Pass Engine (`brando/core/post_pass_engine.py`) handling Phonetic Spell, Letter Substitution, and Alphanumeric transforms + `tests/unit/test_post_pass_engine.py`
 
 ### **1.3 5 Technical Feature Modules (`brando/modules/`)**
-- [ ] **Module 6A**: Visual Geometry & Bouma Silhouette Calculator (`brando/modules/visual.py`) + `tests/unit/test_visual_module.py`
+- [x] **Module 6A**: Visual Geometry & Bouma Silhouette Calculator (`brando/modules/visual.py`) + `tests/unit/test_visual_module.py`
 - [ ] **Module 6B**: Sound Symbolism & Euphony Scorer (`brando/modules/phonetic.py`) + `tests/unit/test_phonetic_module.py`
 - [ ] **Module 6C**: Esoteric Numerology & Astrology Engine (`brando/modules/esoteric.py`) + `tests/unit/test_esoteric_module.py`
 - [ ] **Module 6D**: Trademark & Legal Vetting Engine (`brando/modules/trademark.py`) + `tests/unit/test_trademark_module.py`
