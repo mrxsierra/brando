@@ -50,8 +50,8 @@ This document is the active master task checklist tracking the implementation of
 - [x] Implement `brando export` and `brando prune` commands for workspace maintenance + `tests/unit/test_cli.py`
 
 ### **1.6 Object-Oriented Python SDK (`brando/pipeline.py`, `brando/database.py`)**
-- [ ] Implement `brando.Pipeline` object to execute synthesis and enrichment programmatically
-- [ ] Implement `brando.Database` adapter handling DuckDB / SQLite / CSV filtering + `tests/pipeline_integration/test_sdk_pipeline.py`
+- [x] Implement `brando.Pipeline` object to execute synthesis and enrichment programmatically
+- [x] Implement `brando.Database` adapter handling DuckDB / SQLite / CSV filtering + `tests/unit/test_sdk.py`
 
 ### **1.7 Phase 1 Verification & Testing**
 - [ ] Validate 5-Tier Test Hierarchy (`tests/unit/`, `tests/module_scenarios/`, `tests/pipeline_integration/`, `tests/edge_cases_and_security/`, `tests/performance_benchmarks/`)
