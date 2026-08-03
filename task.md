@@ -54,8 +54,8 @@ This document is the active master task checklist tracking the implementation of
 - [x] Implement `brando.Database` adapter handling DuckDB / SQLite / CSV filtering + `tests/unit/test_sdk.py`
 
 ### **1.7 Phase 1 Verification & Testing**
-- [ ] Validate 5-Tier Test Hierarchy (`tests/unit/`, `tests/module_scenarios/`, `tests/pipeline_integration/`, `tests/edge_cases_and_security/`, `tests/performance_benchmarks/`)
-- [ ] Validate `<35ms` RapidFuzz security execution and `<10ms` lazy data decompression
+- [x] Validate 5-Tier Test Hierarchy (`tests/unit/`, `tests/module_scenarios/`, `tests/pipeline_integration/`, `tests/edge_cases_and_security/`, `tests/performance_benchmarks/`)
+- [x] Validate `<35ms` RapidFuzz security execution and `<10ms` lazy data decompression
 
 ---
 
