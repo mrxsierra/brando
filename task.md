@@ -42,12 +42,12 @@ This document is the active master task checklist tracking the implementation of
 - [x] Implement lazy data loader in `brando/data/loader.py` achieving `<10ms` startup decompression + `tests/unit/test_data_loader.py`
 
 ### **1.5 Click CLI Command Suite (`brando/cli/`)**
-- [ ] Implement `brando init` command with interactive configuration wizard
-- [ ] Implement `brando build` command supporting fast DNS checks and candidate generation limits
-- [ ] Implement `brando filter` command supporting non-destructive database column queries
-- [ ] Implement `brando verify` command generating USPTO, WIPO, and search clash URLs
-- [ ] Implement `brando check-socials` command supporting concurrent HTTP handle verification with progress bars
-- [ ] Implement `brando export` and `brando prune` commands for workspace maintenance + `tests/pipeline_integration/test_cli_suite.py`
+- [x] Implement `brando init` command with interactive configuration wizard
+- [x] Implement `brando build` command supporting fast DNS checks and candidate generation limits
+- [x] Implement `brando filter` command supporting non-destructive database column queries
+- [x] Implement `brando verify` command generating USPTO, WIPO, and search clash URLs
+- [x] Implement `brando check-socials` command supporting concurrent HTTP handle verification with progress bars
+- [x] Implement `brando export` and `brando prune` commands for workspace maintenance + `tests/unit/test_cli.py`
 
 ### **1.6 Object-Oriented Python SDK (`brando/pipeline.py`, `brando/database.py`)**
 - [ ] Implement `brando.Pipeline` object to execute synthesis and enrichment programmatically
