@@ -38,8 +38,8 @@ This document is the active master task checklist tracking the implementation of
 - [x] **Module 6E**: Security & Typosquatting Engine (`brando/modules/security.py`) implementing sub-35ms RapidFuzz SIMD & BK-Tree metric space search + `tests/unit/test_security_module.py`
 
 ### **1.4 Lazy Data Architecture (`brando/data/`)**
-- [ ] Compress vocabulary assets into `.json.gz` files (`latin_greek.json.gz`, `tech_roots.json.gz`, `sound_symbolism.json.gz`, `top_1000_brands.json.gz`)
-- [ ] Implement lazy data loader in `brando/data/loader.py` achieving `<10ms` startup decompression + `tests/unit/test_data_loader.py`
+- [x] Compress vocabulary assets into `.json.gz` files (`latin_greek.json.gz`, `tech_roots.json.gz`, `sound_symbolism.json.gz`, `top_1000_brands.json.gz`)
+- [x] Implement lazy data loader in `brando/data/loader.py` achieving `<10ms` startup decompression + `tests/unit/test_data_loader.py`
 
 ### **1.5 Click CLI Command Suite (`brando/cli/`)**
 - [ ] Implement `brando init` command with interactive configuration wizard
