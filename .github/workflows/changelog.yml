@@ -35,4 +35,4 @@ jobs:
           title: "docs(changelog): update CHANGELOG.md"
           body: "Automated changelog generation triggered by release tag."
           branch: "changelog-update"
-          base: "main"
+          base: "dev"
