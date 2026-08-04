@@ -1,0 +1,37 @@
+name: Publish PyPI Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  pypi-publish:
+    name: Build & Publish Wheel to PyPI
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Build Tools
+        run: |
+          pip install build twine wheel
+
+      - name: Build Source Distribution & Wheel
+        run: |
+          python -m build
+
+      - name: Publish Package to PyPI (OIDC / Token Fallback)
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
+        continue-on-error: false

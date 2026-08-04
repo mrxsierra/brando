@@ -1,0 +1,44 @@
+name: Deploy Versioned Documentation (GitHub Pages)
+
+on:
+  push:
+    branches: [ main, dev ]
+    tags:
+      - 'v*'
+
+jobs:
+  deploy-docs:
+    name: Deploy Multi-Version Docs via mike
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Code (Full History)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install MkDocs Material & mike
+        run: |
+          pip install mkdocs-material mike pymdown-extensions
+
+      - name: Configure Git User
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Deploy Versioned Docs via mike
+        run: |
+          if [[ $GITHUB_REF == refs/tags/* ]]; then
+            TAG_NAME=${GITHUB_REF#refs/tags/}
+            mike deploy --push --update-aliases $TAG_NAME latest
+          elif [[ $GITHUB_REF == refs/heads/main ]]; then
+            mike deploy --push latest
+          else
+            mike deploy --push dev
+          fi

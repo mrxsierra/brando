@@ -1,0 +1,28 @@
+name: Bug Report
+description: Create a report to help us improve Brando
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for taking the time to report an issue!
+  - type: input
+    id: environment
+    attributes:
+      label: Environment Info
+      description: Python version, Brando version, OS (e.g., Python 3.11, Brando v0.1.0, Linux)
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the Bug
+      description: A clear and concise description of what the bug is.
+    validations:
+      required: true
+  - type: textarea
+    id: traceback
+    attributes:
+      label: Error Traceback / Logs
+      description: Paste relevant CLI stderr output or Python error tracebacks here.
+    validations:
+      required: false
