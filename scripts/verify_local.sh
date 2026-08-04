@@ -18,6 +18,12 @@ uv run pip-audit || true
 echo "4. Executing Full 5-Tier Test Suite & SLAs (uv run pytest tests/)..."
 uv run pytest tests/
 
+echo "5. Testing Multi-Python Environments via uv (3.10, 3.11, 3.12, 3.13)..."
+for py in 3.10 3.11 3.12 3.13; do
+    echo "   -> Testing Python $py..."
+    uv run --isolated --with .[dev] --python $py pytest tests/unit/ -q
+done
+
 echo "=========================================="
 echo "✅ All local guardrails PASSED! Push allowed."
 echo "=========================================="
