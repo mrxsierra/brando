@@ -95,25 +95,22 @@ import brando
 # 1. Config Builder / Preset Resolver
 config = brando.Config(
     naming_context="company",
-    industry_context="fintech",   # Automatically loads Class 9/36/42 & .bank/.pay TLDs
-    enrichment={"strategies": ["portmanteau", "neoclassical"]}
+    industry_context="fintech",  # Automatically loads Class 9/36/42 & .bank/.pay TLDs
+    enrichment={"strategies": ["portmanteau", "neoclassical"]},
 )
 
 # 2. Pipeline Execution (Layer 1 Synthesis + Layer 2 Enrichment + Layer 2a Post-Passes)
 pool = brando.Pipeline.run(config)
 
 # 3. Direct Access to Technical Feature Modules (Section 6)
-visual_profile  = brando.modules.VisualSilhouetteEngine.analyze("Vancelink")
+visual_profile = brando.modules.VisualSilhouetteEngine.analyze("Vancelink")
 phonetic_profile = brando.modules.PhoneticSymbolismEngine.analyze("Vancelink")
 esoteric_profile = brando.modules.EsotericEngine.calculate("Vancelink")
-security_audit   = brando.modules.SecurityEngine.audit("Vancelink", industry="fintech")
+security_audit = brando.modules.SecurityEngine.audit("Vancelink", industry="fintech")
 
 # 4. Database Slicing & Query Filter
 shortlist = brando.Database.filter(
-    pool,
-    min_affinity_score=8.0,
-    max_phishing_risk=30,
-    cjk_friendly=True
+    pool, min_affinity_score=8.0, max_phishing_risk=30, cjk_friendly=True
 )
 ```
 
