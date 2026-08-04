@@ -1,0 +1,17 @@
+# Brando Pre-Commit Framework Configuration (.pre-commit-config.yaml)
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.3.0
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+
+  - repo: local
+    hooks:
+      - id: pytest-unit
+        name: pytest-unit-tests
+        entry: .venv/bin/pytest tests/unit/
+        language: system
+        pass_filenames: false
+        always_run: true
