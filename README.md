@@ -1,6 +1,9 @@
 # Brando
 
-[![Python Version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue)](https://www.python.org/)
+[![PR Fast Check](https://github.com/mrxsierra/brando/actions/workflows/pr_check.yml/badge.svg)](https://github.com/mrxsierra/brando/actions/workflows/pr_check.yml)
+[![Post-Merge Integration](https://github.com/mrxsierra/brando/actions/workflows/test.yml/badge.svg)](https://github.com/mrxsierra/brando/actions/workflows/test.yml)
+[![Security Audit](https://github.com/mrxsierra/brando/actions/workflows/security.yml/badge.svg)](https://github.com/mrxsierra/brando/actions/workflows/security.yml)
+[![Python Version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue)](https://www.python.org/)
 [![Lint & Format](https://img.shields.io/badge/code%20style-ruff-261230.svg)](https://github.com/astral-sh/ruff)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 

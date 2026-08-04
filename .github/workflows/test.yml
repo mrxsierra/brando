@@ -1,32 +1,45 @@
-name: Test Suite & Benchmarks
+name: Post-Merge Integration Suite & Benchmarks
 
 on:
   push:
     branches: [ main, dev ]
-  pull_request:
-    branches: [ main, dev ]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  test:
-    name: Run Unit, Scenario & Benchmark Tests
+  integration-test:
+    name: Full Matrix & Performance SLAs (${{ matrix.python-version }})
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         python-version: ["3.10", "3.11", "3.12", "3.13"]
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install dependencies & package
+      - name: Cache Pip Dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-python-${{ matrix.python-version }}-pip-${{ hashFiles('pyproject.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-python-${{ matrix.python-version }}-pip-
+
+      - name: Install Package & Dev Dependencies
         run: |
-          python -m pip install --upgrade pip
+          python -m pip install --upgrade pip setuptools wheel
           pip install -e .[dev] pytest-benchmark
 
-      - name: Execute Pytest Suite & Performance Checks
+      - name: Execute Full 5-Tier Test Suite & Performance Benchmarks
         run: |
           pytest --verbose tests/

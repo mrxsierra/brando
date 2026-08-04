@@ -1513,6 +1513,12 @@ Initial development of Brando relies on pair-programming with autonomous AI agen
     - 🛠️ Dedicated topic branches for AI Agent pair-programming tasks (e.g. `agent/phase1-core-engine`, `agent/mcp-tool-registry`).
 5.  **`fix/<bug-name>` Branches**: Hotfix branches for patch releases.
 
+#### **2-Tier Resource-Optimized CI/CD Architecture**:
+- **PR Fast Check (`pr_check.yml`)**: Lightweight single-runner (Python 3.11) PR validation executing `ruff check`, `ruff format --check`, `pip-audit`, and fast unit tests with dependency caching and concurrency cancellation.
+- **Post-Merge Integration Suite (`test.yml`)**: Multi-version Python matrix (`3.10`, `3.11`, `3.12`, `3.13`) executing full 5-tier test suite and performance SLA benchmarks on merge to `dev`/`main`.
+- **Security & Dependency Audit (`security.yml`)**: Weekly automated `pip-audit` & `bandit` vulnerability scanning.
+- **PyPI & Docs Release Pipelines**: PyPI releases published via OIDC (`publish.yml`); Multi-version docs deployed via MkDocs Material + `mike` (`deploy_docs.yml`).
+
 ---
 
 ### **14.3 Pre-Release Lineage & Semantic Release Mechanics**

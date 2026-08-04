@@ -70,8 +70,43 @@ If you make a breaking change, append a `!` after the type/scope (e.g., `feat!: 
 
 ---
 
+## 4. CI/CD Architecture & GitHub Branch Protection
 
-## 3. Testing Strategy: Incremental (Module-by-Module)
+### A. CI/CD Pipeline Overview
+Brando enforces an automated 2-tier CI/CD architecture to maximize quality while minimizing GitHub Actions resource usage:
+
+1. **PR Fast Check (`pr_check.yml`)**:
+   - Runs automatically on all Pull Requests targeting `dev` or `main`.
+   - Single Python 3.11 runner with dependency caching (`actions/cache`).
+   - Executes `ruff check .`, `ruff format --check .`, `pip-audit`, and `pytest tests/unit/`.
+   - Concurrency `cancel-in-progress` cancels stale runs on rapid pushes.
+2. **Post-Merge Full Integration (`test.yml`)**:
+   - Runs automatically on merge into `dev` or `main`.
+   - Matrix testing across Python `3.10`, `3.11`, `3.12`, `3.13`.
+   - Validates full 5-tier test suite and performance SLAs (<35ms SIMD, <10ms data decompression).
+3. **Security Audit (`security.yml`)**:
+   - Weekly automated `pip-audit` & `bandit` code security scan.
+4. **PyPI Release (`publish.yml`)**:
+   - Triggered on official GitHub Release publishing using PyPI OIDC Trusted Publisher.
+5. **Multi-Version Documentation (`deploy_docs.yml`)**:
+   - Deploys MkDocs Material + `mike` to `gh-pages` branch on `dev` merge and `v*` release tags.
+
+### B. Required GitHub Branch Protection Setup
+Maintainers must configure the following GitHub Repository Settings:
+- **Protected Branches**: `main` and `dev`
+- **Rules**:
+  - ✅ **Require a pull request before merging** (1+ required review for `dev`, 1+ required review for `main`).
+  - ✅ **Require status checks to pass before merging**:
+    - `Fast Quality Gate (Python 3.11)` (`pr-fast-check`)
+  - ✅ **Require linear history**.
+  - ❌ **Do not allow bypassing the above settings**.
+  - 🔒 **Major version bumps (`v1.0.0`, `v2.0.0`) MUST be manually executed by human maintainers.**
+*   **Test Runner:** We use `pytest` for running automated tests.
+    *   Command: `pytest` or `uv run pytest`
+
+---
+
+## 5. Testing Strategy: Incremental (Module-by-Module)
 We will follow **Incremental Testing (Test-After-Module)** rather than waiting until the end of the project:
 *   **Why?** Waiting until the end of all phases leads to hidden integration bugs, making debugging much harder. Testing function-by-function makes it extremely easy to pinpoint errors.
 *   **The Workflow:**
@@ -79,12 +114,10 @@ We will follow **Incremental Testing (Test-After-Module)** rather than waiting u
     2.  Immediately write its unit tests in `tests/test_esoteric.py`.
     3.  Verify the tests pass.
     4.  Commit both the module and the test together.
-*   **Test Runner:** We use `pytest` for running automated tests.
-    *   Command: `pytest` or `uv run pytest`
 
 ---
 
-## 4. Pull, Push, & CI/CD Strategy
+## 6. Pull, Push, & CI/CD Strategy
 For standard contributions and future deployment:
 *   **Pull Before Push:** Always run `git pull --rebase origin main` before pushing to avoid merge clashes.
 *   **Local Checks:** Run `pytest` locally before pushing to ensure `main` is never broken.
