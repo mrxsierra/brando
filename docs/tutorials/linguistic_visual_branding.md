@@ -41,17 +41,16 @@ config = {
         "min_letters": 4,
         "max_letters": 6,
         "max_syllables": 2,
-        
         # Heuristics:
         "allowed_chars": "^[a-zA-Z]+$",  # Regex restricting allowed characters
         "disallowed_chars": ["x", "y"],  # Exclude specific characters
-        "allow_numbers": False,          # Banish numbers
-        "min_vowels": 2,                 # Force vowel count
+        "allow_numbers": False,  # Banish numbers
+        "min_vowels": 2,  # Force vowel count
         "max_vowels": 3,
     },
     "alignment": {
         "preferred_initials": ["A", "B", "V"],
-    }
+    },
 }
 
 candidates = generate_candidates(config)

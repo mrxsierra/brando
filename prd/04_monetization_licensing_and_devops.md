@@ -420,7 +420,7 @@ To maintain enterprise developer trust, Brando implements a strict **Deprecation
         "calculate_chaldean_old() is deprecated as of v1.2.0 and will be removed in v2.0.0. "
         "Use brando.modules.EsotericEngine.calculate() instead.",
         DeprecationWarning,
-        stacklevel=2
+        stacklevel=2,
     )
     ```
 2.  **CLI Interface (`brando ...`)**: Prints formatted yellow warning banner to `stderr`:
