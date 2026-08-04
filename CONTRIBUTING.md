@@ -93,16 +93,29 @@ Brando enforces an automated 2-tier CI/CD architecture to maximize quality while
 5. **Multi-Version Documentation (`deploy_docs.yml`)**:
    - Deploys MkDocs Material + `mike` to `gh-pages` branch on `dev` merge and `v*` release tags.
 
-### B. Required GitHub Branch Protection Setup
-Maintainers must configure the following GitHub Repository Settings:
-- **Protected Branches**: `main` and `dev`
-- **Rules**:
-  - ✅ **Require a pull request before merging** (1+ required review for `dev`, 1+ required review for `main`).
-  - ✅ **Require status checks to pass before merging**:
-    - `Fast Quality Gate (Python 3.11)` (`pr-fast-check`)
-  - ✅ **Require linear history**.
-  - ❌ **Do not allow bypassing the above settings**.
-  - 🔒 **Major version bumps (`v1.0.0`, `v2.0.0`) MUST be manually executed by human maintainers.**
+### B. GitHub Repository Rulesets & Admin Bypass Strategy
+Brando uses modern **GitHub Repository Rulesets** (`Settings ⚙️ -> Rules -> Rulesets`) instead of classic branch rules:
+
+#### **Ruleset A: Protect `main` (Production Release)**
+1. **Target Branch**: Include pattern `main`
+2. **Bypass List**: Add `Repository Admin` set to **Always bypass** (enables seamless AI pair-programming & owner integration while blocking external contributors).
+3. **Branch Rules**:
+   - ✅ **Require a pull request before merging** (1 required approval).
+   - ✅ **Require status checks to pass before merging**:
+     - `Fast Quality Gate (Python 3.11)` (`pr-fast-check`)
+     - `Full Matrix & Performance SLAs (3.11)` (`integration-test`)
+   - ✅ **Require linear history**.
+
+#### **Ruleset B: Protect `dev` (Active Integration)**
+1. **Target Branch**: Include pattern `dev`
+2. **Bypass List**: Add `Repository Admin` set to **Always bypass**.
+3. **Branch Rules**:
+   - ✅ **Require a pull request before merging** (1 required approval).
+   - ✅ **Require status checks to pass before merging**:
+     - `Fast Quality Gate (Python 3.11)` (`pr-fast-check`)
+   - ✅ **Require linear history**.
+
+🔒 **Major Version Bumps (`v1.0.0`, `v2.0.0`) MUST be manually executed by human maintainers.**
 *   **Test Runner:** We use `pytest` for running automated tests.
     *   Command: `pytest` or `uv run pytest`
 
