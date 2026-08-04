@@ -49,10 +49,12 @@ To ensure high code quality, automated CI testing, and zero broken builds, Brand
     - 🛠️ Dedicated topic branches for AI Agent pair-programming tasks (e.g. `agent/phase1-core-engine`, `agent/mcp-tool-registry`).
 
 ### B. Side-by-Side Test-Driven Micro-Commit Mandate
-*   **Mandatory Pre-Commit Verification Pipeline**: Before making ANY commit, the following three checks MUST pass with 0 errors:
-    1. `ruff check --fix .` (Code linting & import sorting)
-    2. `ruff format .` (Code formatting)
-    3. `pytest` (Unit and scenario test suite)
+*   **Mandatory Local Pre-Push Guardrail Pipeline**: Before pushing ANY commit to GitHub, [scripts/verify_local.sh](file:///home/sunil/Dev/Brando/scripts/verify_local.sh) runs automatically via `.git/hooks/pre-push` to enforce 5 quality & security standards in ~1.9s:
+    1. `uv run ruff check .` (Linter & import sorting check)
+    2. `uv run ruff format --check .` (Formatting standard check)
+    3. `uv run pip-audit` (Dependency vulnerability scan)
+    4. `uv run pytest tests/` (Full 5-tier test suite & SLAs in 0.40s)
+    5. `uv run --isolated --python <ver>` (Multi-Python 3.10, 3.11, 3.12, 3.13 matrix testing)
 *   **No Feature Without Tests**: Every feature file or module implementation MUST be committed together with its corresponding unit/integration test in `tests/`.
 *   **Atomic Commits**: Make a Git commit immediately after completing a single task step. Never bunch multiple independent features into a single massive commit.
 
