@@ -4,6 +4,7 @@ Unit Tests for Click CLI Command Suite (brando/cli/main.py)
 
 from click.testing import CliRunner
 
+from brando import __version__
 from brando.cli.main import main
 
 
@@ -12,7 +13,7 @@ def test_cli_version_flag():
     runner = CliRunner()
     result = runner.invoke(main, ["--version"])
     assert result.exit_code == 0
-    assert "Brando v0.2.0" in result.output
+    assert f"Brando v{__version__}" in result.output
 
 
 def test_cli_init_command(tmp_path):

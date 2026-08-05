@@ -7,7 +7,7 @@ import brando
 
 def test_import_brando_sdk_exports():
     """Verify top-level import brando exports Pipeline, Config, Database, and __version__."""
-    assert brando.__version__ == "0.2.0"
+    assert brando.__version__ == "0.3.0"
     assert brando.Pipeline is not None
     assert brando.Config is not None
     assert brando.Database is not None

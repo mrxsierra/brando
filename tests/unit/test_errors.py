@@ -15,7 +15,7 @@ from brando import (
 
 def test_version_string():
     """Verify single source of truth version definition."""
-    assert __version__ == "0.2.0"
+    assert __version__ == "0.3.0"
 
 
 def test_base_brando_error():
