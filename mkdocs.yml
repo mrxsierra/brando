@@ -1,0 +1,55 @@
+site_name: brando.
+site_description: Systematic Brand Creation & Research Framework
+site_url: https://mrxsierra.github.io/brando/
+repo_name: mrxsierra/brando
+repo_url: https://github.com/mrxsierra/brando
+
+theme:
+  name: material
+  custom_dir: docs/overrides
+  logo: assets/logo-navbar.svg
+  favicon: assets/favicon.svg
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: slate
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: slate
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+extra_css:
+  - overrides/extra.css
+
+nav:
+  - Home: index.md
+  - Quickstart: quickstart.md
+  - Brand Identity Spec: branding/brand_identity_spec.md
+  - Brand Science Playbooks:
+    - Sound Symbolism Matrix: concept_playbooks/sound_symbolism_matrix.md
+    - Visual Bouma Geometry: concept_playbooks/visual_geometry_bouma.md
+    - Esoteric Numerology & 108 Padas: concept_playbooks/esoteric_numerology_astrology.md
+  - WASM Playground: playground.md
+  - Architecture & PRD: PRD.md
+  - Changelog: CHANGELOG.md
+
+plugins:
+  - search
+  - mike:
+      alias_type: copy

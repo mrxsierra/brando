@@ -7,7 +7,7 @@ This document is the active master task checklist tracking the implementation of
 ### 📌 **Version Release Lineage & Development Mandate**
 - **Baseline (`v0.1.0`)**: Phase 0 MVP prototype baseline.
 - **Phase 1 (`v0.2.0`)**: Core Package (`import brando`), SDK, Click CLI suite, 3-layer engine, 5 modules, lazy gzip dictionaries.
-- **Phase 2 (`v0.3.0`)**: Web Portal on GitHub Pages via MkDocs Material + `mike`, Harvey.ai/NYT design language, Brand Science playbooks, Pyodide WASM playground.
+- **Phase 2 (`v0.3.0`)**: Web Portal on GitHub Pages via MkDocs Material + `mike`, Harvey.ai/NYT design language, Brand Science playbooks, Pyodide WASM playground, package modernization (`pyproject.toml`, PyPI OIDC, Fair-Source license alignment).
 - **Phase 3 (`v0.4.0`)**: Native 8-Tool MCP Server daemon (`brando/mcp/`) for Cursor, Claude Desktop, Antigravity Agent.
 - **Phase 4 (`v0.5.0`)**: Community Strategy Plugins, custom word-bank loaders, PyPI Trusted Publishing OIDC release, GitHub Sponsors wall.
 - **Final Stable Launch Tag (`v1.0.0`)**: Public production release tagged on `main` after all 4 development phases pass end-to-end verification!
@@ -61,15 +61,32 @@ This document is the active master task checklist tracking the implementation of
 
 ## **Phase 2: Official Web Portal, Brand Science Playbooks & WASM Playground (`v0.3.0` Milestone)**
 
-- [ ] Set up MkDocs Material documentation site structure in `docs/`
-- [ ] Configure `mike` multi-version plugin for GitHub Pages deployment (`.github/workflows/deploy_docs.yml`)
-- [ ] Apply Harvey.ai / OpenAI / NYT editorial design system (Obsidian Dark `#0A0A0C`, Soft Warm Cream `#F5F4F0`, Champagne Gold `#D4AF37`)
-- [ ] Publish Brand Science Playbooks under `docs/concept_playbooks/`:
-  - [ ] Sound Symbolism & Industry Perception (`sound_symbolism_matrix.md`)
-  - [ ] Bouma Silhouette Geometry (`visual_geometry_bouma.md`)
-  - [ ] Esoteric Numerology & 108 Nakshatra Padas (`esoteric_numerology_astrology.md`)
-  - [ ] Typosquatting & Package Security (`security_phishing_recipe.md`)
-- [ ] Implement WASM Pyodide client-side interactive playground on `https://brando.dev/playground`
+### **2.1 Brand Identity & Vector Assets System (via `brand-identity-design-engineering` Skill)**
+- [x] Consolidate research specs `assets/brando-assets.md` and `assets/site-dp.md` into official documentation at `docs/branding/brand_identity_spec.md`
+- [x] Reorganize root `assets/` directory for repository branding assets and fix filename typo (`brnado-monogram.svg` $\rightarrow$ `brando-monogram.svg`)
+- [x] Hand-code auto-adaptive dual-theme SVG banner (`assets/brando-banner-adaptive.svg`) using `@media (prefers-color-scheme)` for seamless GitHub README Light/Dark mode toggling
+- [x] Refine and export production asset suite: Open Graph card (`assets/brando-og-card.svg`), PyPI package logo (`assets/brando-pypi-icon.svg`), navbar logo (`docs/assets/logo-navbar.svg`), and favicon (`docs/assets/favicon.ico`)
+
+### **2.2 Package Modernization, Community Governance & Fair-Source Licensing (via `python-packaging` Skill)**
+- [x] Utilize `python-packaging` skill to modernize `pyproject.toml` to full PEP 621 metadata standard (explicit dependency pins, `keywords`, Trove `classifiers`, `[project.urls]` for `Homepage`, `Documentation`, `Source`, `Changelog`, and `Issues`)
+- [x] Re-architect `README.md` layout (Poplar OSS style): Top badge bar (PyPI, CI, Docs, License, Python), Quick links bar, prominent `pip install brando` & `uv` development setup, and accurate CLI + programmatic SDK quickstart snippets (`brando.pipeline.Pipeline`, `brando.esoteric`)
+- [x] Add open-source community governance files: `CODE_OF_CONDUCT.md` (Contributor Covenant v2.1) and `SECURITY.md` (vulnerability disclosure policy)
+- [x] Align `README.md` and repository license declarations with PRD Section 12 Dual-Licensing / Commercial Usage Policy (Fair-Source Open-Core: 100% free non-commercial / developer usage vs Commercial Enterprise License requirement for SaaS & commercial monetization)
+- [x] Configure GitHub Actions PyPI release workflow (`.github/workflows/publish.yml`) using PyPI OIDC Trusted Publishing (`permissions: id-token: write` + `pypa/gh-action-pypi-publish@release/v1`) listening to both `push: tags: ['v*']` and `release: types: [published]` per repository rules
+
+### **2.3 Web Portal, Design System & Documentation Site Scaffolding (via `mkdocs-material-docs` Skill)**
+- [x] Set up MkDocs Material documentation site structure in `docs/` with custom overrides in `docs/overrides/`
+- [x] Configure `mike` multi-version plugin for GitHub Pages deployment (`.github/workflows/deploy_docs.yml`)
+- [x] Apply Harvey.ai / OpenAI / NYT editorial design system (Obsidian Dark `#0A0A0C`, Soft Warm Cream `#F5F4F0`, Champagne Gold `#D4AF37`, Slate Navy `#0F172A`, Execution Blue `#2563EB`) via `docs/overrides/extra.css` using exported design tokens and logos
+
+### **2.4 Brand Science Playbooks (`docs/concept_playbooks/`)**
+- [x] Sound Symbolism & Industry Perception (`sound_symbolism_matrix.md`)
+- [x] Bouma Silhouette Geometry (`visual_geometry_bouma.md`)
+- [x] Esoteric Numerology & 108 Nakshatra Padas (`esoteric_numerology_astrology.md`)
+- [x] Typosquatting & Package Security (`security_phishing_recipe.md`)
+
+### **2.5 Interactive WASM Playground**
+- [x] Implement WASM Pyodide client-side interactive playground on `https://brando.dev/playground`
 
 ---
 

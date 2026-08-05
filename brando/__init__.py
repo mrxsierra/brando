@@ -4,7 +4,7 @@ Computational brand naming engine powered by phoneme synthesis, sound symbolism,
 esoteric alignments, trademark vetting, and native MCP AI agent integration.
 """
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 __author__ = "Brando Open-Source Contributors"
 
 from brando.config.loader import Config

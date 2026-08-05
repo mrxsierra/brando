@@ -1,0 +1,46 @@
+:root {
+  /* Harvey.ai / NYT / Slate Navy Brand Tokens */
+  --md-primary-fg-color:        #0F172A;
+  --md-primary-fg-color--light:  #1E293B;
+  --md-primary-fg-color--dark:   #090D16;
+  --md-accent-fg-color:         #2563EB;
+  --md-default-bg-color:         #F8FAFC;
+  --md-code-bg-color:            #FFFFFF;
+  
+  /* Typography Tokens */
+  --md-text-font: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+  --md-code-font: 'SF Mono', 'Fira Code', 'Roboto Mono', monospace;
+}
+
+/* Dark Mode Tokens */
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color:        #090D16;
+  --md-accent-fg-color:         #3B82F6;
+  --md-default-bg-color:         #090D16;
+  --md-code-bg-color:            #1E293B;
+}
+
+/* Header & Typography Styling */
+.md-header {
+  border-bottom: 2px solid var(--md-accent-fg-color);
+}
+
+h1 {
+  font-weight: 900 !important;
+  letter-spacing: -1.5px !important;
+  color: var(--md-primary-fg-color);
+}
+
+h2 {
+  font-weight: 700 !important;
+  letter-spacing: -0.5px !important;
+  border-bottom: 1px solid #E2E8F0;
+  padding-bottom: 8px;
+}
+
+/* Admonitions / Callouts */
+.md-typeset .admonition {
+  border-radius: 8px;
+  border-left-width: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}

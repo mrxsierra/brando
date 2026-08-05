@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <!-- Outer Container -->
+  <rect width="512" height="512" rx="96" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="8"/>
+  
+  <!-- Centered b. Monogram -->
+  <text x="125" y="355" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Helvetica Neue', sans-serif" font-size="320" font-weight="900" fill="#0F172A">b<tspan fill="#2563EB">.</tspan></text>
+</svg>
