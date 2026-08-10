@@ -9,6 +9,13 @@ repos:
 
   - repo: local
     hooks:
+      - id: docs-lint
+        name: docs-markdown-and-mkdocs-strict-lint
+        entry: uv run python scripts/lint_docs.py
+        language: system
+        pass_filenames: false
+        always_run: true
+
       - id: pytest-unit
         name: pytest-unit-tests
         entry: .venv/bin/pytest tests/unit/

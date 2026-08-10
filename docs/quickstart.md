@@ -4,7 +4,7 @@ Get up and running with **`brando.`** in under 60 seconds.
 
 ---
 
-## 1. Installation
+## Installation
 
 Install via `pip` or `uv`:
 
@@ -18,25 +18,25 @@ uv add brando
 
 ---
 
-## 2. CLI Walkthrough
+## CLI Walkthrough
 
 ```bash
-# 1. Initialize custom wizard
+# Initialize custom wizard
 brando init
 
-# 2. Synthesize candidates
+# Synthesize candidates
 brando build --count 50 --output candidates.csv
 
-# 3. Filter by euphony score and length
+# Filter by euphony score and length
 brando filter --min-score 75 --max-length 7
 
-# 4. Generate USPTO / WIPO search URLs
+# Generate USPTO / WIPO search URLs
 brando verify --input candidates.csv
 ```
 
 ---
 
-## 3. Python SDK Integration
+## Python SDK Integration
 
 ```python
 import brando

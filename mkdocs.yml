@@ -1,55 +1,127 @@
 site_name: brando.
-site_description: Systematic Brand Creation & Research Framework
+site_description: Systematic Brand Creation & Naming Intelligence Framework
 site_url: https://mrxsierra.github.io/brando/
+copyright: "© 2026 Sunil Sharma (mrxsierra) • MIT & Fair-Source"
 repo_name: mrxsierra/brando
 repo_url: https://github.com/mrxsierra/brando
+edit_uri: edit/main/docs/
 
 theme:
   name: material
   custom_dir: docs/overrides
-  logo: assets/logo-navbar.svg
+  logo: assets/favicon.svg
   favicon: assets/favicon.svg
   features:
     - navigation.instant
     - navigation.tracking
-    - navigation.sections
-    - navigation.expand
+    - navigation.tabs
+    - navigation.prune
     - navigation.top
+    - navigation.path
     - search.suggest
     - search.highlight
+    - search.share
     - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - content.action.edit
+    - content.action.view
   palette:
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
-      primary: slate
-      accent: blue
+    - scheme: default
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
-      primary: slate
-      accent: blue
+    - scheme: slate
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
 
+extra:
+  announcement: >-
+    🚧 <strong>Notice:</strong> Documentation is currently being updated for active <strong>brando. v0.3.0</strong> development. Found a bug, typo, or want to contribute? <a href="https://github.com/mrxsierra/brando/issues" style="color: inherit; text-decoration: underline; font-weight: 600;">Report bugs, suggest changes &amp; submit feedback on GitHub ↗</a>
+  version:
+    provider: mike
+  social:
+    - icon: fontawesome/brands/github
+      name: GitHub Repository
+      link: https://github.com/mrxsierra/brando
+    - icon: fontawesome/brands/python
+      name: PyPI Package
+      link: https://pypi.org/project/brando/
+    - icon: fontawesome/brands/linkedin
+      name: Author LinkedIn
+      link: https://www.linkedin.com/in/sunilsharma97
+    - icon: fontawesome/solid/globe
+      name: Author Portfolio
+      link: https://mrxsierra.github.io/
+
 extra_css:
   - overrides/extra.css
 
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+  - javascripts/extra.js
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - tables
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
 nav:
   - Home: index.md
-  - Quickstart: quickstart.md
-  - Brand Identity Spec: branding/brand_identity_spec.md
-  - Brand Science Playbooks:
-    - Sound Symbolism Matrix: concept_playbooks/sound_symbolism_matrix.md
-    - Visual Bouma Geometry: concept_playbooks/visual_geometry_bouma.md
-    - Esoteric Numerology & 108 Padas: concept_playbooks/esoteric_numerology_astrology.md
-  - WASM Playground: playground.md
-  - Architecture & PRD: PRD.md
-  - Changelog: CHANGELOG.md
+  - Get started:
+      - Installation: getting_started/installation.md
+      - CLI Quickstart: getting_started/quickstart_cli.md
+      - SDK Quickstart: getting_started/quickstart_sdk.md
+  - User guides:
+      - Declarative config.yaml Spec: user_guides/config_yaml_spec.md
+      - Python SDK Guide: user_guides/python_sdk_guide.md
+      - CLI vs SDK Cheatsheet: user_guides/cli_sdk_cheatsheet.md
+      - Troubleshooting & FAQ: user_guides/troubleshooting_and_faq.md
+      - Topic Tags Index: tags.md
+  - Brand science:
+      - Sound Symbolism Matrix: concept_playbooks/sound_symbolism_matrix.md
+      - Visual Bouma Geometry: concept_playbooks/visual_geometry_bouma.md
+      - Esoteric Numerology & Astrology: concept_playbooks/esoteric_numerology_astrology.md
+      - Package Security Vetting: concept_playbooks/security_phishing_recipe.md
+      - Brand Science Feature Matrix: concept_playbooks/comparison_matrix.md
+  - Tutorials:
+      - Linguistic & Visual Branding: tutorials/linguistic_visual_branding.md
+      - Numerology & Astrology Alignment: tutorials/numerology_astrology_alignment.md
+      - Startup Domain Naming Funnel: tutorials/startup_domain_funnel.md
+  - WASM playground: playground.md
+  - Project governance:
+      - Product Roadmap: about/roadmap.md
+      - Release Changelog: about/changelog.md
+      - Release & Versioning: contributor_guides/release_and_versioning.md
+      - Press Kit & Assets: about/press_kit.md
+      - Architecture Proposals: about/proposals.md
+  - Community:
+      - Codebase Architecture: contributor_guides/codebase_architecture.md
 
 plugins:
   - search
+  - tags
   - mike:
       alias_type: copy

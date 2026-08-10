@@ -4,7 +4,7 @@ Sound symbolism (phonesthemes) explores the subconscious perceptual associations
 
 ---
 
-## 1. Phonestheme Phoneme Mappings
+## Phonestheme Phoneme Mappings
 
 | Phoneme Group | Acoustic Example | Perceptual Association | Ideal Industries |
 | :--- | :--- | :--- | :--- |
@@ -16,8 +16,22 @@ Sound symbolism (phonesthemes) explores the subconscious perceptual associations
 
 ---
 
-## 2. Programmatic Euphony Scoring Formula
+## Programmatic Euphony Scoring Formula
 
-`brando` evaluates phonetic euphony using weighted harmonic resonance:
+`brando` evaluates phonetic euphony using weighted harmonic resonance across vowel harmony, plosive balance, and syllable rhythm:
 
-$$\text{Euphony Score} = 0.4 \cdot S_{\text{vowel\_harmony}} + 0.35 \cdot S_{\text{plosive\_balance}} + 0.25 \cdot S_{\text{syllable\_rhythm}}$$
+<div class="admonition info" style="font-family: var(--md-code-font); font-size: 0.95rem; text-align: center; padding: 14px; margin: 16px 0;">
+  <strong>Euphony Score</strong> = 0.40 × S<sub>vowel-harmony</sub> + 0.35 × S<sub>plosive-balance</sub> + 0.25 × S<sub>syllable-rhythm</sub>
+</div>
+
+---
+
+## Python SDK Usage
+
+```python
+from brando.modules.phonetic import score_euphony
+
+# Evaluate phonetic euphony for brand candidate
+score = score_euphony("Vanta")
+print(f"Euphony Score: {score:.2f}")
+```

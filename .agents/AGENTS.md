@@ -21,3 +21,10 @@ For repositories requiring branch protection on `main` and `dev`:
 ## 3. PyPI & Release Workflow Rule
 - **Tag Triggering**: Release workflows (`publish.yml`) MUST listen to both `push: tags: ['v*']` and `release: types: [published]`.
 - **PyPI OIDC Claims**: Ensure PyPI Trusted Publisher registration matches the repository owner (`mrxsierra`), repo name (`brando`), and workflow path (`publish.yml`).
+
+---
+
+## 4. MkDocs Material Documentation Design & Typography Rules
+When updating documentation markdown files or overriding Material for MkDocs CSS/HTML templates:
+- **Clean Heading Titles**: Never hardcode sequential numbers (e.g., `## 1. Installation`) into Markdown `#`, `##`, `###` headings. Enforce `.md-typeset h1..h6 { border-bottom: none !important; }` in `extra.css` to eliminate distracting line dividers.
+- **Unified Grid Alignment**: Maintain strict pixel alignment across structural containers (`.md-header__inner`, `.md-tabs__list`, `.md-main__inner`, `.md-footer__inner`, `.brando-footer-container`) by setting a shared `max-width` (e.g., `61.5rem`) and uniform horizontal padding.

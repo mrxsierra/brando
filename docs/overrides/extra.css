@@ -1,46 +1,660 @@
 :root {
-  /* Harvey.ai / NYT / Slate Navy Brand Tokens */
-  --md-primary-fg-color:        #0F172A;
-  --md-primary-fg-color--light:  #1E293B;
-  --md-primary-fg-color--dark:   #090D16;
-  --md-accent-fg-color:         #2563EB;
-  --md-default-bg-color:         #F8FAFC;
-  --md-code-bg-color:            #FFFFFF;
-  
-  /* Typography Tokens */
-  --md-text-font: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+  /* Light Mode Design System */
+  --md-primary-fg-color: #FFFFFF;
+  --md-primary-fg-color--light: #F8FAFC;
+  --md-primary-fg-color--dark: #F1F5F9;
+  --md-accent-fg-color: #2563EB;
+  --md-default-bg-color: #FFFFFF;
+  --md-default-fg-color: #0F172A;
+  --md-code-bg-color: #F8FAFC;
+  --md-code-fg-color: #0F172A;
+
+  /* Typography Stack */
+  --md-text-font: system-ui, -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
   --md-code-font: 'SF Mono', 'Fira Code', 'Roboto Mono', monospace;
 }
 
-/* Dark Mode Tokens */
+/* Dark Mode Design System - Official Brando Brand Spec Palette */
 [data-md-color-scheme="slate"] {
-  --md-primary-fg-color:        #090D16;
-  --md-accent-fg-color:         #3B82F6;
-  --md-default-bg-color:         #090D16;
-  --md-code-bg-color:            #1E293B;
+  --md-primary-fg-color: #090D16;
+  --md-primary-fg-color--light: #0F172A;
+  --md-primary-fg-color--dark: #04070D;
+  --md-accent-fg-color: #3B82F6;
+  --md-default-bg-color: #090D16;
+  --md-default-fg-color: #F8FAFC;
+  --md-code-bg-color: #1E293B;
+  --md-code-fg-color: #E2E8F0;
 }
 
-/* Header & Typography Styling */
+/* 0. Pixel-Perfect Harmonized Grid Alignment System (61.5rem) */
+.md-grid {
+  max-width: 61.5rem !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.md-header__inner {
+  max-width: 61.5rem !important;
+  margin: 0 auto !important;
+  padding: 0 1rem !important;
+}
+
+.md-tabs__list {
+  max-width: 61.5rem !important;
+  margin: 0 auto !important;
+  padding: 0 0.8rem !important;
+}
+
+.md-main__inner {
+  max-width: 61.5rem !important;
+  margin: 0 auto !important;
+}
+
+/* 1. Seamless Glassmorphism Header (.md-header) */
 .md-header {
-  border-bottom: 2px solid var(--md-accent-fg-color);
+  background-color: rgba(255, 255, 255, 0.88) !important;
+  color: #0F172A !important;
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border-bottom: none !important;
+  box-shadow: none !important;
+  /* font-size: 0.82rem !important; */
+}
+
+/* Header Monogram & Dynamic Page Title Sizing */
+.md-header__title {
+  display: flex !important;
+  align-items: center !important;
+  color: #0F172A !important;
+  font-weight: 600 !important;
+  /* font-size: 0.85rem !important; */
+}
+
+.md-header__title .md-ellipsis {
+  display: inline-block !important;
+  color: #0F172A !important;
+  font-size: 0.9rem !important;
+  font-weight: 600 !important;
+}
+
+.md-header__logo img,
+.md-header__logo svg {
+  height: 24px !important;
+  width: auto !important;
+  border-radius: 4px;
+}
+
+/* Compact High-Contrast Search Bar Sizing */
+.md-search,
+.md-search__form,
+.md-search__input {
+  border-radius: 8px !important;
+  font-size: 0.78rem !important;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.md-search__input {
+  background-color: #F1F5F9 !important;
+  color: #0F172A !important;
+  font-weight: 500 !important;
+  height: 34px !important;
+}
+
+.md-search__input:hover {
+  background-color: #E2E8F0 !important;
+}
+
+.md-search__input:focus {
+  background-color: #FFFFFF !important;
+  box-shadow: 0 0 0 2px #2563EB !important;
+}
+
+.md-search__input::placeholder {
+  color: #64748B !important;
+  opacity: 1 !important;
+}
+
+.md-search__icon {
+  color: #475569 !important;
+}
+
+/* Dark Mode Glass Header & Monogram Filter Invert */
+[data-md-color-scheme="slate"] .md-header {
+  background-color: rgba(9, 13, 22, 0.88) !important;
+  color: #F8FAFC !important;
+  border-bottom: none !important;
+}
+
+[data-md-color-scheme="slate"] .md-header__logo img,
+[data-md-color-scheme="slate"] .md-logo img {
+  filter: invert(1) hue-rotate(180deg) !important;
+  background-color: #FFFFFF !important;
+  border-radius: 4px !important;
+}
+
+[data-md-color-scheme="slate"] .md-header__title,
+[data-md-color-scheme="slate"] .md-header__topic,
+[data-md-color-scheme="slate"] .md-header__title .md-ellipsis,
+[data-md-color-scheme="slate"] .md-header__button {
+  color: #F8FAFC !important;
+}
+
+[data-md-color-scheme="slate"] .md-search__input {
+  background-color: rgba(30, 41, 59, 0.85) !important;
+  color: #F8FAFC !important;
+}
+
+[data-md-color-scheme="slate"] .md-search__input:hover {
+  background-color: rgba(51, 65, 85, 0.95) !important;
+}
+
+[data-md-color-scheme="slate"] .md-search__input:focus {
+  background-color: rgba(15, 23, 42, 0.98) !important;
+  box-shadow: 0 0 0 2px #3B82F6 !important;
+}
+
+[data-md-color-scheme="slate"] .md-search__input::placeholder {
+  color: #94A3B8 !important;
+}
+
+[data-md-color-scheme="slate"] .md-search__icon {
+  color: #CBD5E1 !important;
+}
+
+/* 2. Seamless Glassmorphism Top Navigation Tabs Bar (.md-tabs) - Sleek Font Sizing */
+.md-tabs {
+  background-color: rgba(255, 255, 255, 0.88) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid #EAEAEA;
+}
+
+.md-tabs__list {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.md-tabs__item {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 0.3rem !important;
+}
+
+.md-tabs__item--active {
+  color: #0F172A !important;
+  opacity: 1 !important;
+  border-bottom: 2px solid var(--md-default-fg-color) !important;
+}
+
+.md-tabs__link {
+  display: inline-flex !important;
+  /* align-items: center !important; */
+  justify-content: center !important;
+  color: #475569 !important;
+  font-weight: 500 !important;
+  font-size: 0.7rem !important;
+  /* Harmonized Top Nav Font Size */
+  letter-spacing: normal !important;
+  text-transform: none !important;
+  line-height: 1 !important;
+  opacity: 0.9 !important;
+  padding: 0 12px !important;
+  height: 38px !important;
+  /* Sleek Compact Height */
+}
+
+.md-tabs__link--active,
+.md-tabs__link:hover {
+  color: #0F172A !important;
+  opacity: 1 !important;
+  border-bottom: 2px solid #0F172A !important;
+}
+
+/* Dark Mode Glass Tabs */
+[data-md-color-scheme="slate"] .md-tabs {
+  background-color: rgba(9, 13, 22, 0.88) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+[data-md-color-scheme="slate"] .md-tabs__link {
+  color: #94A3B8 !important;
+}
+
+[data-md-color-scheme="slate"] .md-tabs__link--active,
+[data-md-color-scheme="slate"] .md-tabs__link:hover {
+  color: #F8FAFC !important;
+  border-bottom: 2px solid #3B82F6 !important;
+}
+
+/* 3. Typography & Headings - No Distracting Border Lines */
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4,
+.md-typeset h5,
+.md-typeset h6 {
+  border-bottom: none !important;
 }
 
 h1 {
-  font-weight: 900 !important;
-  letter-spacing: -1.5px !important;
-  color: var(--md-primary-fg-color);
+  font-weight: 800 !important;
+  /* font-size: 1.8rem !important; */
+  letter-spacing: -0.8px !important;
+  color: var(--md-default-fg-color) !important;
+  margin-top: 0.3em;
+  margin-bottom: 0.6em;
 }
 
 h2 {
   font-weight: 700 !important;
-  letter-spacing: -0.5px !important;
-  border-bottom: 1px solid #E2E8F0;
-  padding-bottom: 8px;
+  /* font-size: 1.5rem !important; */
+  letter-spacing: -0.4px !important;
+  color: var(--md-default-fg-color) !important;
+  border-bottom: none !important;
+  /* Removed Distracting Breakline */
+  padding-bottom: 0 !important;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
 }
 
-/* Admonitions / Callouts */
+h3 {
+  font-weight: 600 !important;
+  /* font-size: 1.1rem !important; */
+  color: var(--md-default-fg-color) !important;
+  border-bottom: none !important;
+}
+
+/* 4. Left & Right Sidebar Navigation Styling - Compact Font Sizes */
+.md-nav__title {
+  font-weight: 700 !important;
+  /* font-size: 0.1rem !important; */
+  letter-spacing: -0.2px;
+}
+
+.md-nav--primary label.md-nav__link {
+  display: none !important;
+}
+
+.md-nav__link {
+  font-size: 0.7rem !important;
+  /* Harmonized Sidebar Font Size */
+  padding: 0.1rem 1rem !important;
+  margin: 0.3rem 0rem !important;
+  border-radius: 6px !important;
+  transition: background-color 0.15s ease, color 0.15s ease !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.md-nav__link--active {
+  font-weight: 600 !important;
+  color: #2563EB !important;
+  background-color: rgba(37, 99, 235, 0.12) !important;
+  padding: 0.3rem 1rem !important;
+}
+
+[data-md-color-scheme="slate"] .md-nav__link--active {
+  color: #60A5FA !important;
+  background-color: rgba(59, 130, 246, 0.18) !important;
+}
+
+/* Right Table of Contents (TOC) Active Link */
+.md-nav--secondary .md-nav__link {
+  font-size: 0.7rem !important;
+  margin-left: -1rem !important;
+}
+
+.md-nav--secondary .md-nav__link--active {
+  background-color: transparent !important;
+  color: var(--md-accent-fg-color) !important;
+  font-weight: 600 !important;
+  border-left: 2px solid var(--md-accent-fg-color);
+  border-radius: 0 !important;
+}
+
+/* 5. Homepage CLI Wizard Card Code Highlight Contrast */
+.brando-suite-card code {
+  background: rgba(37, 99, 235, 0.1) !important;
+  color: #2563EB !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+  font-weight: 700 !important;
+  font-size: 0.8em !important;
+  font-family: var(--md-code-font) !important;
+}
+
+[data-md-color-scheme="slate"] .brando-suite-card code {
+  background: rgba(59, 130, 246, 0.2) !important;
+  color: #60A5FA !important;
+}
+
+/* 6. Clean Previous / Next Navigation Links - Compact Sizing & Grid Sync */
+.md-footer {
+  background-color: transparent !important;
+}
+
+.md-footer__inner {
+  max-width: 61.5rem !important;
+  margin: 0.6rem auto 0.2rem !important;
+  padding: 0.2rem 0.7rem !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.md-footer__link {
+  color: var(--md-default-fg-color) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px;
+  text-decoration: none !important;
+}
+
+.md-footer__link:hover {
+  color: var(--md-accent-fg-color) !important;
+}
+
+.md-footer__direction {
+  display: block !important;
+  color: var(--md-default-fg-color) !important;
+  opacity: 0.55;
+  font-size: 0.5rem !important;
+  /* Harmonized Direction Font Size */
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  margin-bottom: 1px;
+}
+
+.md-footer__title {
+  font-weight: 600 !important;
+  font-size: 0.8rem !important;
+  /* Harmonized Title Font Size */
+}
+
+/* 7. Footer Meta Bar - Compact Sizing & Grid Sync */
+.md-footer-meta {
+  background-color: #F8FAFC !important;
+  border-top: 1px solid #EAEAEA !important;
+  color: #475569 !important;
+  font-size: 0.6rem !important;
+  /* Harmonized Footer Font Size */
+}
+
+.md-footer .md-social__link,
+.md-social__link {
+  color: #0F172A !important;
+  fill: #0F172A !important;
+  opacity: 0.85 !important;
+  font-size: 0.85rem !important;
+  transition: color 0.15s ease, fill 0.15s ease, opacity 0.15s ease !important;
+}
+
+.md-footer .md-social__link:hover,
+.md-social__link:hover {
+  color: #2563EB !important;
+  fill: #2563EB !important;
+  opacity: 1 !important;
+}
+
+/* Dark Mode Footer Meta & Social Icons */
+[data-md-color-scheme="slate"] .md-footer-meta {
+  background-color: #04070D !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #94A3B8 !important;
+  font-size: 0.75rem !important;
+}
+
+[data-md-color-scheme="slate"] .md-footer .md-social__link,
+[data-md-color-scheme="slate"] .md-social__link {
+  color: #F8FAFC !important;
+  fill: #F8FAFC !important;
+  opacity: 0.85 !important;
+}
+
+[data-md-color-scheme="slate"] .md-footer .md-social__link:hover,
+[data-md-color-scheme="slate"] .md-social__link:hover {
+  color: #3B82F6 !important;
+  fill: #3B82F6 !important;
+  opacity: 1 !important;
+}
+
+.brando-footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  padding: 0.4rem 1.5rem !important;
+  max-width: 61.5rem !important;
+  margin: 0 auto;
+  font-size: 0.75rem !important;
+}
+
+@media screen and (max-width: 768px) {
+  .brando-footer-container {
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+/* 8. Admonitions & Callouts */
 .md-typeset .admonition {
   border-radius: 8px;
   border-left-width: 4px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.md-typeset hr {
+  border-bottom: 0 !important;
+  display: flow-root;
+  margin: 1.5em 0;
+}
+
+.md-top {
+  -webkit-backdrop-filter: blur(.4rem);
+  backdrop-filter: blur(.4rem);
+  background-color: var(--md-default-bg-color--light);
+  border-radius: 1.6rem;
+  bottom: 1.6rem;
+  box-shadow: var(--md-shadow-z2);
+  color: var(--md-default-fg-color--light);
+  cursor: pointer;
+  display: flex;
+  font-size: .7rem;
+  gap: .4rem;
+  outline: none;
+  padding: .5rem .9rem .5rem .7rem;
+  position: fixed;
+  top: auto !important;
+  transform: translate(-50%);
+  transition: color 125ms, background-color 125ms, transform 125ms cubic-bezier(.4, 0, .2, 1), opacity 125ms;
+  z-index: 2;
+}
+
+/* 9. Left Sidebar Page Icons */
+.md-nav--primary .md-nav__link {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.md-nav--primary a[href*="installation"]::before {
+  content: "⚡";
+  font-size: 0.85em;
+}
+
+.md-nav--primary a[href*="quickstart_cli"]::before {
+  content: "💻";
+  font-size: 0.85em;
+}
+
+.md-nav--primary a[href*="quickstart_sdk"]::before {
+  content: "🐍";
+  font-size: 0.85em;
+}
+
+.md-nav--primary a[href*="python_sdk_guide"]::before {
+  content: "📖";
+  font-size: 0.85em;
+}
+
+.md-nav--primary a[href*="troubleshooting_and_faq"]::before {
+  content: "🔧";
+  font-size: 0.85em;
+}
+
+.md-nav--primary a[href*="tags"]::before {
+  content: "🏷️";
+  font-size: 0.85em;
+}
+
+.md-nav--primary a[href*="sound_symbolism"]::before {
+  content: "🔊";
+  font-size: 0.85em;
+}
+
+.md-nav--primary a[href*="visual_geometry"]::before {
+  content: "📐";
+  font-size: 0.85em;
+}
+
+.md-nav--primary a[href*="esoteric_numerology"]::before {
+  content: "✨";
+  font-size: 0.85em;
+}
+
+.md-nav--primary a[href*="security_phishing"]::before {
+  content: "🛡️";
+  font-size: 0.85em;
+}
+
+.md-nav--primary a[href*="linguistic_visual"]::before {
+  content: "🎨";
+  font-size: 0.85em;
+}
+
+.md-nav--primary a[href*="numerology_astrology"]::before {
+  content: "🔮";
+  font-size: 0.85em;
+}
+
+.md-nav--primary a[href*="startup_domain"]::before {
+  content: "🚀";
+  font-size: 0.85em;
+}
+
+.md-nav--primary a[href*="playground"]::before {
+  content: "⚡";
+  font-size: 0.85em;
+}
+
+.md-nav--primary a[href*="codebase_architecture"]::before {
+  content: "🏛️";
+  font-size: 0.85em;
+}
+
+.md-nav--primary a[href*="roadmap"]::before {
+  content: "🗺️";
+  font-size: 0.85em;
+}
+
+.md-nav--primary a[href*="press_kit"]::before {
+  content: "🎨";
+  font-size: 0.85em;
+}
+
+.md-nav--primary a[href*="proposals"]::before {
+  content: "📋";
+  font-size: 0.85em;
+}
+
+.md-nav--primary a[href*="comparison_matrix"]::before {
+  content: "📊";
+  font-size: 0.85em;
+}
+
+.md-nav--primary a[href*="config_yaml_spec"]::before {
+  content: "⚙️";
+  font-size: 0.85em;
+}
+
+.md-nav--primary a[href*="cli_sdk_cheatsheet"]::before {
+  content: "⚡";
+  font-size: 0.85em;
+}
+
+.md-nav--primary a[href*="release_and_versioning"]::before {
+  content: "🚀";
+  font-size: 0.85em;
+}
+
+.md-nav--primary a[href*="changelog"]::before {
+  content: "📜";
+  font-size: 0.85em;
+}
+
+/* 5. Global Announcement Banner (.md-banner) */
+.md-banner {
+  background-color: rgba(37, 99, 235, 0.08) !important;
+  color: var(--md-default-fg-color) !important;
+  display: block !important;
+  min-height: 36px !important;
+  width: 100% !important;
+  position: relative !important;
+  z-index: 3 !important;
+  border-bottom: 1px solid rgba(37, 99, 235, 0.2) !important;
+}
+
+.md-banner__inner {
+  padding: 0 !important;
+  margin: 0 auto !important;
+}
+
+.custom-announcement {
+  padding: 6px 16px;
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.custom-announcement-btns {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media screen and (max-width: 640px) {
+  .custom-announcement {
+    padding: 5px 8px !important;
+    gap: 6px !important;
+    font-size: 0.76rem !important;
+  }
+  .custom-announcement-text {
+    font-size: 0.75rem !important;
+  }
+  .custom-announcement-btns a {
+    padding: 2px 7px !important;
+    font-size: 0.7rem !important;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .custom-announcement {
+    flex-direction: column !important;
+    gap: 4px !important;
+    padding: 6px 6px !important;
+  }
 }

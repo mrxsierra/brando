@@ -4,7 +4,7 @@ For founders seeking linguistic, numerological, and astrological harmony, `brand
 
 ---
 
-## 1. Pythagorean vs. Chaldean Systems
+## Pythagorean vs. Chaldean Systems
 
 | System | Character Mapping Basis | Vibration Reduction |
 | :--- | :--- | :--- |
@@ -13,7 +13,7 @@ For founders seeking linguistic, numerological, and astrological harmony, `brand
 
 ---
 
-## 2. 108 Nakshatra Pada Syllable Matrix
+## 108 Nakshatra Pada Syllable Matrix
 
 Vedic astrology maps brand initial phonemes into 27 Nakshatras $\times$ 4 Padas ($108$ total vibrational Padas):
 

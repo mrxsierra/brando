@@ -71,8 +71,11 @@ brando verify Vanta Aeroaera
 ```
 
 This compiles pre-formatted search queries for:
-*   **Google Clash Check:** To detect name collision clashes in similar domains.
-*   **USPTO Trademarks:** For US federal trademark registration status.
-*   **WIPO Global Brand Database:** For international trademark registrations.
-*   **Slang meanings (Urban Dictionary):** To verify that the brand name does not have unwanted or offensive slang associations.
 
+- **Google Clash Check**: To detect name collision clashes in similar domains.
+
+- **USPTO Trademarks**: For US federal trademark registration status.
+
+- **WIPO Global Brand Database**: For international trademark registrations.
+
+- **Slang meanings (Urban Dictionary)**: To verify that the brand name does not have unwanted or offensive slang associations.

@@ -92,21 +92,17 @@ for brand in candidates:
 ## 🔬 Core 5-Module Feature Architecture
 
 1. **Visual Geometry & Bouma Silhouette** (`brando.modules.visual`): Calculates uppercase/lowercase ascender/descender visual balance.
+
 2. **Sound Symbolism & Euphony Scorer** (`brando.modules.phonetic`): Analyzes IPA phonemes, plosive-fricative balance, and acoustic resonance.
+
 3. **Esoteric Numerology & Nakshatra Padas** (`brando.modules.esoteric`): Computes Pythagorean, Chaldean, and 108 Nakshatra astrological alignments.
+
 4. **Trademark & WIPO Vetting Engine** (`brando.modules.trademark`): Generates 45 Nice Class search URLs and USPTO clash links.
+
 5. **Security & Typosquatting Engine** (`brando.modules.security`): Executes sub-35ms RapidFuzz SIMD and BK-Tree metric space search against top 1,000 brand registries.
 
 ---
 
-## 📄 License & Fair-Source Policy
+## 📄 License & Attribution
 
-`brando.` is dual-licensed under **Fair-Source Open-Core**:
-- **100% Free for Developers, Open Source & Non-Commercial Use** under the MIT / Fair-Source license.
-- **Commercial SaaS & Enterprise Licensing**: Required for commercial hosting, paid SaaS platforms, or proprietary monetization. See [PRD Section 12](docs/PRD.md) for details.
-
----
-
-<p align="center">
-  Built with precision by <a href="https://github.com/mrxsierra">Sunil Sharma (mrxsierra)</a>
-</p>
+Dual-licensed under the **MIT License** (for individual developers, non-commercial research, and open-source contributions) and **Fair-Source Terms** (for enterprise SaaS platforms). See [`LICENSE`](LICENSE) for full details.

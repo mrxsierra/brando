@@ -31,7 +31,7 @@ classifiers = [
   "Programming Language :: Python :: 3.13"
 ]
 authors = [
-    { name = "Sunil Sharma (mrxsierra)", email = "9.sunilsharma@gmail.com" }
+    { name = "Sunil Sharma (mrxsierra)", email = "mrxsierra@users.noreply.github.com" }
 ]
 dependencies = [
     "click>=8.1.0",
@@ -54,6 +54,8 @@ dev = [
 [project.urls]
 Homepage = "https://github.com/mrxsierra/brando"
 Documentation = "https://mrxsierra.github.io/brando/"
+Portfolio = "https://mrxsierra.github.io/"
+LinkedIn = "https://www.linkedin.com/in/sunilsharma97"
 Source = "https://github.com/mrxsierra/brando"
 Changelog = "https://github.com/mrxsierra/brando/blob/dev/CHANGELOG.md"
 Issues = "https://github.com/mrxsierra/brando/issues"

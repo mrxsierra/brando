@@ -34,7 +34,7 @@ This Code of Conduct applies within all community spaces, and also applies when 
 
 ## Enforcement
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the community leaders responsible for enforcement at **9.sunilsharma@gmail.com**. All complaints will be reviewed and investigated promptly and fairly.
+Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the project lead via **[https://mrxsierra.github.io/](https://mrxsierra.github.io/)** or on **[GitHub (@mrxsierra)](https://github.com/mrxsierra)**. All complaints will be reviewed and investigated promptly and fairly.
 
 ## Attribution
 

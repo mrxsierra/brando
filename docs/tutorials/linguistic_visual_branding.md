@@ -2,7 +2,7 @@
 
 This tutorial demonstrates how to import and use the Brando naming engine modules programmatically to filter and score brand names based on linguistic features, syllable counts, visual symmetry, midline ratios, and custom character heuristics.
 
-## 1. Visual Aesthetics Analysis
+## Visual Aesthetics Analysis
 
 Brando allows you to analyze visual properties of words, such as midline alignment ratios (percentage of characters without ascenders/descenders like `a`, `c`, `e`) and visual symmetry (checking if the number of ascenders matches descenders).
 
@@ -28,7 +28,7 @@ symmetry = check_visual_symmetry(name)
 print(f"Symmetrical: {symmetry}")  # Output: False (1 ascender 't', 0 descenders)
 ```
 
-## 2. Character-Level Filtering Configuration
+## Character-Level Filtering Configuration
 
 You can filter candidate names programmatically using custom character and vowel/consonant count limits inside `generate_candidates`.
 

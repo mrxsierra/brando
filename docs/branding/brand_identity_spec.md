@@ -4,7 +4,7 @@ This specification defines the visual language, design token architecture, vecto
 
 ---
 
-## 1. Aesthetic Archetype: Sovereign Typemark
+## Aesthetic Archetype: Sovereign Typemark
 
 The visual identity of **`brando.`** is built on **Architectural Precision & High-Fidelity Minimalism**:
 
@@ -17,7 +17,7 @@ The visual identity of **`brando.`** is built on **Architectural Precision & Hig
 
 ---
 
-## 2. Color Palette & Token System
+## Color Palette & Token System
 
 ### Light Mode (Default Canvas)
 
@@ -41,7 +41,7 @@ The visual identity of **`brando.`** is built on **Architectural Precision & Hig
 
 ---
 
-## 3. Typography Hierarchy
+## Typography Hierarchy
 
 - **Primary Stack**: `-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif`
 - **Monospace Stack**: `'SF Mono', 'Fira Code', 'Roboto Mono', monospace`
@@ -50,7 +50,7 @@ The visual identity of **`brando.`** is built on **Architectural Precision & Hig
 
 ---
 
-## 4. Vector Asset Suite Index
+## Vector Asset Suite Index
 
 | Asset Name | Dimensions | Path | Purpose |
 | :--- | :--- | :--- | :--- |

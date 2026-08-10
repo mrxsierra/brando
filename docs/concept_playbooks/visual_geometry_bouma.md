@@ -4,7 +4,7 @@ The **Bouma shape** represents the visual outline created by lowercase ascenders
 
 ---
 
-## 1. Visual Silhouette Ratios
+## Visual Silhouette Ratios
 
 ```text
   Ascender Height   ───►  [ b ]     [ l ]
@@ -13,13 +13,29 @@ The **Bouma shape** represents the visual outline created by lowercase ascenders
 ```
 
 - **Ascenders**: Characters extending above the x-height (`b, d, f, h, k, l, t`).
+
 - **Descenders**: Characters extending below the baseline (`g, j, p, q, y`).
+
 - **Neutral X-Height**: Characters contained within x-height (`a, c, e, m, n, o, r, s, u, v, w, x, z`).
 
 ---
 
-## 2. Bouma Score Computation
+## Bouma Score Computation
 
 `brando` measures visual stability by calculating the symmetry between ascenders and descenders:
 
-$$\text{Visual Score} = 100 - \left( 15 \cdot |N_{\text{ascenders}} - N_{\text{descenders}}| + 5 \cdot \text{Vowel Density Penalty} \right)$$
+<div class="admonition info" style="font-family: var(--md-code-font); font-size: 0.95rem; text-align: center; padding: 14px; margin: 16px 0;">
+  <strong>Visual Score</strong> = 100 − (15 × |N<sub>ascenders</sub> − N<sub>descenders</sub>| + 5 × P<sub>vowel</sub>)
+</div>
+
+---
+
+## Python SDK Usage
+
+```python
+from brando.modules.visual import score_bouma_geometry
+
+# Calculate visual geometry balance
+score = score_bouma_geometry("Vanta")
+print(f"Visual Score: {score:.2f}")
+```

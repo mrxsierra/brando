@@ -72,6 +72,31 @@ If you make a breaking change, append a `!` after the type/scope (e.g., `feat!: 
 
 ---
 
+## 3. Release Management, PEP 440 Pre-Releases & PyPI Automation
+
+`brando.` maintains a strict distinction between continuous development, PEP 440 beta pre-releases, and stable production releases:
+
+```
+  dev  ───●─────●─────● (Tag: v0.3.0b1) ───●─────● (Tag: v0.3.0rc1)
+          │                                        │
+          ▼ PR / Merge                             ▼ PR / Merge
+  main ────────────────────────────────────────────● (Tag: v0.3.0 Stable)
+```
+
+### Key Release Principles:
+1. **PyPI Automation (`publish.yml`)**: Pushing commits to `dev` or `main` does **NOT** release code to PyPI. PyPI publishing ONLY triggers when a SemVer tag (e.g. `v0.2.0`, `v0.3.0b1`) is created and pushed.
+2. **Stable vs. Beta (PEP 440)**:
+   * **Beta Pre-Releases** (`v0.3.0b1`, `v0.3.0rc1`) are tagged on `dev`. PyPI marks these as pre-releases and hides them from standard `pip install brando`.
+   * **Stable Production Releases** (`v0.2.0`, `v0.3.0`) are tagged on `main`. Standard `pip install` or `uv pip install` always installs stable releases by default.
+3. **Beta Installation**: Developers testing unreleased features must explicitly opt-in:
+   ```bash
+   pip install --pre brando
+   pip install git+https://github.com/mrxsierra/brando.git@dev
+   ```
+4. **Full Guide**: For detailed triage, OIDC security, and roadmap sync protocols, see [docs/contributor_guides/release_and_versioning.md](file:///home/sunil/Dev/Brando/docs/contributor_guides/release_and_versioning.md).
+
+---
+
 ## 4. CI/CD Architecture & GitHub Branch Protection
 
 ### A. CI/CD Pipeline Overview
