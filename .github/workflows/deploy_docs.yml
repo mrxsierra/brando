@@ -1,20 +1,25 @@
-name: Deploy Multi-Version Docs
+name: Deploy Versioned Documentation (GitHub Pages)
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, dev ]
     tags:
       - 'v*'
 
 jobs:
   deploy-docs:
+    name: Deploy Multi-Version Docs via mike
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Code (Full History)
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-python@v5
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
@@ -32,6 +37,8 @@ jobs:
           if [[ $GITHUB_REF == refs/tags/* ]]; then
             TAG_NAME=${GITHUB_REF#refs/tags/}
             mike deploy --push --update-aliases $TAG_NAME latest
+          elif [[ $GITHUB_REF == refs/heads/main ]]; then
+            mike deploy --push latest
           else
             mike deploy --push dev
           fi

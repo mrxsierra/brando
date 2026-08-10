@@ -1,0 +1,12 @@
+# Enforce consistent LF line endings on all text files across Linux, macOS, and Windows
+* text=auto eol=lf
+
+# Binary assets protection
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.gif binary
+*.ico binary
+*.svg text eol=lf
+*.wasm binary

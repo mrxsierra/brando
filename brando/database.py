@@ -1,103 +1,84 @@
 """
-Local Database Adapter Module for Brando.
-Handles loading/saving raw CSV files and detecting configuration-generation differences.
+Brando Candidate Database Interface (brando.Database)
+In-memory table representing generated and scored brand candidate metrics.
 """
 
 import csv
 import os
-
-from brando.generator import generate_candidates
-
-CSV_COLUMNS = [
-    "name",
-    "syllables",
-    "midline_ratio",
-    "is_symmetrical",
-    "chaldean_sum",
-    "chaldean_reduced",
-    "pythagorean_sum",
-    "pythagorean_reduced",
-    "domain_com",
-    "domain_co",
-    "domain_io",
-    "domain_ai",
-    "handle_github",
-    "handle_twitter",
-    "handle_instagram",
-]
+from collections.abc import Callable
+from typing import Any
 
 
-def load_candidates(filepath: str) -> list[dict]:
-    """
-    Loads candidate records from the CSV file.
-    If the file does not exist, returns an empty list.
-    """
+def load_candidates(filepath: str) -> list[dict[str, Any]]:
+    """Loads candidates from CSV file (returns empty list if file doesn't exist)."""
     if not os.path.exists(filepath):
         return []
-
-    candidates = []
-    with open(filepath, encoding="utf-8") as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            # Parse integer columns back to int type where applicable
-            parsed_row = {}
-            for col in CSV_COLUMNS:
-                val = row.get(col, "")
-                is_int_col = col in (
-                    "syllables",
-                    "chaldean_sum",
-                    "chaldean_reduced",
-                    "pythagorean_sum",
-                    "pythagorean_reduced",
-                )
-                if is_int_col:
-                    try:
-                        parsed_row[col] = int(val) if val else None
-                    except ValueError:
-                        parsed_row[col] = None
-                elif col in ("midline_ratio",):
-                    try:
-                        parsed_row[col] = float(val) if val else None
-                    except ValueError:
-                        parsed_row[col] = None
-                elif col in ("is_symmetrical",):
-                    parsed_row[col] = val.lower() == "true"
-                else:
-                    parsed_row[col] = val
-            candidates.append(parsed_row)
-    return candidates
+    try:
+        with open(filepath, encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            return list(reader)
+    except Exception:
+        return []
 
 
-def save_candidates(filepath: str, candidates: list[dict]) -> None:
-    """
-    Saves candidate records to the CSV file, overwriting the file.
-    """
-    with open(filepath, mode="w", encoding="utf-8", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=CSV_COLUMNS)
+def save_candidates(filepath: str, candidates: list[dict[str, Any]]) -> None:
+    """Saves candidate dictionary records to CSV file."""
+    if not candidates:
+        with open(filepath, "w", encoding="utf-8") as f:
+            f.write("\n")
+        return
+    fieldnames = list(candidates[0].keys())
+    with open(filepath, "w", encoding="utf-8", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
-        for cand in candidates:
-            # Clean up dict keys to match exactly CSV_COLUMNS
-            row = {}
-            for col in CSV_COLUMNS:
-                val = cand.get(col, "")
-                if val is None:
-                    row[col] = ""
-                elif isinstance(val, bool):
-                    row[col] = str(val).lower()
-                else:
-                    row[col] = str(val)
-            writer.writerow(row)
+        writer.writerows(candidates)
 
 
-def get_generation_diff(config: dict, existing_candidates: list[dict]) -> list[str]:
-    """
-    Generates all candidate names based on configuration, and returns
-    only the new ones that do not exist in the database.
-    """
-    generated_pool = generate_candidates(config)
-    existing_names = {c["name"].strip().lower() for c in existing_candidates}
+def get_generation_diff(
+    old_candidates: list[dict[str, Any]], new_candidates: list[dict[str, Any]]
+) -> dict[str, list[dict[str, Any]]]:
+    """Calculates added and removed candidates between two generations."""
+    old_names = {c.get("name") or c.get("candidate") for c in old_candidates}
+    new_names = {c.get("name") or c.get("candidate") for c in new_candidates}
 
-    new_names = [
-        name for name in generated_pool if name.strip().lower() not in existing_names
+    added = [
+        c
+        for c in new_candidates
+        if (c.get("name") or c.get("candidate")) not in old_names
     ]
-    return new_names
+    removed = [
+        c
+        for c in old_candidates
+        if (c.get("name") or c.get("candidate")) not in new_names
+    ]
+
+    return {"added": added, "removed": removed}
+
+
+class Database:
+    """
+    Brando Candidate Database representation.
+    Provides query filtering and export functionality.
+    """
+
+    def __init__(self, records: list[dict[str, Any]]) -> None:
+        self._records = records
+
+    @classmethod
+    def from_candidates(cls, candidates: list[str]) -> "Database":
+        records = [{"candidate": c, "length": len(c)} for c in candidates]
+        return cls(records)
+
+    def filter(self, predicate: Callable[[dict[str, Any]], bool]) -> "Database":
+        """Returns new Database instance with records matching predicate."""
+        filtered = [r for r in self._records if predicate(r)]
+        return Database(filtered)
+
+    def to_list(self) -> list[dict[str, Any]]:
+        return list(self._records)
+
+    def get_candidates(self) -> list[str]:
+        return [r["candidate"] for r in self._records]
+
+    def __len__(self) -> int:
+        return len(self._records)

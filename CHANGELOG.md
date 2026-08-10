@@ -1,6 +1,9 @@
 # Changelog
 
-All notable changes to the Brando naming engine will be documented in this file.
+All notable changes to the **`brando.`** brand creation and research framework will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) and [PEP 440](https://peps.python.org/pep-0440/).
 
 ## [2026-08-04] - 2026-08-04
 
@@ -101,33 +104,42 @@ All notable changes to the Brando naming engine will be documented in this file.
 * update task tracker for Phase 3 progress ([6cdaa39](https://github.com/mrxsierra/brando/commit/6cdaa393b25f7a1ef808b4fe860952a58c7260d0))
 * update task tracker for reporter progress ([3a99cba](https://github.com/mrxsierra/brando/commit/3a99cba2dccdf9466a0ec64339fb6541ca458640))
 * update task tracker for scorer progress ([b5b1b7f](https://github.com/mrxsierra/brando/commit/b5b1b7f2f245ff37a3e11dd58cce8b0d8dc26534))
+>>>>>>> origin/main
 
 ### Other Changes
 
 * style: update gitignore to exclude walkthrough ([d643e62](https://github.com/mrxsierra/brando/commit/d643e6232aeed0df9263eec3fdf7fd6867170c80))
 
 ---
-## [2026-07-14] - 2026-07-14
 
-### Features
+## [Unreleased] - (v0.3.0b1)
 
-* implement Click CLI command suite with unit tests ([d5eabd9](https://github.com/mrxsierra/brando/commit/d5eabd9690864fef63c327f632a491899b120fde))
-* implement local database adapter with unit tests ([c0ba6f2](https://github.com/mrxsierra/brando/commit/c0ba6f27a419fdc9203e465ba2beade3a724a65b))
-* implement async domain dns and social handle checkers with unit tests ([0ab9523](https://github.com/mrxsierra/brando/commit/0ab9523405e939ba742d23bce33ae180de253dd1))
-* implement naming generator and typographics with unit tests ([0018fa9](https://github.com/mrxsierra/brando/commit/0018fa9c550af9843d1d57759019af1995c88383))
-* implement chaldean, pythagorean, and vedic esoteric calculations with unit tests ([c410370](https://github.com/mrxsierra/brando/commit/c410370532dcf5f280dde7fe35e7783299e0b42a))
+### Added
+- **Declarative `config.yaml` Schema Specification**: Master specification guide detailing industry presets (`tech`, `luxury`, `security`, `gaming`), scoring weights, and security parameters.
+- **4-Way Persona Production Switchers**: Interactive marketing showcase on homepage highlighting Terminal CLI, `config.yaml`, High-Level SDK, and Low-Level Engine Modules.
+- **Interactive Pyodide WASM Playground**: Real-world problem solving matrix and 4 interactive WASM presets in browser.
+- **Release & Versioning Architecture Guide**: Documented dual-branch model (`dev` for pre-releases, `main` for stable), PEP 440 tag conventions, and PyPI OIDC trusted publishing.
 
-### Documentation
-
-* update task tracker for wizard progress ([62120f4](https://github.com/mrxsierra/brando/commit/62120f4265e468f24e7b9e832a3d4d4dcdee84bd))
-* update task tracker for cli progress ([2ea6443](https://github.com/mrxsierra/brando/commit/2ea644318559bd351bbf3413020bab2c833879b8))
-* update task tracker for database adapter progress ([10f7802](https://github.com/mrxsierra/brando/commit/10f7802103f6b3d933a05fe4ac097015ba628d15))
-* update task tracker for async checker progress ([97a4ad7](https://github.com/mrxsierra/brando/commit/97a4ad789a5b064ff4386201cd6b6a8459402e4b))
-* update task tracker for package initialization ([299a598](https://github.com/mrxsierra/brando/commit/299a598db93314f7173d546bd32dba9a1caf332a))
-
-### Maintenance Tasks
-
-* update author details and gitignore rules ([126143a](https://github.com/mrxsierra/brando/commit/126143a5a2bcecb0d390b7bfa43d72a7cdc15a04))
-* initialize repository and package metadata ([876a504](https://github.com/mrxsierra/brando/commit/876a50470ac0c76ad57569926d41479ac02e7e55))
+### Fixed
+- **Homepage Layout Shift**: Fixed `.brando-terminal-card` and console output container height (`410px`) to prevent double scrollbars and layout movement when running WASM.
+- **Residual Home Text**: Suppressed `.md-content` and default footer page links on `home.html` for a clean transition to site footer.
 
 ---
+
+## [v0.2.0] - 2026-08-05
+
+### Added
+- **108 Nakshatra Astrological Sound Engine**: 108 Nakshatra Pada sound mappings, Chaldean and Pythagorean esoteric numerology alignment.
+- **Sub-35ms RapidFuzz Security Engine**: Damerau-Levenshtein C++ SIMD edit distance and typosquatting risk audit.
+- **Visual Bouma Silhouette Geometry**: Ascender, descender, and midline typographical height ratio calculations.
+- **Phonetic Euphony Engine**: Sound symbolism scoring, sonorant resonance, and plosive dampening.
+
+---
+
+## [v0.1.0] - 2026-07-15
+
+### Added
+- **Click CLI Command Suite**: `brando init`, `brando build`, `brando filter`, `brando audit`, and `brando report`.
+- **Async DNS & Social Availability Checker**: Multi-provider WHOIS, DNS A record, and social handle availability lookup.
+- **Local SQLite Database Adapter**: Session persistence and candidate shortlist storage.
+- **Package Core Pipeline**: Neoclassical, portmanteau, and morpheme blending synthesis algorithms.

@@ -2,7 +2,7 @@
 
 This tutorial demonstrates how to compute esoteric alignments programmatically using Pythagorean and Chaldean numerology reductions and Vedic starting sound checks.
 
-## 1. Numerology Destiny Reductions
+## Numerology Destiny Reductions
 
 Brando supports two main mapping systems: Pythagorean (sequential Western mapping 1-9) and Chaldean (ancient vibrational mapping 1-8). Both compute a sum and reduce it to a single-digit root number.
 
@@ -20,7 +20,7 @@ p_sum, p_red = calculate_pythagorean(name)
 print(f"Pythagorean Sum: {p_sum}, Reduced: {p_red}")
 ```
 
-## 2. Vedic Starting Sounds
+## Vedic Starting Sounds
 
 You can cross-reference the name prefix against auspicious sounds determined by Vedic astrology.
 
