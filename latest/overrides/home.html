@@ -1,0 +1,522 @@
+{% extends "main.html" %}
+
+{% block tabs %}
+{{ super() }}
+<style>
+  .md-main__inner {
+    margin-top: 0 !important;
+  }
+  /* Completely hide residual page content (.md-content contains # Home header), edit buttons, and footer links */
+  .md-content,
+  .md-content__button,
+  .md-footer__link--next,
+  .md-footer__link--prev {
+    display: none !important;
+  }
+
+  .brando-hero-container {
+    background: linear-gradient(180deg, var(--md-code-bg-color) 0%, var(--md-default-bg-color) 100%);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.4);
+    padding: 3.5rem 0 3rem 0;
+    margin-bottom: 2rem;
+  }
+  [data-md-color-scheme="slate"] .brando-hero-container {
+    background: linear-gradient(180deg, #0D1322 0%, #090D16 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .brando-hero-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+    max-width: 61.5rem !important;
+    margin: 0 auto;
+    padding: 0 0.8rem;
+  }
+  /* 2x2 Desktop Grid for Marketing Cards */
+  .brando-2x2-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.8rem;
+    margin-bottom: 3rem;
+  }
+
+  /* 2x3 Desktop Grid for Framework Architecture Cards */
+  .brando-2x3-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 3.5rem;
+  }
+
+  @media screen and (max-width: 960px) {
+    .brando-hero-grid {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+    .brando-hero-buttons {
+      justify-content: center;
+    }
+    .brando-2x2-grid,
+    .brando-2x3-grid {
+      grid-template-columns: 1fr !important;
+      gap: 1.5rem !important;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .brando-hero-left h1 {
+      font-size: 2.1rem !important;
+      letter-spacing: -1px !important;
+      word-break: break-word !important;
+    }
+    .brando-hero-container {
+      padding: 1.8rem 0 1.2rem 0 !important;
+    }
+    .brando-terminal-card {
+      height: auto !important;
+      min-height: 360px !important;
+      max-height: 520px !important;
+    }
+    .brando-marketing-card {
+      padding: 1.2rem !important;
+    }
+    h2 {
+      font-size: 1.4rem !important;
+      line-height: 1.25 !important;
+      word-break: break-word !important;
+    }
+    .brando-architecture-grid {
+      grid-template-columns: 1fr !important;
+    }
+    pre, code {
+      word-break: break-word !important;
+      white-space: pre-wrap !important;
+    }
+  }
+  .brando-hero-left h1 {
+    font-size: 3.2rem !important;
+    font-weight: 900 !important;
+    letter-spacing: -2px !important;
+    margin-top: 0 !important;
+    margin-bottom: 0.8rem !important;
+    line-height: 1.1 !important;
+    color: var(--md-default-fg-color) !important;
+  }
+  .brando-hero-left .subtitle {
+    font-size: 1.15rem;
+    color: var(--md-default-fg-color);
+    opacity: 0.85;
+    margin-bottom: 1.8rem;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+  .brando-hero-buttons {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .brando-hero-buttons .md-button {
+    font-weight: 700 !important;
+    padding: 0.7em 1.8em !important;
+    border-radius: 8px !important;
+  }
+  .brando-hero-buttons .md-button--primary {
+    background-color: #2563EB !important;
+    color: #FFFFFF !important;
+    border: 1px solid #2563EB !important;
+  }
+  .brando-hero-buttons .md-button--primary:hover {
+    background-color: #1D4ED8 !important;
+    border-color: #1D4ED8 !important;
+  }
+
+  /* Fixed Hero WASM Card Dimensions (Rock-Solid Zero Layout Shift) */
+  .brando-terminal-card {
+    background: #090D16;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 1.2rem;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+    font-family: var(--md-code-font);
+    font-size: 0.85rem;
+    color: #E2E8F0;
+    height: 410px !important;
+    min-height: 410px !important;
+    max-height: 410px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    overflow: hidden !important;
+  }
+  .brando-terminal-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 8px;
+    flex-shrink: 0;
+  }
+  .brando-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+  .brando-dot-red { background: #FF5F56; }
+  .brando-dot-yellow { background: #FFBD2E; }
+  .brando-dot-green { background: #27C93F; }
+
+  /* 6-Card Interactive Feature Architecture Grid */
+  .brando-section-title {
+    text-align: center;
+    margin-top: 3rem;
+    margin-bottom: 0.5rem;
+  }
+  .brando-section-title h2 {
+    font-size: 2rem !important;
+    font-weight: 800 !important;
+    border-bottom: none !important;
+    margin-top: 0 !important;
+  }
+  .brando-section-title p {
+    font-size: 1rem;
+    opacity: 0.75;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+  }
+
+  .brando-grid-suite {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .brando-suite-card {
+    background: var(--md-code-bg-color);
+    border: 1px solid rgba(226, 232, 240, 0.5);
+    border-radius: 14px;
+    padding: 1.8rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    text-decoration: none !important;
+    color: var(--md-default-fg-color) !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  [data-md-color-scheme="slate"] .brando-suite-card {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .brando-suite-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 25px rgba(37, 99, 235, 0.12);
+    border-color: var(--md-accent-fg-color);
+  }
+  .brando-suite-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  .brando-suite-card h3 {
+    margin-top: 0 !important;
+    margin-bottom: 0.6rem !important;
+    font-size: 1.2rem !important;
+    font-weight: 700 !important;
+  }
+  .brando-suite-card p {
+    font-size: 0.92rem;
+    opacity: 0.8;
+    margin: 0 0 1.2rem;
+    line-height: 1.55;
+  }
+  .brando-suite-link {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--md-accent-fg-color);
+  }
+</style>
+
+<div class="brando-hero-container">
+  <div class="brando-hero-grid">
+    <div class="brando-hero-left">
+      <h1>Programmatic Brand Creation Framework</h1>
+      <p class="subtitle">
+        <strong>brando.</strong> combines phonetic euphony scoring, Bouma visual geometry math, sub-35ms RapidFuzz typosquatting audits, and 108 Nakshatra astrological alignments into a 3-Layer Python engine.
+      </p>
+
+      <div class="brando-hero-buttons">
+        <a href="getting_started/installation/" class="md-button md-button--primary">
+          Get Started →
+        </a>
+        <a href="playground/" class="md-button" style="background: rgba(37, 99, 235, 0.1); color: var(--md-accent-fg-color); border: 1px solid rgba(37, 99, 235, 0.3);">
+          WASM Playground
+        </a>
+        <a href="https://github.com/mrxsierra/brando" target="_blank" rel="noopener" class="md-button" style="background: var(--md-code-bg-color); color: var(--md-default-fg-color); border: 1px solid rgba(226, 232, 240, 0.4);">
+          GitHub Repo ★
+        </a>
+        <a href="https://mrxsierra.github.io/" target="_blank" rel="noopener" class="md-button" style="background: var(--md-code-bg-color); color: var(--md-default-fg-color); border: 1px solid rgba(226, 232, 240, 0.4);">
+          Author Portfolio 🌐
+        </a>
+      </div>
+    </div>
+
+    <!-- Fixed-Height Interactive WASM Hero Terminal (Zero Layout Shift) -->
+    <div class="brando-terminal-card">
+      <div class="brando-terminal-header" style="justify-content: space-between;">
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <div class="brando-dot brando-dot-red"></div>
+          <div class="brando-dot brando-dot-yellow"></div>
+          <div class="brando-dot brando-dot-green"></div>
+          <span style="font-size: 0.75rem; opacity: 0.7; margin-left: 8px;">brand_synthesis.py</span>
+        </div>
+        <button id="hero-wasm-run-btn" style="background: #2563EB; color: white; border: none; border-radius: 4px; padding: 4px 12px; font-size: 0.75rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: background-color 0.15s ease;">
+          ▶ Run in WASM
+        </button>
+      </div>
+
+      <textarea id="hero-wasm-code" style="width: 100%; background: transparent; border: none; color: #E2E8F0; font-family: var(--md-code-font); font-size: 0.78rem; line-height: 1.4; resize: none; outline: none; flex-shrink: 0; height: 185px !important; min-height: 185px !important; max-height: 185px !important; margin: 0; overflow-y: auto;"># Real-World Use Case: Phonetic Euphony & Visual Silhouette Score
+def score_brand(name):
+    plosives = sum(1 for c in name.lower() if c in 'ptkbdg')
+    sonorants = sum(1 for c in name.lower() if c in 'lmnr')
+    vowels = sum(1 for c in name.lower() if c in 'aeiou')
+    euphony = max(0, min(100, 50 + (sonorants * 12) + (vowels * 6) - (plosives * 4)))
+    midline = round(sum(1 for c in name.lower() if c in "acemnorsuvwxz") / len(name), 2) if name else 0
+    return euphony, midline
+
+candidates = ["Vanta", "Aero", "Cortex", "Nexus", "Zylo"]
+print(f"{'BRAND':<10} {'EUPHONY':<10} {'MIDLINE':<10}")
+print("-" * 32)
+for b in candidates:
+    e, m = score_brand(b)
+    print(f"{b:<10} {e:<10.1f} {m:<10.2f}")
+</textarea>
+
+      <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 6px; flex-shrink: 0; height: 135px !important;">
+        <div style="font-size: 0.72rem; color: #64748B; margin-bottom: 4px; font-weight: 600;">WASM CONSOLE OUTPUT:</div>
+        <pre id="hero-wasm-output" style="margin: 0; padding: 6px 8px; background: #05080E; color: #10B981; border-radius: 6px; font-size: 0.76rem; line-height: 1.4; height: 100px !important; max-height: 100px !important; min-height: 100px !important; overflow-y: auto; box-sizing: border-box;">Click "▶ Run in WASM" to execute brand synthesis live in browser.</pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="md-grid">
+
+  <!-- Marketing Section 2x2 Grid (Terminal CLI, Declarative Spec, High-Level SDK, Low-Level Engines) -->
+  <div class="brando-2x2-grid">
+
+    <!-- Card 1: Terminal CLI Wizard -->
+    <div class="brando-marketing-card" style="background: var(--md-code-bg-color); border: 1px solid rgba(37, 99, 235, 0.3); border-radius: 16px; padding: 1.8rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: flex; flex-direction: column; justify-content: space-between;">
+      <div>
+        <span style="background: rgba(37, 99, 235, 0.15); color: var(--md-accent-fg-color); padding: 0.3rem 0.8rem; border-radius: 20px; font-weight: 700; font-size: 0.8rem;">💻 TERMINAL CLI WIZARD</span>
+        <h2 style="font-size: 1.5rem !important; font-weight: 800 !important; margin-top: 0.8rem !important; margin-bottom: 0.6rem !important; border-bottom: none !important;">Interactive CLI Wizard</h2>
+        <p style="opacity: 0.85; font-size: 0.9rem; line-height: 1.55; margin-bottom: 1.2rem;">
+          Launch the 5-minute brand discovery wizard directly in your shell using <code>pip</code> or <code>uv</code>. No initial setup required.
+        </p>
+
+        <div style="background: #090D16; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 0.6rem 0.9rem; display: flex; justify-content: space-between; align-items: center; font-family: var(--md-code-font); font-size: 0.82rem; color: #10B981; margin-bottom: 0.6rem;">
+          <code>pip install brando</code>
+          <button onclick="navigator.clipboard.writeText('pip install brando'); alert('Copied: pip install brando');" style="background: rgba(255,255,255,0.1); border: none; color: #E2E8F0; padding: 3px 8px; border-radius: 4px; font-size: 0.72rem; cursor: pointer; font-weight: 600;">📋 Copy</button>
+        </div>
+
+        <div style="background: #090D16; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 0.6rem 0.9rem; display: flex; justify-content: space-between; align-items: center; font-family: var(--md-code-font); font-size: 0.82rem; color: var(--md-accent-fg-color);">
+          <code>uv pip install brando</code>
+          <button onclick="navigator.clipboard.writeText('uv pip install brando'); alert('Copied: uv pip install brando');" style="background: rgba(255,255,255,0.1); border: none; color: #E2E8F0; padding: 3px 8px; border-radius: 4px; font-size: 0.72rem; cursor: pointer; font-weight: 600;">📋 Copy</button>
+        </div>
+      </div>
+
+      <div style="background: #090D16; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 1.1rem; font-family: var(--md-code-font); font-size: 0.78rem; color: #E2E8F0; margin-top: 1rem;">
+        <div style="color: #64748B; margin-bottom: 0.4rem; font-weight: 600; display: flex; justify-content: space-between; align-items: center;">
+          <span># Interactive CLI Commands</span>
+          <span style="color: #10B981; font-size: 0.7rem;">CLI WIZARD</span>
+        </div>
+        <pre style="margin: 0; padding: 0; background: transparent; color: #E2E8F0; overflow-x: auto;"><code>$ <span style="color: #10B981;">brando init --interactive</span>
+$ <span style="color: #10B981;">brando build --industry tech --count 100</span>
+$ <span style="color: #10B981;">brando filter --min-euphony 75</span></code></pre>
+      </div>
+    </div>
+
+    <!-- Card 2: Declarative config.yaml Spec -->
+    <div class="brando-marketing-card" style="background: var(--md-code-bg-color); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 16px; padding: 1.8rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: flex; flex-direction: column; justify-content: space-between;">
+      <div>
+        <span style="background: rgba(56, 189, 248, 0.15); color: #38BDF8; padding: 0.3rem 0.8rem; border-radius: 20px; font-weight: 700; font-size: 0.8rem;">⚙️ DECLARATIVE SPECIFICATION</span>
+        <h2 style="font-size: 1.5rem !important; font-weight: 800 !important; margin-top: 0.8rem !important; margin-bottom: 0.6rem !important; border-bottom: none !important;">Declarative <code>config.yaml</code></h2>
+        <p style="opacity: 0.85; font-size: 0.9rem; line-height: 1.55; margin-bottom: 1rem;">
+          Standardize brand rules across teams. Version-control your scoring weights, seed words, industry presets, and security thresholds in a single YAML contract.
+        </p>
+        <a href="user_guides/config_yaml_spec/" class="md-button" style="background: rgba(56, 189, 248, 0.12); color: #38BDF8; border: 1px solid rgba(56, 189, 248, 0.4); font-weight: 700; padding: 0.4rem 1rem !important; font-size: 0.8rem !important;">
+          Read Specification →
+        </a>
+      </div>
+
+      <div style="background: #090D16; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 1.1rem; font-family: var(--md-code-font); font-size: 0.78rem; color: #E2E8F0; margin-top: 1rem;">
+        <div style="color: #64748B; margin-bottom: 0.4rem; font-weight: 600; display: flex; justify-content: space-between; align-items: center;">
+          <span># config.yaml — Single Source of Truth</span>
+          <span style="color: #38BDF8; font-size: 0.7rem;">YAML SPEC</span>
+        </div>
+        <pre style="margin: 0; padding: 0; background: transparent; color: #E2E8F0; overflow-x: auto;"><code><span style="color: #38BDF8;">project_name:</span> <span style="color: #10B981;">"cyber-synthesis"</span>
+<span style="color: #38BDF8;">scoring_weights:</span>
+  <span style="color: #38BDF8;">euphony:</span> <span style="color: #F59E0B;">0.40</span>
+  <span style="color: #38BDF8;">visual_bouma:</span> <span style="color: #F59E0B;">0.30</span>
+  <span style="color: #38BDF8;">security_audit:</span> <span style="color: #F59E0B;">0.30</span></code></pre>
+      </div>
+    </div>
+
+    <!-- Card 3: High-Level Client SDK -->
+    <div class="brando-marketing-card" style="background: var(--md-code-bg-color); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 16px; padding: 1.8rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: flex; flex-direction: column; justify-content: space-between;">
+      <div>
+        <span style="background: rgba(16, 185, 129, 0.15); color: #10B981; padding: 0.3rem 0.8rem; border-radius: 20px; font-weight: 700; font-size: 0.8rem;">🐍 HIGH-LEVEL SDK</span>
+        <h2 style="font-size: 1.5rem !important; font-weight: 800 !important; margin-top: 0.8rem !important; margin-bottom: 0.6rem !important; border-bottom: none !important;"><code>brando.Client</code> SDK</h2>
+        <p style="opacity: 0.85; font-size: 0.9rem; line-height: 1.55; margin-bottom: 1.2rem;">
+          Run automated brand synthesis in 3 lines of Python code for your applications and startup pipelines.
+        </p>
+      </div>
+
+      <div style="background: #090D16; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 1.1rem; font-family: var(--md-code-font); font-size: 0.78rem; color: #E2E8F0; margin-top: 1rem;">
+        <div style="color: #64748B; margin-bottom: 0.4rem; font-weight: 600;"># High-Level Pipeline Integration</div>
+        <pre style="margin: 0; padding: 0; background: transparent; color: #E2E8F0; overflow-x: auto;"><code><span style="color: #F43F5E;">import</span> brando
+
+client = brando.Client(config=<span style="color: #10B981;">"config.yaml"</span>)
+results = client.synthesize(keywords=[<span style="color: #10B981;">"cyber"</span>])</code></pre>
+      </div>
+    </div>
+
+    <!-- Card 4: Standalone Engine Modules -->
+    <div class="brando-marketing-card" style="background: var(--md-code-bg-color); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 16px; padding: 1.8rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: flex; flex-direction: column; justify-content: space-between;">
+      <div>
+        <span style="background: rgba(245, 158, 11, 0.15); color: #F59E0B; padding: 0.3rem 0.8rem; border-radius: 20px; font-weight: 700; font-size: 0.8rem;">🔬 LOW-LEVEL ENGINES</span>
+        <h2 style="font-size: 1.5rem !important; font-weight: 800 !important; margin-top: 0.8rem !important; margin-bottom: 0.6rem !important; border-bottom: none !important;">Standalone Engine Modules</h2>
+        <p style="opacity: 0.85; font-size: 0.9rem; line-height: 1.55; margin-bottom: 1.2rem;">
+          Import individual scoring engines independently for computational linguistics and security research.
+        </p>
+      </div>
+
+      <div style="background: #090D16; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 1.1rem; font-family: var(--md-code-font); font-size: 0.78rem; color: #E2E8F0; margin-top: 1rem;">
+        <div style="color: #64748B; margin-bottom: 0.4rem; font-weight: 600;"># Direct Engine Functions</div>
+        <pre style="margin: 0; padding: 0; background: transparent; color: #E2E8F0; overflow-x: auto;"><code><span style="color: #F43F5E;">from</span> brando.scoring <span style="color: #F43F5E;">import</span> calculate_euphony
+
+e = calculate_euphony(<span style="color: #10B981;">"Vanta"</span>)  <span style="color: #64748B;"># Score: 78.5</span></code></pre>
+      </div>
+    </div>
+
+  </div> <!-- End brando-2x2-grid -->
+
+  <div class="brando-section-title">
+    <h2>Framework Architecture Suite</h2>
+    <p>Explore the core modules powering brand synthesis, phonetic scoring, visual balance, and security vetting.</p>
+  </div>
+
+  <div class="brando-2x3-grid">
+    <a href="concept_playbooks/sound_symbolism_matrix/" class="brando-suite-card">
+      <div>
+        <div class="brando-suite-icon">🔊</div>
+        <h3>Phonetic Euphony Engine</h3>
+        <p>Calculates harmonic resonance, IPA phonetic flow, and sound symbolism vectors across brand candidates.</p>
+      </div>
+      <span class="brando-suite-link">Read Sound Symbolism Guide →</span>
+    </a>
+
+    <a href="concept_playbooks/visual_geometry_bouma/" class="brando-suite-card">
+      <div>
+        <div class="brando-suite-icon">📐</div>
+        <h3>Visual Bouma Geometry</h3>
+        <p>Analyzes typographical letter symmetry, ascender/descender balance, and word silhouette shapes.</p>
+      </div>
+      <span class="brando-suite-link">Read Visual Geometry Guide →</span>
+    </a>
+
+    <a href="concept_playbooks/esoteric_numerology_astrology/" class="brando-suite-card">
+      <div>
+        <div class="brando-suite-icon">🌌</div>
+        <h3>108 Nakshatra Padas</h3>
+        <p>Computes Pythagorean, Chaldean numerology, and Vedic Nakshatra sound alignments.</p>
+      </div>
+      <span class="brando-suite-link">Read Esoteric Alignment Guide →</span>
+    </a>
+
+    <a href="concept_playbooks/security_phishing_recipe/" class="brando-suite-card">
+      <div>
+        <div class="brando-suite-icon">🛡️</div>
+        <h3>Sub-35ms Security Engine</h3>
+        <p>Executes RapidFuzz SIMD typosquatting checks against top 1,000 package and domain registries.</p>
+      </div>
+      <span class="brando-suite-link">Read Security Vetting Recipe →</span>
+    </a>
+
+    <a href="getting_started/quickstart_cli/" class="brando-suite-card">
+      <div>
+        <div class="brando-suite-icon">⚡</div>
+        <h3>Interactive CLI Wizard</h3>
+        <p>Run the 5-minute brand discovery wizard with <code>brando init</code>, <code>brando build</code>, and <code>brando filter</code>.</p>
+      </div>
+      <span class="brando-suite-link">Explore CLI Quickstart →</span>
+    </a>
+
+    <a href="playground/" class="brando-suite-card">
+      <div>
+        <div class="brando-suite-icon">💻</div>
+        <h3>Pyodide WASM Engine</h3>
+        <p>Execute Python brand scoring directly in your browser with zero backend requirements.</p>
+      </div>
+      <span class="brando-suite-link">Launch Interactive Playground →</span>
+    </a>
+  </div>
+</div>
+
+<script>
+  (function() {
+    let pyodideInstance = null;
+
+    function initHeroWasm() {
+      const btn = document.getElementById('hero-wasm-run-btn');
+      const output = document.getElementById('hero-wasm-output');
+      const codeInput = document.getElementById('hero-wasm-code');
+
+      if (!btn || !output || !codeInput) return;
+
+      btn.addEventListener('click', async function() {
+        if (!window.loadPyodide) {
+          output.innerText = "⏳ Loading Pyodide WASM Engine from CDN...";
+          const script = document.createElement('script');
+          script.src = "https://cdn.jsdelivr.net/pyodide/v0.26.1/full/pyodide.js";
+          script.onload = () => runHeroCode();
+          script.onerror = () => { output.innerText = "❌ Failed to load Pyodide CDN."; };
+          document.head.appendChild(script);
+        } else {
+          runHeroCode();
+        }
+      });
+
+      async function runHeroCode() {
+        btn.innerText = "⏳ Running...";
+        btn.disabled = true;
+        output.innerText = "⚡ Executing in WASM runtime...";
+
+        try {
+          if (!pyodideInstance) {
+            pyodideInstance = await window.loadPyodide();
+          }
+
+          let logs = "";
+          pyodideInstance.setStdout({
+            batched: (text) => { logs += text + "\n"; }
+          });
+
+          await pyodideInstance.runPythonAsync(codeInput.value);
+          output.innerText = logs.trim() || "Execution finished with 0 outputs.";
+        } catch (err) {
+          output.innerText = "❌ Error: " + err;
+        } finally {
+          btn.innerText = "▶ Run in WASM";
+          btn.disabled = false;
+        }
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initHeroWasm);
+    } else {
+      initHeroWasm();
+    }
+  })();
+</script>
+{% endblock %}

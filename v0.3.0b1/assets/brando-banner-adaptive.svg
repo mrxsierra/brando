@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 220" width="100%" height="100%">
+  <defs>
+    <style>
+      :root {
+        --canvas-bg: #F8FAFC;
+        --text-wordmark: #0F172A;
+        --dot-accent: #2563EB;
+        --divider-stroke: #2563EB;
+        --tagline-color: #475569;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --canvas-bg: #090D16;
+          --text-wordmark: #FFFFFF;
+          --dot-accent: #3B82F6;
+          --divider-stroke: #3B82F6;
+          --tagline-color: #94A3B8;
+        }
+      }
+      .banner-rect { fill: var(--canvas-bg); }
+      .wordmark-text { fill: var(--text-wordmark); font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Helvetica Neue', Arial, sans-serif; font-size: 74px; font-weight: 900; letter-spacing: -3.5px; }
+      .dot-text { fill: var(--dot-accent); }
+      .divider-line { stroke: var(--divider-stroke); stroke-width: 3px; }
+      .tagline-text { fill: var(--tagline-color); font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif; font-weight: 800; font-size: 14px; letter-spacing: 2.5px; }
+    </style>
+  </defs>
+
+  <!-- Full-Bleed Auto-Adaptive Container Canvas (No Outer Border Box) -->
+  <rect width="650" height="220" class="banner-rect"/>
+  
+  <g transform="translate(45, 48)">
+    <!-- Primary Wordmark with Execution Period -->
+    <text x="10" y="62" class="wordmark-text">brando<tspan class="dot-text">.</tspan></text>
+    
+    <!-- Precision Structural Divider -->
+    <line x1="10" y1="92" x2="560" y2="92" class="divider-line"/>
+    
+    <!-- Clean Sub-headline -->
+    <text x="12" y="124" class="tagline-text">PROGRAMMATIC BRAND CREATION FRAMEWORK</text>
+  </g>
+</svg>

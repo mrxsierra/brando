@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 160" width="100%" height="100%">
+  <g transform="translate(15, 20)">
+    <!-- White Die-Cut Contour / Backing Outline -->
+    <text x="10" y="100" font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif" font-size="110" font-weight="900" letter-spacing="-5" fill="none" stroke="#FFFFFF" stroke-width="24" stroke-linejoin="round">brando.</text>
+    
+    <!-- Solid Black Text + Blue Dot Foreground -->
+    <text x="10" y="100" font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif" font-size="110" font-weight="900" letter-spacing="-5" fill="#0F172A">brando<tspan fill="#2563EB">.</tspan></text>
+  </g>
+</svg>
