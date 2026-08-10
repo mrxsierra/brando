@@ -1,6 +1,6 @@
 [project]
 name = "brando"
-version = "0.3.0"
+version = "0.3.1"
 description = "Systematic brand creation, phonetic euphony scoring, visual geometry analysis, and trademark vetting framework."
 readme = "README.md"
 requires-python = ">=3.10"

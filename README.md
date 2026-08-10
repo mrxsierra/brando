@@ -1,8 +1,9 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="./assets/brando-banner-adaptive.svg">
-    <source media="(prefers-color-scheme: light)" srcset="./assets/brando-banner-adaptive.svg">
-    <img alt="brando. - Systematic Brand Creation & Research Framework" src="./assets/brando-banner-adaptive.svg" width="650">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mrxsierra/brando/main/assets/brando-banner-adaptive.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/mrxsierra/brando/main/assets/brando-banner-adaptive.svg">
+    <!-- Fallback to the same SVG (PNG not generated) -->
+    <img alt="brando. - Systematic Brand Creation & Research Framework" src="https://raw.githubusercontent.com/mrxsierra/brando/main/assets/brando-banner-adaptive.svg" width="650">
   </picture>
 </p>
 
@@ -105,4 +106,4 @@ for brand in candidates:
 
 ## 📄 License & Attribution
 
-Dual-licensed under the **MIT License** (for individual developers, non-commercial research, and open-source contributions) and **Fair-Source Terms** (for enterprise SaaS platforms). See [`LICENSE`](LICENSE) for full details.
+Dual-licensed under the **MIT License** (for individual developers, non-commercial research, and open-source contributions) and **Fair-Source Terms** (for enterprise SaaS platforms). See [`LICENS[...]`]
